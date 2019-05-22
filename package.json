@@ -6,7 +6,7 @@
   "author": "Garrett Brick",
   "private": true,
   "scripts": {
-    "start": "webpack-dev-server",
+    "start": "webpack-dev-server --port 8080 --hot --host 0.0.0.0 --watch-poll",
     "build": "webpack",
     "lint": "eslint src"
   },
