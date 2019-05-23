@@ -1,18 +1,22 @@
-// src/server.ts
-import * as express from "express";
-
+const express = require('express');
 const app = express();
+const http = require('http').createServer(app);
+const io = require('socket.io')(http);
+// Set the port to 3001
+const PORT = 3001;
+
 app.set("port", process.env.PORT || 3001);
 
-const http = require("http").Server(app);
+io.on('connection', function(socket){
+  console.log('a user connected');
 
-// simple '/' endpoint sending a Hello World
-// response
-app.get("/", (req: any, res: any) => {
-  res.send("hello world");
+
+  socket.on('greet', () => {
+    console.log("hi")
+  })
 });
 
-// start our simple server up on localhost:3000
-const server = http.listen(3001, function() {
-  console.log("listening on *:3001");
+
+http.listen(PORT, () => {
+  console.log('listening on *:3001');
 });
