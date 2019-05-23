@@ -8,29 +8,7 @@ import Game from './Game';
 
 
 const App = props => {
-  const [containerLabel, setContainerLabel] = useState('container about')
-
-  // state = {
-  //     hovered: false,
-  //     opacity: 1,
-  //     name: "peterAbout"
-  //   };
-    
-  
-    const onMouseLeave = e => {
-      console.log('mouse leave')
-    };
-    
-  //   mouseEnter = e => {
-  //     console.log('mouse enter')
-  //     this.setState({opacity: 0.5})
-  //   }
-
-  //   mouseLeave = e => {
-  //     console.log('mouse leave')
-  //     this.setState({opacity: 1})
-  //   }
-
+  const [containerLabel, setContainerLabel] = useState('container about');  
   return ( 
     <>
     <div className={containerLabel}>
