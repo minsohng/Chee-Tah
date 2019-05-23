@@ -15,7 +15,7 @@ const config = {
   devtool: "source-map",
   resolve: {
     // Add '.ts' and '.tsx' as resolvable extensions.
-    extensions: ['.ts', '.tsx', '.js', '.jsx', '.json']
+    extensions: ['.ts', '.tsx', '.js', '.jsx', '.json', '.scss']
   },
   module: {
     rules: [
@@ -28,6 +28,20 @@ const config = {
         use: {
           loader: 'babel-loader',
         }
+      },
+      {
+        test: /\.scss?$/,
+        use: [
+          'style-loader',
+          'css-loader',
+          'sass-loader'
+        ]
+      },
+      {
+        test: /\.(png|svg|jpg|gif)$/,
+        use: [
+          'file-loader'
+        ]
       },
       { enforce: "pre", test: /\.js$/, loader: "source-map-loader" }
     ]

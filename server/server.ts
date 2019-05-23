@@ -1,10 +1,18 @@
-const express = require('express');
-// Set the port to 3001
-const PORT = 3001;
+// src/server.ts
+import * as express from "express";
 
+const app = express();
+app.set("port", process.env.PORT || 3001);
 
-// Create a new express server
-const server = express()
-   // Make the express server serve static assets (html, javascript, css) from the /public folder
-  .use(express.static('public'))
-  .listen(PORT, '0.0.0.0', 'localhost', () => console.log(`Listening on ${ PORT }`));
+const http = require("http").Server(app);
+
+// simple '/' endpoint sending a Hello World
+// response
+app.get("/", (req: any, res: any) => {
+  res.send("hello world");
+});
+
+// start our simple server up on localhost:3000
+const server = http.listen(3001, function() {
+  console.log("listening on *:3001");
+});
