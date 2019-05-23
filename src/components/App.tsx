@@ -1,27 +1,46 @@
 import * as React from 'react';
+import { useState } from 'react';
+import About from './About';
+import Movie from './Movie';
+import Music from './Music';
+import Game from './Game';
+
+
 
 const App = props => {
-  return (
-    <>
-      <div className="container content-container">
-        <div className="column active">
-          <div className="content">
-              <h1 className="fadeTitle" id="abcd">About</h1>
-            <div className="box">
-              <a href="https://www.google.com"></a>
-              <h2>About</h2>
-              <p className="testing">
-                Et occaecat et ad occaecat cillum et officia cillum est aute
-                deserunt incididunt. Incididunt nostrud laborum eiusmod eu
-                quis ad mollit consectetur dolor do veniam. Fugiat laborum          
-              
-              </p><br/>
-            </div>
-            </div>
-          </div>
-        </div>
-    </>
-  )
-}
+  const [containerLabel, setContainerLabel] = useState('container about')
 
+  // state = {
+  //     hovered: false,
+  //     opacity: 1,
+  //     name: "peterAbout"
+  //   };
+    
+  
+    const onMouseLeave = e => {
+      console.log('mouse leave')
+    };
+    
+  //   mouseEnter = e => {
+  //     console.log('mouse enter')
+  //     this.setState({opacity: 0.5})
+  //   }
+
+  //   mouseLeave = e => {
+  //     console.log('mouse leave')
+  //     this.setState({opacity: 1})
+  //   }
+
+  return ( 
+    <>
+    <div className={containerLabel}>
+        <About setContainerLabel={setContainerLabel}/>
+        <Movie setContainerLabel={setContainerLabel}/>
+        <Music setContainerLabel={setContainerLabel}/>
+        <Game setContainerLabel={setContainerLabel}/>
+      </div>
+    </>
+  );
+}
+ 
 export default App;
