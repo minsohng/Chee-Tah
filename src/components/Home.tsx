@@ -6,20 +6,24 @@ import Music from './Music';
 import Game from './Game';
 
 
-const useAudio = (url: string): [boolean, VoidFunction] => {
-  const [audio] = useState(new Audio(url));
+const useAudio = (url: string): [boolean, VoidFunction, VoidFunction] => {
+  let [audio] = useState(new Audio(url));
   const [playing, setPlaying] = useState(false);  
 
   const toggle = () => {
     setPlaying(!playing)
   }
+
+  const destroy = () => {
+    audio.pause();
+    audio = null;
+  }
   useEffect(
     () => {
       playing ? audio.play() : audio.pause();
-    },
-    [playing]
+    },[playing]
   );
-  return [playing, toggle]
+  return [playing, toggle, destroy]
 }
 
 const Home = () => {

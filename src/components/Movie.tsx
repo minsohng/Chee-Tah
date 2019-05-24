@@ -5,7 +5,7 @@ const soundFile = require('../assets/movie.mp3');
 
 
 const Movie: React.FunctionComponent<Home> = props => { 
-  const [playing, toggle] = props.useAudio(soundFile);
+  const [playing, toggle, destroy] = props.useAudio(soundFile);
   const onMouseEnter = () => {
     if(!playing) {
       toggle();
@@ -18,11 +18,16 @@ const Movie: React.FunctionComponent<Home> = props => {
     }
   }
 
+  const onClick = () => {
+    if(playing) {
+      destroy();
+    }
+  }
   return ( 
       <>
         <div className="tab">
           <div className="content">
-            <h1 onMouseEnter={onMouseEnter} onMouseLeave={onMouseExit}><Link to='/movie'>Movie</Link> </h1>
+            <h1 onMouseEnter={onMouseEnter} onMouseLeave={onMouseExit}><Link onClick={onClick} to='/movie'>Movie</Link> </h1>
             <div className="box">
               <h2>Movie</h2>
               <p className="testing">

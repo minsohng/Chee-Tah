@@ -21,7 +21,7 @@ const Game: React.FunctionComponent<Home> = props => {
       <>
         <div className="tab">
           <div className="content">
-          <h1 onMouseEnter={onMouseEnter} onMouseLeave={onMouseExit}><Link to='/ganes'>Game</Link> </h1>
+          <h1 onMouseEnter={onMouseEnter} onMouseLeave={onMouseExit}><Link onClick={onMouseExit} to='/games'>Game</Link> </h1>
             <div className="box">
               <h2>Games</h2>
               <p className="testing">

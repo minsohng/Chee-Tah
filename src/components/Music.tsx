@@ -21,7 +21,7 @@ const Music: React.FunctionComponent<Home> = props => {
       <>
         <div className="tab">
           <div className="content">
-          <h1 onMouseEnter={onMouseEnter} onMouseLeave={onMouseExit}><Link to='/music'>Music</Link> </h1>
+          <h1 onMouseEnter={onMouseEnter} onMouseLeave={onMouseExit}><Link onClick={onMouseExit} to='/music'>Music</Link> </h1>
             <div className="box">
               <h2>Music</h2>
               <p className="testing">
