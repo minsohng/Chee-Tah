@@ -6,35 +6,20 @@ import Music from './Music';
 import Game from './Game';
 
 
-const useAudio = (url: string): [boolean, VoidFunction, VoidFunction] => {
-  let [audio] = useState(new Audio(url));
-  const [playing, setPlaying] = useState(false);  
-
-  const toggle = () => {
-    setPlaying(!playing)
-  }
-
-  const destroy = () => {
-    audio.pause();
-    audio = null;
-  }
-  useEffect(
-    () => {
-      playing ? audio.play() : audio.pause();
-    },[playing]
-  );
-  return [playing, toggle, destroy]
-}
-
 const Home = () => {
   const [containerLabel, setContainerLabel] = useState('port about');
-
+  const [muteToggles, setMuteToggles] = useState({});
+  
+  const muteToggleAll =  () => {
+    console.log('Click');
+  } 
   return (
     <div className={containerLabel}>
+      <button className='button' onClick={muteToggleAll}><i className='fa-volume-mute'></i></button>
       <About setContainerLabel={setContainerLabel}/>
-      <Movie setContainerLabel={setContainerLabel} useAudio={useAudio}/>
-      <Music setContainerLabel={setContainerLabel} useAudio={useAudio}/>
-      <Game setContainerLabel={setContainerLabel} useAudio={useAudio}/>
+      <Movie setContainerLabel={setContainerLabel} muteToggles={muteToggles} setMuteToggles={setMuteToggles}/>
+      <Music setContainerLabel={setContainerLabel} muteToggles={muteToggles} setMuteToggles={setMuteToggles}/>
+      <Game setContainerLabel={setContainerLabel} muteToggles={muteToggles} setMuteToggles={setMuteToggles}/>
     </div>
   )
 }

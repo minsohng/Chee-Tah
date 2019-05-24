@@ -7,10 +7,11 @@ import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 
 const App = props => {
   return ( 
-    <Router>
-      <Route exact path='/' component={Home}/>
-      <Route path ='/movie' component={MovieRoom}/>
-    </Router>
+    <MovieRoom/>
+    // <Router>
+    //   <Route exact path='/' component={MovieRoom}/>
+    //   <Route path ='/movie' component={MovieRoom}/>
+    // </Router>
   );
 }
  

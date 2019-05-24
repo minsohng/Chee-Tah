@@ -1,11 +1,12 @@
 import * as React from 'react';
 import {Link} from 'react-router-dom';
 import Home from '../interfaces/Home.interface';
+import {useAudio} from '../hooks/audio'
 const soundFile = require('../assets/music.mp3');
 
 
 const Music: React.FunctionComponent<Home> = props => { 
-  const [playing, toggle] = props.useAudio(soundFile);
+  const [playing, toggle] = useAudio(soundFile);
   const onMouseEnter = () => {
     if(!playing) {
       toggle();
