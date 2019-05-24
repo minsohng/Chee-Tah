@@ -1,0 +1,197 @@
+@import "../node_modules/bulma/bulma";
+@import url("https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,700");
+@import url("https://cdnjs.cloudflare.com/ajax/libs/normalize/4.2.0/normalize.min.css");
+
+body{
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+}
+iframe {
+  height: 1080px;
+}
+.about {
+  background-image: url("../img/entertainment.jpg");
+  background-size: cover;
+  background-attachment: fixed;
+  background-position: center;
+  transition: 0.5s;
+  a {
+    color: white;
+    text-decoration: none
+  }
+  
+  a:hover {
+    opacity: 0.6;
+  }
+  
+  a:active {
+    color: white;
+    text-decoration: none
+  }
+}
+
+.music {
+  background-image: url("../img/music.jpg");
+  background-size: cover;
+  background-attachment: fixed;
+  background-position: center;
+  transition: 0.5s;
+  a {
+    color: white;
+    text-decoration: none
+  }
+  
+  a:hover {
+    opacity: 0.6;
+  }
+  
+  a:active {
+    color: white;
+    text-decoration: none
+  }
+}
+
+.movie {
+  background-image: url("../img/avengers.png");
+  background-size: cover;
+  background-attachment: fixed;
+  background-position: center;
+  transition: 0.5s;
+  a {
+    color: white;
+    text-decoration: none
+  }
+  
+  a:hover {
+    opacity: 0.6;
+  }
+  
+  a:active {
+    color: white;
+    text-decoration: none
+  }
+}
+
+.game {
+  background-image: url("../img/mario.gif");
+  background-size: cover;
+  background-attachment: fixed;
+  background-position: center;
+  transition: 0.5s;
+  a {
+    color: white;
+    text-decoration: none
+  }
+  
+  a:hover {
+    opacity: 0.6;
+  }
+  
+  a:active {
+    color: white;
+    text-decoration: none
+  }
+}
+
+.port
+{
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+} 
+
+.port .tab
+{
+  width: 25%;
+  height: 100%;
+  float: left;
+  border-right: 0px solid rgba(0,0,0, .5);
+  box-sizing: border-box;
+  z-index: 1;
+} 
+
+.port .tab:last-child
+{
+  border-right: none;
+}
+
+.port .tab .content
+{
+  position: relative;
+  height: 100%;
+}
+
+.port .tab .content h1
+{
+  z-index: 10;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 100%;
+  background: rgba(0,0,0,.1);
+  text-align: center;
+  margin: 0;
+  font-size: 5em;
+  padding: 0;
+  color: rgba(255,255,255,2);
+  border-top: 2px solid rgba(0,0,0, .5);
+  border-bottom: 2px solid rgba(0,0,0, .5);
+}
+
+.port .tab .content .box{
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  box-sizing: border-box;
+  padding: 40px;
+  background: rgba(255,255,255,1);
+  text-align: center;
+  transition: 0.5s;
+  opacity: 0;
+  
+}
+
+
+/* opacity for the info box */
+.port .tab.active .content .box{
+opacity: 0;
+}
+
+.port .tab .content .box h2{
+  margin: 0;
+  padding: 0;
+  font-size: 30px;
+  color: #262626;
+}
+
+.port .tab .content .box p{
+  font-size: 18px;
+  color: #262626;
+}
+
+.port .tab .bg
+{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: -1;
+}
+
+
+.player-wrapper {
+  position: absolute;
+  // padding-top: 56.25% /* Player ratio: 100 / (1280 / 720) */
+}
+html {
+  width: 100%;
+  height: 100%;
+}
+ 
+.react-player {
+  top: 0;
+  left: 0;
+}
