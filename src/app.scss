@@ -1,3 +1,4 @@
+@import "../node_modules/bulma/bulma";
 @import url("https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,700");
 @import url("https://cdnjs.cloudflare.com/ajax/libs/normalize/4.2.0/normalize.min.css");
 
@@ -13,6 +14,19 @@ body{
   background-attachment: fixed;
   background-position: center;
   transition: 0.5s;
+  a {
+    color: white;
+    text-decoration: none
+  }
+  
+  a:hover {
+    opacity: 0.6;
+  }
+  
+  a:active {
+    color: white;
+    text-decoration: none
+  }
 }
 
 .music {
@@ -21,6 +35,19 @@ body{
   background-attachment: fixed;
   background-position: center;
   transition: 0.5s;
+  a {
+    color: white;
+    text-decoration: none
+  }
+  
+  a:hover {
+    opacity: 0.6;
+  }
+  
+  a:active {
+    color: white;
+    text-decoration: none
+  }
 }
 
 .movie {
@@ -29,6 +56,19 @@ body{
   background-attachment: fixed;
   background-position: center;
   transition: 0.5s;
+  a {
+    color: white;
+    text-decoration: none
+  }
+  
+  a:hover {
+    opacity: 0.6;
+  }
+  
+  a:active {
+    color: white;
+    text-decoration: none
+  }
 }
 
 .game {
@@ -37,17 +77,29 @@ body{
   background-attachment: fixed;
   background-position: center;
   transition: 0.5s;
+  a {
+    color: white;
+    text-decoration: none
+  }
+  
+  a:hover {
+    opacity: 0.6;
+  }
+  
+  a:active {
+    color: white;
+    text-decoration: none
+  }
 }
 
-.container 
+.port
 {
-  
-  width: 100%;
+  width: 100vw;
   height: 100vh;
   overflow: hidden;
 } 
 
-.container .column
+.port .tab
 {
   width: 25%;
   height: 100%;
@@ -57,18 +109,18 @@ body{
   z-index: 1;
 } 
 
-.container .column:last-child
+.port .tab:last-child
 {
   border-right: none;
 }
 
-.container .column .content
+.port .tab .content
 {
   position: relative;
   height: 100%;
 }
 
-.container .column .content h1
+.port .tab .content h1
 {
   z-index: 10;
   position: absolute;
@@ -85,7 +137,7 @@ body{
   border-bottom: 2px solid rgba(0,0,0, .5);
 }
 
-.container .column .content .box{
+.port .tab .content .box{
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
@@ -100,23 +152,23 @@ body{
 
 
 /* opacity for the info box */
-.container .column.active .content .box{
+.port .tab.active .content .box{
 opacity: 0;
 }
 
-.container .column .content .box h2{
+.port .tab .content .box h2{
   margin: 0;
   padding: 0;
   font-size: 30px;
   color: #262626;
 }
 
-.container .column .content .box p{
+.port .tab .content .box p{
   font-size: 18px;
   color: #262626;
 }
 
-.container .column .bg
+.port .tab .bg
 {
   position: absolute;
   top: 0;
