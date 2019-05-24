@@ -1,14 +1,15 @@
 import * as React from 'react';
+import {Link} from 'react-router-dom';
 
 const Game = props => { 
   const onMouseEnter = () => {
-    props.setContainerLabel('container game')
+    props.setContainerLabel('port game')
   }
   return ( 
       <>
-        <div className="column">
+        <div className="tab">
           <div className="content">
-            <h1 onMouseEnter= {onMouseEnter}>Games</h1>
+          <h1 onMouseEnter={onMouseEnter}><Link to='/ganes'>Game</Link> </h1>
             <div className="box">
               <h2>Games</h2>
               <p className="testing">
@@ -16,7 +17,6 @@ const Game = props => {
                 deserunt incididunt. Incididunt nostrud laborum eiusmod eu
                 quis ad mollit consectetur dolor do veniam. Fugiat laborum
               </p>
-              
               <a href="#" className="myButton">Create Room</a>
             </div>
           </div>

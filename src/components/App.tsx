@@ -1,23 +1,16 @@
 import * as React from 'react';
-import { useState } from 'react';
-import About from './About';
-import Movie from './Movie';
-import Music from './Music';
-import Game from './Game';
+import Home from './Home';
+import MovieRoom from './MovieRoom';
+import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 
 
 
 const App = props => {
-  const [containerLabel, setContainerLabel] = useState('container about');  
   return ( 
-    <>
-    <div className={containerLabel}>
-        <About setContainerLabel={setContainerLabel}/>
-        <Movie setContainerLabel={setContainerLabel}/>
-        <Music setContainerLabel={setContainerLabel}/>
-        <Game setContainerLabel={setContainerLabel}/>
-      </div>
-    </>
+    <Router>
+      <Route exact path='/' component={Home}/>
+      <Route path ='/movie' component={MovieRoom}/>
+    </Router>
   );
 }
  

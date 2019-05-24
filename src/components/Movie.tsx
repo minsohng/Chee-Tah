@@ -1,14 +1,15 @@
 import * as React from 'react';
+import { Link } from 'react-router-dom';
 
 const Movie = props => { 
   const onMouseEnter = () => {
-    props.setContainerLabel('container movie')
+    props.setContainerLabel('port movie')
   }
   return ( 
       <>
-        <div className="column">
+        <div className="tab">
           <div className="content">
-            <h1 onMouseEnter= {onMouseEnter}>Movie</h1>
+            <h1 onMouseEnter={onMouseEnter}><Link to='/movie'>Movie</Link> </h1>
             <div className="box">
               <h2>Movie</h2>
               <p className="testing">
@@ -16,7 +17,6 @@ const Movie = props => {
                 deserunt incididunt. Incididunt nostrud laborum eiusmod eu
                 quis ad mollit consectetur dolor do veniam. Fugiat laborum
               </p>
-              
               <a href="#" className="myButton">Create Room</a>
             </div>
           </div>
