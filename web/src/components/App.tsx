@@ -1,6 +1,6 @@
 import * as React from 'react';
-import Home from './Home';
-import MovieRoom from './MovieRoom';
+import Home from './Homepage/Home';
+import MovieRoom from './Movie/MovieRoom';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 
 
