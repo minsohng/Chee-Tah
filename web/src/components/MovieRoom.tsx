@@ -1,20 +1,17 @@
 import * as React from 'react';
-import ReactPlayer from 'react-player';
+import YouTube from 'react-youtube';
+import Form from './Form';
+
 
 const MovieRoom = () => {
   return (
-    <>
-    <div className='container'>
-      <ReactPlayer
-        className='react-player'
-        url='https://www.youtube.com/watch?v=SCwcJsBYL3o'
-        width='60%'
-        height='60%'
-        onStart={() => console.log("hello")}
-        onProgress={(playedSeconds) => console.log(playedSeconds)}
-      />
-    </div>
-    </>
+  <>
+    <YouTube className='is-full'
+      videoId="2g811Eo7K8U"
+    />
+    <Form />
+  </>
+  
   )
 }
 
