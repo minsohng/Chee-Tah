@@ -38,7 +38,7 @@ const config = {
         ]
       },
       {
-        test: /\.(png|svg|jpg|gif)$/,
+        test: /\.(mp3|png|svg|jpg|gif)$/,
         use: [
           'file-loader'
         ]

@@ -1,10 +1,11 @@
 import * as React from 'react';
 import { Link } from 'react-router-dom';
 import Home from '../interfaces/Home.interface';
+const soundFile = require('../assets/movie.mp3');
 
 
 const Movie: React.FunctionComponent<Home> = props => { 
-  const [playing, toggle] = props.useAudio('https://medea-music.com/wp-content/uploads/2018/05/The-Avengers-Theme-Song.mp3?_=2')
+  const [playing, toggle] = props.useAudio(soundFile);
   const onMouseEnter = () => {
     if(!playing) {
       toggle();

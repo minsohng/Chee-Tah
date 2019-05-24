@@ -5,6 +5,7 @@ import Movie from './Movie';
 import Music from './Music';
 import Game from './Game';
 
+
 const useAudio = (url: string): [boolean, VoidFunction] => {
   const [audio] = useState(new Audio(url));
   const [playing, setPlaying] = useState(false);  

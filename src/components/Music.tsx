@@ -1,15 +1,27 @@
 import * as React from 'react';
 import {Link} from 'react-router-dom';
+import Home from '../interfaces/Home.interface';
+const soundFile = require('../assets/music.mp3');
 
-const Music = props => { 
+
+const Music: React.FunctionComponent<Home> = props => { 
+  const [playing, toggle] = props.useAudio(soundFile);
   const onMouseEnter = () => {
+    if(!playing) {
+      toggle();
+    }
     props.setContainerLabel('port music')
+  }
+  const onMouseExit = () => {
+    if(playing) {
+      toggle();
+    }
   }
   return ( 
       <>
         <div className="tab">
           <div className="content">
-          <h1 onMouseEnter={onMouseEnter}><Link to='/music'>Music</Link> </h1>
+          <h1 onMouseEnter={onMouseEnter} onMouseLeave={onMouseExit}><Link to='/music'>Music</Link> </h1>
             <div className="box">
               <h2>Music</h2>
               <p className="testing">
