@@ -1,5 +1,5 @@
 import * as React from 'react';
-import Home from '../interfaces/Home.interface';
+import Home from '../../interfaces/Home.interface';
 
 
 const About: React.FunctionComponent<Home> = props => {
