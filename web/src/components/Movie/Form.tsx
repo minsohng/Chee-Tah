@@ -2,7 +2,7 @@ import * as React from 'react';
 const { useState, useEffect } = React;
 
 
-const Form = props => {
+const Form: React.FunctionComponent<{}> = props => {
   const [formInput, setFormInput] = useState('')
   const youtubeSearch =  (e) => {
     e.preventDefault();

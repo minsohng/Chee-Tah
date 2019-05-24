@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { Link } from 'react-router-dom';
-import Home from '../interfaces/Home.interface';
-import {useAudio} from '../hooks/audio'
-const soundFile = require('../assets/movie.mp3');
+import Home from '../../interfaces/Home.interface';
+import {useAudio} from '../../hooks/audio'
+const soundFile = require('../../assets/movie.mp3');
 
 
 const Movie: React.FunctionComponent<Home> = props => { 
