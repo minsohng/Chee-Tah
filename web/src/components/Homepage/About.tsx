@@ -1,6 +1,8 @@
 import * as React from 'react';
+import Home from '../interfaces/Home.interface';
 
-const About = props => {
+
+const About: React.FunctionComponent<Home> = props => {
   const onMouseEnter = () => {
     props.setContainerLabel('port about')
   }
