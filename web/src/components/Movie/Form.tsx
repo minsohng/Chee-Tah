@@ -29,8 +29,6 @@ const Form: React.FunctionComponent<{}> = props => {
          }
        }).then((resolve) => {
          console.log(`Youtube returned ${JSON.stringify(resolve)}`)
-       }).then((data) => {
-         console.log(JSON.stringify(data))
        })
   }, []);
 
