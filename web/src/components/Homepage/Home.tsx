@@ -17,7 +17,11 @@ const Home = () => {
     <div className={containerLabel}>
       <button className='button' onClick={muteToggleAll}><i className='fa-volume-mute'></i></button>
       <About setContainerLabel={setContainerLabel}/>
-      <Movie setContainerLabel={setContainerLabel} muteToggles={muteToggles} setMuteToggles={setMuteToggles}/>
+      <Movie 
+        setContainerLabel={setContainerLabel} 
+        muteToggles={muteToggles} 
+        setMuteToggles={setMuteToggles}
+      />
       <Music setContainerLabel={setContainerLabel} muteToggles={muteToggles} setMuteToggles={setMuteToggles}/>
       <Game setContainerLabel={setContainerLabel} muteToggles={muteToggles} setMuteToggles={setMuteToggles}/>
     </div>
