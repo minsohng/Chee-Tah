@@ -63,7 +63,7 @@ const Movie: React.FunctionComponent<Home> = props => {
             </div>
           </div>
         </div>
-        <a href={randomString} className="myButton">Create Room</a>
+        <a href={`/movie/${randomString}`} className="myButton">Create Room</a>
       </>
     );
 }
