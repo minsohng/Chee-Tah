@@ -5,6 +5,7 @@ import Chatbar from './Chatbar';
 import Playlist from './Playlist';
 import Video  from './Video';
 import { Socket } from 'net';
+import Form from './Form';
 
 const MovieRoom = (props) => {
 
@@ -16,9 +17,11 @@ const MovieRoom = (props) => {
   console.log(id)
   
 
+
   return (
     <>
     <Navbar/>
+    <Form/>
     <Video/>
     <Playlist/>
     <Chatbar/>
