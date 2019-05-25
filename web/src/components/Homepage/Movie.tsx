@@ -36,10 +36,10 @@ const Movie: React.FunctionComponent<Home> = props => {
                 deserunt incididunt. Incididunt nostrud laborum eiusmod eu
                 quis ad mollit consectetur dolor do veniam. Fugiat laborum
               </p>
-              <a href="#" className="myButton">Create Room</a>
             </div>
           </div>
         </div>
+        <a href="/movie" className="myButton">Create Room</a>
       </>
     );
 }
