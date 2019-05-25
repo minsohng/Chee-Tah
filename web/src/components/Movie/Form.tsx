@@ -9,7 +9,7 @@ const Form: React.FunctionComponent<{}> = props => {
   const youtubeSearch =  (e) => {
     e.preventDefault();
     const search = e.target.elements.youtubeSearch.value;
-    console.log(search)
+    console.log(`${search} ${process.env.YOUTUBE_API}`)
   }
 
   // const onKeyUp = (e) => {
@@ -17,19 +17,21 @@ const Form: React.FunctionComponent<{}> = props => {
   // }
 
   useEffect(() => {
-    const fetchData = async () => {
-      const result = await axios(
-       `https://developers.google.com/apis-explorer/#p/youtube/v3/youtube.search.list?
-        part=snippet
-        &order=viewCount
-        &q=skateboarding+dog
-        &type=video
-        &videoDefinition=high`
-      );
-      setData(result.data);
-      console.log(`Youtube returned ${data}`)
-    }
-    fetchData();
+     axios.get(
+        'https://www.googleapis.com/youtube/v3/search', {
+         params: {
+           key: process.env.YOUTUBE_API,
+           part: 'snippet',
+           order: 'viewCount',
+           q: 'skateboarding+dog',
+           type: 'video',
+           videoDefinition: 'high'
+         }
+       }).then((resolve) => {
+         console.log(`Youtube returned ${JSON.stringify(resolve)}`)
+       }).then((data) => {
+         console.log(JSON.stringify(data))
+       })
   }, []);
 
   return (

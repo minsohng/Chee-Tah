@@ -1,7 +1,10 @@
 const webpack = require('webpack');
 const path = require('path');
-
+const Dotenv = require('dotenv-webpack')
 const config = {
+  plugins: [
+    new Dotenv()
+  ],
   mode: 'development',
   entry: './src/index.tsx',
   output: {
@@ -11,7 +14,11 @@ const config = {
   },
   devServer: {
     contentBase: path.resolve(__dirname, '.'),
-    historyApiFallback: true
+    historyApiFallback: true,
+    headers: {
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Headers': '*',
+    },
   },
   devtool: "source-map",
   resolve: {
