@@ -10,36 +10,71 @@ const PORT = 3001;
 app.set("port", process.env.PORT || 3001);
 
 
-//  travis code
+interface Admin {
+  roomId: string
+  id: string
+}
 
-// io.of('movie')
-//   .on('connection', () => {
-//     console.log("connected to /movie");
-//     var data = {};
-//     .on("createRoom", (info)=>{ //roomnam = ajksldf code
-//       data[info.roomName] = {link: info.link };
-//       io.join(roomName);
-//       let users = []
-//     })
-//     .on("joinRoom", (roomName)=>{ //roomnam = ajksldf code
-//       io.join(roomName);
-//       //send data[roomName]
-//       let users = []
-//     })
-//   })
+const adminSocketList: Admin[] = [];
+const roomList: string[] = [];
 
-io.of('game')
-  .on('connection', () => {
-  console.log("connected to /movie");
+io.of('movie')
+  .on('connection', (socket) => {
+
+
+  console.log(socket.id + " connected to /movie");
+  socket.on('joinRoom', (roomId) => {
+    if (!roomList.includes(roomId)) {
+      roomList.push(roomId);
+      adminSocketList.push({
+        roomId: roomId,
+        id: socket.id
+      })
+    }
+
+    console.log('ADMIN LIST:', adminSocketList)
+    console.log('ROOM LIST:', roomList)
+
+    console.log('joined ' + roomId)
+    socket.join(roomId, () => {
+      let rooms = Object.keys(socket.rooms);
+      console.log(rooms);
+
+
+      const filteredAdmin = adminSocketList.filter(admin => admin.id === socket.id)
+      const isAdmin = filteredAdmin.length > 0;
+ 
+
+
+      socket.on('share video timestamp', (timestamp: number) => {
+        if (isAdmin) {
+          socket.emit('is admin', filteredAdmin[0]);
+        }
+        if (isAdmin && timestamp) {
+          console.log(timestamp)
+          socket.to(roomId).broadcast.emit('sync video timestamp', timestamp);
+        }
+        
+      })
+    });
+  })
+
+  socket.on('get number of clients', (roomId) => {
+    io.of('/movie').in(roomId).clients((error, clients) => {
+      if (error) throw error;
+      console.log(`number of clients ${clients.length} ${clients}`)
+    });
+  })
+
+  socket.on('disconnect', () => {
+    console.log('socket disconnected')
+    
+  })
+
+
 })
 
-// io.on('connection', function(socket){
-//   console.log('a user connected');
 
-//   socket.on('disconnect', () => {
-//     console.log("user disconnected")
-//   })
-// });
 
 
 http.listen(PORT, () => {
