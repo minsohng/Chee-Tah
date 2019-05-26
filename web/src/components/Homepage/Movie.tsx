@@ -10,25 +10,22 @@ const soundFile = require('../../assets/movie.mp3');
 const Movie: React.FunctionComponent<Home> = props => { 
   const [playing, toggle, destroy] = useAudio(soundFile);
 
-  const [randomString, setRandomString] = useState();
 
 
-  const promise1 = axios.get('https://api.datamuse.com/words?ml=fast');
-  const promise2 = axios.get('https://api.datamuse.com/words?ml=cheetah');
+
+  const handleClick = () => {
+    const promise1 = axios.get('https://api.datamuse.com/words?ml=fast');
+    const promise2 = axios.get('https://api.datamuse.com/words?ml=cheetah');
 
 
-  Promise.all([promise1, promise2]).then(function(response) {
+    Promise.all([promise1, promise2]).then(function(response) {
     const randomNum = Math.floor(Math.random() * 100)
     const data1 = response[0].data[randomNum].word
     const data2 = response[1].data[randomNum].word
-    setRandomString(`${data1}-${data2}`)
+    window.location.replace(`/movie/${data1}-${data2}`);
   });
+  }
 
- 
-
-  
-
-  
 
   const onMouseEnter = () => {
     if(!playing) {
@@ -63,7 +60,7 @@ const Movie: React.FunctionComponent<Home> = props => {
             </div>
           </div>
         </div>
-        <a href={`/movie/${randomString}`} className="myButton">Create Room</a>
+        <button className='button' onClick={handleClick}>Create Room</button>
       </>
     );
 }
