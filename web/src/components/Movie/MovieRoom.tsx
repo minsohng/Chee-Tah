@@ -14,6 +14,7 @@ let socket = io.connect(`http://localhost:3001/movie`);
 
 const MovieRoom = (props) => {
   const [played, setPlayed] = useState('');
+  const [isAdmin, setIsAdmin] = useState(false);
   
   let queryString;
   let playedFraction;
@@ -38,10 +39,13 @@ const MovieRoom = (props) => {
     socket.emit('joinRoom', roomId)
 
     socket.on('sync video timestamp', (timestamp: number) => {
-      console.log('sync!')
       const query = `?t=${timestamp}`
       queryString = query
       setPlayed(query)
+    })
+
+    socket.on('is admin', (adminInfo) => {
+      setIsAdmin(true);
     })
   }, [])
   
@@ -51,7 +55,7 @@ const MovieRoom = (props) => {
   return (
     <>
     <button className='button' onClick={handleClick}> Get number of clients here </button>
-
+    <div>{ isAdmin ? 'you are admin' : ''}</div>
     {/* <Navbar/>
  
     <Form/>

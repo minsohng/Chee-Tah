@@ -1,5 +1,5 @@
 "use strict";
-exports.__esModule = true;
+Object.defineProperty(exports, "__esModule", { value: true });
 var express = require('express');
 var app = express();
 var http = require('http').createServer(app);
@@ -26,24 +26,28 @@ io.of('movie')
         socket.join(roomId, function () {
             var rooms = Object.keys(socket.rooms);
             console.log(rooms);
+            var filteredAdmin = adminSocketList.filter(function (admin) { return admin.id === socket.id; });
+            var isAdmin = filteredAdmin.length > 0;
             socket.on('share video timestamp', function (timestamp) {
-                console.log(timestamp);
-                var newArr = adminSocketList.filter(function (admin) { return admin.id === socket.id; });
-                console.log('newArr', newArr);
-                if (newArr.length > 0) {
+                if (isAdmin) {
+                    socket.emit('is admin', filteredAdmin[0]);
+                }
+                if (isAdmin && timestamp) {
+                    console.log(timestamp);
                     socket.to(roomId).broadcast.emit('sync video timestamp', timestamp);
                 }
             });
         });
     });
     socket.on('get number of clients', function (roomId) {
-        io.of('/movie')["in"](roomId).clients(function (error, clients) {
+        io.of('/movie').in(roomId).clients(function (error, clients) {
             if (error)
                 throw error;
             console.log("number of clients " + clients.length + " " + clients);
         });
     });
     socket.on('disconnect', function () {
+        console.log('socket disconnected');
     });
 });
 http.listen(PORT, function () {

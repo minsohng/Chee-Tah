@@ -41,13 +41,17 @@ io.of('movie')
       console.log(rooms);
 
 
+      const filteredAdmin = adminSocketList.filter(admin => admin.id === socket.id)
+      const isAdmin = filteredAdmin.length > 0;
+ 
+
+
       socket.on('share video timestamp', (timestamp: number) => {
-        console.log(timestamp)
-        
-        const newArr = adminSocketList.filter(admin => admin.id === socket.id)
-        console.log('newArr', newArr)
-  
-        if (newArr.length > 0) {
+        if (isAdmin) {
+          socket.emit('is admin', filteredAdmin[0]);
+        }
+        if (isAdmin && timestamp) {
+          console.log(timestamp)
           socket.to(roomId).broadcast.emit('sync video timestamp', timestamp);
         }
         
@@ -63,7 +67,8 @@ io.of('movie')
   })
 
   socket.on('disconnect', () => {
-
+    console.log('socket disconnected')
+    
   })
 
 
