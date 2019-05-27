@@ -1,16 +1,20 @@
 var express = require('express');
+var socket = require('socket.io');
+
 var app = express();
-var http = require('http').createServer(app);
-var io = require('socket.io')(http);
-// Set the port to 3001
-var PORT = 3001;
-app.set("port", process.env.PORT || 3001);
-io.on('connection', function (socket) {
-    console.log('a user connected');
-    socket.on('greet', function () {
-        console.log("hi");
-    });
+
+
+server = app.listen(3001, function(){
+    console.log('server is running on port 3001')
 });
-http.listen(PORT, function () {
-    console.log('listening on *:3001');
+
+io = socket(server);
+
+io.on('connection', (socket) => {
+    console.log(socket.id);
+
+    socket.on('message_sent', function(data){
+        io.emit('message_receive', data);
+    })
 });
+
