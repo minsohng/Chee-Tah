@@ -4,6 +4,9 @@ import io from "socket.io-client";
 
 class Chat extends React.Component {
   constructor(props) {
+
+   
+
     super(props);
 
     this.state = {
@@ -11,30 +14,27 @@ class Chat extends React.Component {
       message: "",
       messages: []
     };
+    this.addMessage = this.addMessage.bind(this)
+  }
 
-    this.socket = io.connect("http://localhost:3001/movie");
-    
-    this.socket.on("message_receive", function(data) {
-      addMessage(data);
-    });
 
-   
+  addMessage(data) {
+    console.log(this,'add message this');
+    this.setState({ messages: [...this.state.messages, data] });
+  };
 
-    const addMessage = data => {
-      console.log(data);
-      this.setState({ messages: [...this.state.messages, data] });
-      console.log(this.state.messages);
-    };
-
+  componentDidMount() {
+    this.props.socket.on("message_receive", this.addMessage );
   }
   render() {
     
     const keyPressEnter = event => {
       if (event.key === "Enter") {
         event.preventDefault();
-        this.socket.emit("message_sent", {
+        this.props.socket.emit("message_sent", {
           user: this.state.username,
-          message: this.state.message
+          message: this.state.message,
+          room: this.props.roomId
         });
         this.setState({ message: "" });
       }
@@ -42,7 +42,7 @@ class Chat extends React.Component {
 
     return (
       <div className="container">
-        {/* <article className="message is-primary"> */}
+       
         <div className="columns">
           <div className="column">
             <div className="column">
@@ -82,7 +82,7 @@ class Chat extends React.Component {
             </div>
           </div>
         </div>
-        {/* </article> */}
+       
       </div>
     );
   }

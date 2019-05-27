@@ -1,11 +1,12 @@
 import * as React from 'react';
 import {useEffect, useState} from 'react'
 import * as io from 'socket.io-client'
-import Navbar from './Navbar';
+// import Navbar from './Navbar';
 import Chatbar from './Chatbar';
+import Chathooks from './Chathooks';
 
 import Playlist from './Playlist';
-import Video  from './Video';
+// import Video  from './Video';
 import { Socket } from 'net';
 import Form from './Form';
 import ReactPlayer from 'react-player';
@@ -61,7 +62,7 @@ const MovieRoom = (props) => {
  
     <Form/>
     <Video/> */}
-    <Navbar />
+    {/* <Navbar /> */}
     <h1>{ isAdmin ? 'you are admin' : ''}</h1>
     <ReactPlayer 
       className="react-player-video"
@@ -75,7 +76,8 @@ const MovieRoom = (props) => {
 
     />
     <Playlist/>
-    <Chatbar />
+    <Chatbar socket={socket} roomId={roomId}/>
+    {/* <Chathooks socket={socket} roomId={roomId}/> */}
  
    
   

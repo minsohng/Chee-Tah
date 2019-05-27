@@ -25,10 +25,10 @@ io.of('movie')
   console.log(socket.id + " connected to /movie");
  
   socket.on('message_sent', function(data){
-    socket.emit('message_receive', data);
+    io.of('movie').to(data.room).emit('message_receive', data);
     console.log(data, 'let see if this works')
   })
-
+  
   socket.on('joinRoom', (roomId) => {
     if (!roomList.includes(roomId)) {
       roomList.push(roomId);
@@ -37,7 +37,7 @@ io.of('movie')
         id: socket.id
       })
     }
-        
+    
     
 
     console.log('ADMIN LIST:', adminSocketList)
