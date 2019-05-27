@@ -1,7 +1,11 @@
 const webpack = require('webpack');
 const path = require('path');
+const Dotenv = require('dotenv-webpack');
 
 const config = {
+  plugins: [
+    new Dotenv()
+  ],
   mode: 'development',
   entry: './src/index.tsx',
   output: {

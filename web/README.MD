@@ -17,3 +17,9 @@
 
 1. ```jobs```
 2. ```kill %<process_id>```
+
+
+### Libraries
+
+- react-player
+- datamuse
