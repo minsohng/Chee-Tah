@@ -7,6 +7,7 @@ const http = require('http').createServer(app);
 const io = require('socket.io')(http);
 const axios = require('axios')
 
+
 // Set the port to 3001
 const PORT = 3001;
 
@@ -38,7 +39,7 @@ interface Admin {
   id: string
 }
 
-const adminSocketList: Admin[] = [];
+let adminSocketList: Admin[] = [];
 const roomList: string[] = [];
 
 io.of('movie')
@@ -46,25 +47,43 @@ io.of('movie')
 
 
   console.log(socket.id + " connected to /movie");
-  socket.on('joinRoom', (roomId) => {
-    if (!roomList.includes(roomId)) {
-      roomList.push(roomId);
+  socket.on('joinRoom', (roomObject) => {
+    if (!roomList.includes(roomObject.roomId)) {
+      roomList.push(roomObject.roomId);
       adminSocketList.push({
-        roomId: roomId,
+        roomId: roomObject.roomId,
         id: socket.id
+      })
+      socket.emit('save admin cookie', {
+        roomId: roomObject.roomId,
+        id: socket.id 
       })
     }
 
+    if (roomObject.roomIdCookie && roomObject.adminIdCookie) {
+      const filteredAdmin = adminSocketList.filter(admin => admin.id === roomObject.adminIdCookie && admin.roomId === roomObject.roomId);
+      const isAdmin = filteredAdmin.length > 0;
+      if (isAdmin) {
+        adminSocketList.push({
+          roomId: roomObject.roomId,
+          id: socket.id
+        })
+      }
+    }
+    
     console.log('ADMIN LIST:', adminSocketList)
     console.log('ROOM LIST:', roomList)
 
-    console.log('joined ' + roomId)
-    socket.join(roomId, () => {
+    console.log('joined ' + roomObject.roomId)
+
+    socket.join(roomObject.roomId, () => {
       let rooms = Object.keys(socket.rooms);
       console.log(rooms);
 
 
       const filteredAdmin = adminSocketList.filter(admin => admin.id === socket.id)
+      console.log("filtered", filteredAdmin)
+      
       const isAdmin = filteredAdmin.length > 0;
  
 
@@ -75,7 +94,7 @@ io.of('movie')
         }
         if (isAdmin && timestamp) {
           console.log(timestamp)
-          socket.to(roomId).broadcast.emit('sync video timestamp', timestamp);
+          socket.to(roomObject.roomId).broadcast.emit('sync video timestamp', timestamp);
         }
         
       })
@@ -93,13 +112,11 @@ io.of('movie')
     console.log('socket disconnected')
     
   })
-
-
 })
 
 
 
 
-http.listen(PORT, () => {
+http.listen(PORT, '0.0.0.0',() => {
   console.log('listening on *:3001');
 });
