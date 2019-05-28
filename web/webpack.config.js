@@ -1,6 +1,6 @@
 const webpack = require('webpack');
 const path = require('path');
-const Dotenv = require('dotenv-webpack');
+const Dotenv = require('dotenv-webpack')
 
 const config = {
   plugins: [
@@ -15,7 +15,11 @@ const config = {
   },
   devServer: {
     contentBase: path.resolve(__dirname, '.'),
-    historyApiFallback: true
+    historyApiFallback: true,
+    proxy: {
+      '/movie/api': 'http://localhost:3001'
+    }
+
   },
   devtool: "source-map",
   resolve: {

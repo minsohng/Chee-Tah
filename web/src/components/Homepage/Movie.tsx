@@ -10,13 +10,9 @@ const soundFile = require('../../assets/movie.mp3');
 const Movie: React.FunctionComponent<Home> = props => { 
   const [playing, toggle, destroy] = useAudio(soundFile);
 
-
-
-
   const handleClick = () => {
     const promise1 = axios.get('https://api.datamuse.com/words?ml=fast');
     const promise2 = axios.get('https://api.datamuse.com/words?ml=cheetah');
-
 
     Promise.all([promise1, promise2]).then(function(response) {
     const randomNum = Math.floor(Math.random() * 100)
@@ -60,7 +56,7 @@ const Movie: React.FunctionComponent<Home> = props => {
             </div>
           </div>
         </div>
-        <button className='button' onClick={handleClick}>Create Room</button>
+        <button className='button clearfix' onClick={handleClick}>Create Room</button>
       </>
     );
 }

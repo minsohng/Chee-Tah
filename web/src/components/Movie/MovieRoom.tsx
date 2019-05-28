@@ -15,6 +15,7 @@ import Cookies from 'universal-cookie';
 let socket = io.connect(`192.168.88.14:3001/movie`);
 
 
+
 const MovieRoom = (props) => {
   const [played, setPlayed] = useState('');
   const [isAdmin, setIsAdmin] = useState(false);
@@ -76,6 +77,7 @@ const MovieRoom = (props) => {
 
   return (
     <>
+
     {/* <button className='button' onClick={handleClick}> Get number of clients here </button> */}
     
     {/* <Navbar/>
@@ -94,6 +96,15 @@ const MovieRoom = (props) => {
         <h1>{ isAdmin ? 'you are admin' : ''}</h1>
         <ReactPlayer 
       className="react-player-video"
+
+    <button className='button' onClick={handleClick}> Get number of clients here </button>
+    <div>{ isAdmin ? 'you are admin' : ''}</div>
+    {/* <Navbar/> */}
+ 
+    <Form/>
+    {/* <Video/> */}
+    <ReactPlayer 
+
       url={`https://www.youtube.com/watch?v=SCwcJsBYL3o${played}`}
       playing={true}
       controls={true}
