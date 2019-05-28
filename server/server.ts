@@ -1,15 +1,38 @@
-import { Socket } from "dgram";
+require('dotenv').config()
 
+const cors = require('cors');
 const express = require('express');
 const app = express();
 const http = require('http').createServer(app);
 const io = require('socket.io')(http);
- 
+const axios = require('axios')
+
+
 // Set the port to 3001
 const PORT = 3001;
 
 app.set("port", process.env.PORT || 3001);
+app.use(cors());
 
+app.get('/youtube/:query', (req, res) => {
+  const {query} = req.params;
+  console.log(query);
+  axios.get(
+    'https://www.googleapis.com/youtube/v3/search', {
+     params: {
+       key: process.env.YOUTUBE_API,
+       part: 'snippet',
+       order: 'viewCount',
+       q: query,
+       type: 'video',
+       videoDefinition: 'high',
+       maxResults: 5
+    }
+  }).then(result => {
+    console.log(result.data.items);
+    res.json(result.data.items);
+  }).catch(error => console.log(error));
+})
 
 interface Admin {
   roomId: string

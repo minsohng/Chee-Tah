@@ -11,7 +11,6 @@ const App = props => {
     <Router>
       <Route path ='/movie/:id' component={MovieRoom}/>
       <Route exact path='/' component={Home}/>
-
     </Router>
   );
 }

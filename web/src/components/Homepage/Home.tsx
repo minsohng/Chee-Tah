@@ -15,7 +15,7 @@ const Home = () => {
   } 
   return (
     <div className={containerLabel}>
-      <button className='button' onClick={muteToggleAll}><i className='fa-volume-mute'></i></button>
+      <button className='button clearfix' onClick={muteToggleAll}><span className='icon'><i className='fas fa-volume-mute'></i></span></button>
       <About setContainerLabel={setContainerLabel}/>
       <Movie 
         setContainerLabel={setContainerLabel} 
