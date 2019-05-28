@@ -122,7 +122,7 @@ const MovieRoom = (props) => {
         <span></span>
         <div className="contenta">
           <h2>Playlist Box Two </h2>
-          <p><a href="http://www.cakecounter.com" style={{color:'#00ffe9'}} target="_blank">mdd dkdka daedaed</a></p>
+          <p><a href="#" style={{color:'#00ffe9'}} target="_blank">mdd dkdka daedaed</a></p>
         
         
       </div>
