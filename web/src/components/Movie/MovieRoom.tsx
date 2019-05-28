@@ -6,7 +6,6 @@ import Chatbar from './Chatbar';
 import Chathooks from './Chathooks';
 
 import Playlist from './Playlist';
-// import Video  from './Video';
 import { Socket } from 'net';
 import Form from './Form';
 import ReactPlayer from 'react-player';
@@ -20,7 +19,7 @@ const MovieRoom = (props) => {
   const [played, setPlayed] = useState('');
   const [isAdmin, setIsAdmin] = useState(false);
   
-  let queryString: string;
+  
   let playedFraction: number;
   let duration: number;
   
@@ -51,15 +50,13 @@ const MovieRoom = (props) => {
 
     
     socket.emit('joinRoom', roomObject)
-
     
 
     socket.on('sync video timestamp', (timestamp: number) => {
       const query = `?t=${timestamp}`
-      queryString = query
       setPlayed(query)
     })
-
+    
     socket.on('is admin', (adminInfo) => {
       setIsAdmin(true);
     })
@@ -110,7 +107,7 @@ const MovieRoom = (props) => {
           <p className=""></p>
         </div>
         <div className="column is-one-third">
-        <Chatbar socket={socket} roomId={roomId}/>
+        <Chatbar socket={socket} roomId={roomId} />
         </div>
       </div>
     </div>

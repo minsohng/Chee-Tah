@@ -9,9 +9,18 @@ var axios = require('axios');
 var PORT = 3001;
 app.set("port", process.env.PORT || 3001);
 app.use(cors());
+app.post('/rooms', function (req, res) {
+    var promise1 = axios.get('https://api.datamuse.com/words?ml=fast');
+    var promise2 = axios.get('https://api.datamuse.com/words?ml=cheetah');
+    Promise.all([promise1, promise2]).then(function (response) {
+        var randomNum = Math.floor(Math.random() * 100);
+        var data1 = response[0].data[randomNum].word.replace(/ /g, '');
+        var data2 = response[1].data[randomNum].word.replace(/ /g, '');
+        res.json({ url: data1 + "-" + data2 });
+    });
+});
 app.get('/youtube/:query', function (req, res) {
     var query = req.params.query;
-    console.log(query);
     axios.get('https://www.googleapis.com/youtube/v3/search', {
         params: {
             key: process.env.YOUTUBE_API,
@@ -23,7 +32,6 @@ app.get('/youtube/:query', function (req, res) {
             maxResults: 5
         }
     }).then(function (result) {
-        console.log(result.data.items);
         res.json(result.data.items);
     })["catch"](function (error) { return console.log(error); });
 });
@@ -34,7 +42,6 @@ io.of('movie')
     console.log(socket.id + " connected to /movie");
     socket.on('message_sent', function (data) {
         io.of('movie').to(data.room).emit('message_receive', data);
-        console.log(data, 'let see if this works');
     });
     socket.on('joinRoom', function (roomObject) {
         if (!roomList.includes(roomObject.roomId)) {

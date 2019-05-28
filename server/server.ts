@@ -5,7 +5,7 @@ const express = require('express');
 const app = express();
 const http = require('http').createServer(app);
 const io = require('socket.io')(http);
-const axios = require('axios')
+const axios = require('axios');
 
 
 // Set the port to 3001
@@ -14,9 +14,20 @@ const PORT = 3001;
 app.set("port", process.env.PORT || 3001);
 app.use(cors());
 
+app.post('/rooms', (req, res) => {
+  const promise1 = axios.get('https://api.datamuse.com/words?ml=fast');
+  const promise2 = axios.get('https://api.datamuse.com/words?ml=cheetah');
+
+  Promise.all([promise1, promise2]).then(function(response) {
+    const randomNum = Math.floor(Math.random() * 100)
+    const data1 = response[0].data[randomNum].word.replace(/ /g, '');
+    const data2 = response[1].data[randomNum].word.replace(/ /g, '');
+    res.json({url: `${data1}-${data2}`});
+  });
+});
+
 app.get('/youtube/:query', (req, res) => {
   const {query} = req.params;
-  console.log(query);
   axios.get(
     'https://www.googleapis.com/youtube/v3/search', {
      params: {
@@ -29,7 +40,6 @@ app.get('/youtube/:query', (req, res) => {
        maxResults: 5
     }
   }).then(result => {
-    console.log(result.data.items);
     res.json(result.data.items);
   }).catch(error => console.log(error));
 })
@@ -39,19 +49,16 @@ interface Admin {
   id: string
 }
 
-let adminSocketList: Admin[] = [];
+const adminSocketList: Admin[] = [];
 const roomList: string[] = [];
 
 io.of('movie')
   .on('connection', (socket) => {
 
-
   console.log(socket.id + " connected to /movie");
 
- 
   socket.on('message_sent', function(data){
     io.of('movie').to(data.room).emit('message_receive', data);
-    console.log(data, 'let see if this works')
   })
   
 

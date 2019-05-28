@@ -11,15 +11,11 @@ const Movie: React.FunctionComponent<Home> = props => {
   const [playing, toggle, destroy] = useAudio(soundFile);
 
   const handleClick = () => {
-    const promise1 = axios.get('https://api.datamuse.com/words?ml=fast');
-    const promise2 = axios.get('https://api.datamuse.com/words?ml=cheetah');
-
-    Promise.all([promise1, promise2]).then(function(response) {
-    const randomNum = Math.floor(Math.random() * 100)
-    const data1 = response[0].data[randomNum].word
-    const data2 = response[1].data[randomNum].word
-    window.location.replace(`/movie/${data1}-${data2}`);
-  });
+    axios.post('http://localhost:3001/rooms')
+    .then(response => {
+      console.log(response)
+      window.location.replace(`/movie/${response.data.url}`);
+    })
   }
 
 
