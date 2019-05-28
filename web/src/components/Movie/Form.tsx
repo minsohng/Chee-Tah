@@ -106,12 +106,11 @@ const Form: React.FunctionComponent<{}> = props => {
     <>
     <div className="Search">
       <input id='search' type="text" onKeyUp={onKeyUp} onInput={onInput} value={formInput} placeholder='Press Enter to search for videos'/>
+     <div className='is-overlay'>
+      {searchResults}
+     </div>
     </div>
-      <div className="container" id='result-container'>
-        <div className="column">
-          {searchResults}
-        </div>
-      </div>
+      
     </>
   )
 }
