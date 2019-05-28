@@ -16,10 +16,10 @@ const config = {
   devServer: {
     contentBase: path.resolve(__dirname, '.'),
     historyApiFallback: true,
-    headers: {
-      'Access-Control-Allow-Origin': '*',
-      'Access-Control-Allow-Headers': '*',
-    },
+    proxy: {
+      '/movie/api': 'http://localhost:3001'
+    }
+
   },
   devtool: "source-map",
   resolve: {

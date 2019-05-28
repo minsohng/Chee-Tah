@@ -9,7 +9,7 @@ import { Socket } from 'net';
 import Form from './Form';
 import ReactPlayer from 'react-player';
 
-let socket = io.connect(`http://localhost:3001/movie`);
+let socket = io.connect(`192.168.88.45:3001/movie`);
 
 
 const MovieRoom = (props) => {
@@ -56,10 +56,10 @@ const MovieRoom = (props) => {
     <>
     <button className='button' onClick={handleClick}> Get number of clients here </button>
     <div>{ isAdmin ? 'you are admin' : ''}</div>
-    {/* <Navbar/>
+    {/* <Navbar/> */}
  
     <Form/>
-    <Video/> */}
+    {/* <Video/> */}
     <ReactPlayer 
       url={`https://www.youtube.com/watch?v=SCwcJsBYL3o${played}`}
       playing={true}

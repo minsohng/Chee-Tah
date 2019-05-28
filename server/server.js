@@ -1,12 +1,32 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
+require('dotenv').config();
+var cors = require('cors');
 var express = require('express');
 var app = express();
 var http = require('http').createServer(app);
 var io = require('socket.io')(http);
+var axios = require('axios');
 // Set the port to 3001
 var PORT = 3001;
 app.set("port", process.env.PORT || 3001);
+app.use(cors());
+app.get('/youtube/:query', function (req, res) {
+    var query = req.params.query;
+    console.log(query);
+    axios.get('https://www.googleapis.com/youtube/v3/search', {
+        params: {
+            key: process.env.YOUTUBE_API,
+            part: 'snippet',
+            order: 'viewCount',
+            q: query,
+            type: 'video',
+            videoDefinition: 'high',
+            maxResults: 5
+        }
+    }).then(function (result) {
+        console.log(result.data.items);
+        res.json(result.data.items);
+    })["catch"](function (error) { return console.log(error); });
+});
 var adminSocketList = [];
 var roomList = [];
 io.of('movie')
@@ -40,7 +60,7 @@ io.of('movie')
         });
     });
     socket.on('get number of clients', function (roomId) {
-        io.of('/movie').in(roomId).clients(function (error, clients) {
+        io.of('/movie')["in"](roomId).clients(function (error, clients) {
             if (error)
                 throw error;
             console.log("number of clients " + clients.length + " " + clients);
