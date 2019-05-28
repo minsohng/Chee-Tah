@@ -11,8 +11,9 @@ import { Socket } from 'net';
 import Form from './Form';
 import ReactPlayer from 'react-player';
 import Cookies from 'universal-cookie';
+import './movie.scss'
 
-let socket = io.connect(`192.168.88.14:3001/movie`);
+let socket = io.connect(`http://localhost:3001/movie`);
 
 
 
@@ -77,23 +78,15 @@ const MovieRoom = (props) => {
 
   return (
     <>
-    
-    
    
-    <Playlist/>
-
-    <div className="container chat-container">
-    <div className="block">
-      <div className="columns">
-        <div className="column">
-        <h1>{ isAdmin ? 'you are admin' : ''}</h1>
-   
-    <button className='button' onClick={handleClick}> Get number of clients here </button>
-    <div>{ isAdmin ? 'you are admin' : ''}</div>
+    {/* <button className='button' onClick={handleClick}> Get number of clients here </button> */}
+    <h1 className="admin-title">{ isAdmin ? 'You are admin' : ''}</h1>
     
- 
-    <Form/>
-   
+    {/* <Navbar /> */}
+  
+    {/* <Form/> */}
+    
+    <Chatbar socket={socket} roomId={roomId}/>
     <ReactPlayer 
       url={`https://www.youtube.com/watch?v=SCwcJsBYL3o${played}`}
       playing={true}
@@ -102,27 +95,18 @@ const MovieRoom = (props) => {
       onDuration={(totaltime) => duration = totaltime}
       onPlay={onPlay}
     /> 
-        </div>
-        <div className="column">
-          <p className="notification">second</p>
-        </div>
-        <div className="column">
-          <p className=""></p>
-        </div>
-        <div className="column is-one-third">
-        <Chatbar socket={socket} roomId={roomId}/>
-        </div>
-      </div>
-    </div>
-    </div>
-        
-
+			<div id="hero" className="Hero" >
+				<div className="content">
+					
+					<h2>Movie Room</h2>
+					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Doloremque id quam sapiente unde voluptatum alias vero debitis, magnam quis quod.</p>
+				
+					
+				</div>
+				<div className="overlay"></div>
+			</div>
     
-
-      
-
    
-  
     </>
   )
 }

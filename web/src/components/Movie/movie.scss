@@ -2,34 +2,173 @@
 @import url("https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,700");
 @import url("https://cdnjs.cloudflare.com/ajax/libs/normalize/4.2.0/normalize.min.css");
 
-.redBG{
-    background-color:red;
-}
 
-.wor{
-    color:red;
-    font-size: 200px;
-}
 
-.peterCustom{
-    position:absolute;
-    bottom:0;
-    right:0;
-}
-
-.boxtest{
-    border-color: black;
-    border-style: solid;
-    border-width: 2px 10px 4px 20px;
-}
-
-.bottomright {
-    position: absolute;
-    bottom: 8px;
-    right: 16px;
-    font-size: 18px;
+  
+  .message{
+    //   width:25%;
+    background-color:#001420;
+    height: 100vh;
   }
 
-  .chat-container{
+
+  // changes message BG
+  .bg-color-change{
+    background-color:#001420;
+    height: 88vh;
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px
+  }
+
+  .herotom {
+      background-size: cover;
+      background-attachment: fixed;
+      background-position: center;
+      text-align: center;
+      color:white;
+  }
+
+  .makeitsmaller{
+    //   width: 25%;
+  }
+  .chat-header-sizing{
+      text-align:center;
+    //   width: 25%;
+      border-top-left-radius: 15px;
+      border-top-right-radius: 15px;
+      border-bottom:1px solid white;
+      color:white;
+      background-color:#001420;
+  }
+
+  #text {
+    
       border-radius: 10px;
+      border: 2px solid rgb(177, 174, 169);
+      background-color: black;
+      color: white;
+      margin:0;
+      text-align:center;
+      padding:0
   }
+
+//   .username-text-input{
+//       width:25%;
+//     border-style: solid;
+//     border-width: 5px;
+//     border-radius: 15px;
+// }
+    
+.all-in-one{
+  
+    float: right;
+    width:25%;
+    padding-right: 5px;
+    height: 100vh;
+    
+    
+    
+}
+
+
+
+.Search {
+	align-items: center;
+	justify-content: center;
+	width: 100%;
+	position: absolute;
+	display: flex;
+	justify-content: center;
+	pointer-events: none;
+	
+	input {
+		
+		font-weight: 300;
+		font-size: 14px;
+		height: 37px;
+		width: 20%;
+		background: transparent;
+		color: white;
+		appearance: none;
+		border: 0;
+		border: 2px solid rgba(grey, 1.5);
+		outline: none;
+		border-radius: 37px;
+		padding: 0 10px;
+		pointer-events: all;
+		transition: border .25s ease, width .125s ease .125s;
+		
+		&:focus {
+			border: 2px solid white;
+			width: 30%;
+		}
+	}
+}
+
+html{
+  background-image: url("http://static.hdw.eweb4.com/media/wallpapers_dl/1/137/1360363-abstract-hd-wallpapers-1920x1080.jpg");
+  background-size: cover;
+  background-attachment: fixed;
+  background-position: center;
+}
+
+// Header
+.Header {
+	
+	display: flex;
+	padding: 40px ;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100vw;
+	box-sizing: border-box;
+	z-index: 5;
+}
+
+
+.Hero {
+	width: 100%;
+	position: relative;
+	background-size: cover;
+	min-height: 800px;
+	
+	.content {
+		position: relative;
+		z-index: 4;
+		width: 500px;
+		left: 10vw;
+		top: 10vw;
+		
+		
+		
+		p {
+      width: 100%;
+      color:orange;
+    }
+    h2 {
+      color:orange;
+    }
+		
+		
+		
+	}
+	
+	.overlay {
+	
+		height: 100%;
+		position: absolute;
+		z-index: 3;
+		top: 0;
+		left: 0;
+		width: 100%;
+		transform: rotate(180deg);
+	}
+}
+
+
+		.admin-title{
+      color:white;
+      text-decoration: underline;
+      font-style:italic;
+      text-align:center;
+    }
