@@ -4,9 +4,9 @@ import * as React from 'react';
 const Navbar = () => {
   return (
     <>
-            <nav className="navbar" role="navigation" aria-label="main navigation">
+            <nav className="navbar navbar is-fixed-top" role="navigation" aria-label="main navigation">
         <div className="navbar-brand">
-          <a className="navbar-item" href="https://bulma.io">
+          <a className="navbar-item" href="/">
             <img src="https://bulma.io/images/bulma-logo.png" width="112" height="28"/>
           </a>
 
@@ -26,12 +26,16 @@ const Navbar = () => {
             <a className="navbar-item">
               Documentation
             </a>
+           
+           
 
             <div className="navbar-item has-dropdown is-hoverable">
               <a className="navbar-link">
                 More
               </a>
 
+
+              
               <div className="navbar-dropdown">
                 <a className="navbar-item">
                   About
@@ -46,13 +50,28 @@ const Navbar = () => {
                 <a className="navbar-item">
                   Report an issue
                 </a>
+
+
+                
               </div>
             </div>
           </div>
+          <div className="field has-addons">
+  <div className="control">
+    <input className="input" type="text" placeholder="Find a repository"/>
+  </div>
+  <div className="control">
+    <a className="button is-info">
+      Search
+    </a>
+  </div>
+</div>
 
           <div className="navbar-end">
             <div className="navbar-item">
               <div className="buttons">
+             
+            
                 <a className="button is-primary">
                   <strong>Sign up</strong>
                 </a>

@@ -47,9 +47,18 @@ io.of('movie')
 
 
   console.log(socket.id + " connected to /movie");
+
+ 
+  socket.on('message_sent', function(data){
+    io.of('movie').to(data.room).emit('message_receive', data);
+    console.log(data, 'let see if this works')
+  })
+  
+
   socket.on('joinRoom', (roomObject) => {
     if (!roomList.includes(roomObject.roomId)) {
       roomList.push(roomObject.roomId);
+
       adminSocketList.push({
         roomId: roomObject.roomId,
         id: socket.id
@@ -59,6 +68,8 @@ io.of('movie')
         id: socket.id 
       })
     }
+    
+    
 
     if (roomObject.roomIdCookie && roomObject.adminIdCookie) {
       const filteredAdmin = adminSocketList.filter(admin => admin.id === roomObject.adminIdCookie && admin.roomId === roomObject.roomId);
@@ -80,6 +91,9 @@ io.of('movie')
       let rooms = Object.keys(socket.rooms);
       console.log(rooms);
 
+     
+      
+     
 
       const filteredAdmin = adminSocketList.filter(admin => admin.id === socket.id)
       console.log("filtered", filteredAdmin)
@@ -120,3 +134,5 @@ io.of('movie')
 http.listen(PORT, '0.0.0.0',() => {
   console.log('listening on *:3001');
 });
+
+

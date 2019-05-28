@@ -94,6 +94,7 @@ const Form: React.FunctionComponent<{}> = props => {
   
   return (
     <>
+
       <input type="text" onKeyUp={onKeyUp} onInput={onInput} value={formInput} placeholder='Press Enter to search for videos'/>
       <div className="dropdown is-active">
         <div className="dropdown-trigger">
@@ -105,6 +106,7 @@ const Form: React.FunctionComponent<{}> = props => {
           {searchResults}
         </div>
       </div>
+
     </>
   )
 }

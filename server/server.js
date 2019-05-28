@@ -33,9 +33,16 @@ var roomList = [];
 io.of('movie')
     .on('connection', function (socket) {
     console.log(socket.id + " connected to /movie");
+
+    socket.on('message_sent', function (data) {
+        io.of('movie').to(data.room).emit('message_receive', data);
+        console.log(data, 'let see if this works');
+    });
+  
     socket.on('joinRoom', function (roomObject) {
         if (!roomList.includes(roomObject.roomId)) {
             roomList.push(roomObject.roomId);
+
             adminSocketList.push({
                 roomId: roomObject.roomId,
                 id: socket.id
