@@ -8,17 +8,18 @@ import Video  from './Video';
 import { Socket } from 'net';
 import Form from './Form';
 import ReactPlayer from 'react-player';
+import Cookies from 'universal-cookie';
 
-let socket = io.connect(`http://localhost:3001/movie`);
+let socket = io.connect(`192.168.88.14:3001/movie`);
 
 
 const MovieRoom = (props) => {
   const [played, setPlayed] = useState('');
   const [isAdmin, setIsAdmin] = useState(false);
   
-  let queryString;
-  let playedFraction;
-  let duration;
+  let queryString: string;
+  let playedFraction: number;
+  let duration: number;
   
   const roomId = props.match.params.id;
   
@@ -35,8 +36,20 @@ const MovieRoom = (props) => {
 
 
   useEffect(() => {
+    const cookies = new Cookies();
+    const roomIdCookie = cookies.get('roomId');
+    const adminIdCookie = cookies.get('adminId');
+
+    const roomObject = {
+      roomId,
+      roomIdCookie,
+      adminIdCookie
+    }
+
     
-    socket.emit('joinRoom', roomId)
+    socket.emit('joinRoom', roomObject)
+
+    
 
     socket.on('sync video timestamp', (timestamp: number) => {
       const query = `?t=${timestamp}`
@@ -47,6 +60,13 @@ const MovieRoom = (props) => {
     socket.on('is admin', (adminInfo) => {
       setIsAdmin(true);
     })
+
+    socket.on('save admin cookie', (data) => {
+
+      cookies.set('adminId', data.id, { path: '/' });
+      cookies.set('roomId', data.roomId, { path: '/' });
+    })
+
   }, [])
   
 
