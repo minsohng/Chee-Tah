@@ -2,10 +2,10 @@ import * as React from 'react';
 import {useEffect, useState} from 'react'
 import * as io from 'socket.io-client'
 import Navbar from './Navbar';
+import Form from'./Form';
 import Chatbar from './Chatbar';
 import Playlist from './Playlist';
 // import Video  from './Video';
-import Form from './Form';
 import ReactPlayer from 'react-player';
 import Cookies from 'universal-cookie';
 import './movie.scss'
@@ -75,39 +75,94 @@ const MovieRoom = (props) => {
 
   return (
     <>
+  <div className="hero-head">
+    {/* <nav className="navbar">
+      <div className="container">
+        <div className="navbar-brand">
+          <a className="navbar-item">
+            <img src="https://bulma.io/images/bulma-type-white.png" alt="Logo"/>
+          </a>
+          <span className="navbar-burger burger" data-target="navbarMenuHeroB">
+            <span></span>
+            <span></span>
+            <span></span>
+          </span>
+        </div>
+        <div id="navbarMenuHeroB" className="navbar-menu">
+          <div className="navbar-end">
+            <a className="navbar-item is-active">
+              Home
+            </a>
+            <span className="navbar-item">
+              <a className="button is-info is-inverted">
+                <span className="icon">
+                  <i className="fab fa-github"></i>
+                </span>
+                <span>Download</span>
+              </a>
+            </span>
+          </div>
+        </div>
+      </div>
+    </nav> */}
+      <div className='container'>
+        <Form/>
+
+      </div>
+  </div>
+
+  <div className="hero-body">
+  <ReactPlayer 
+      url={`https://www.youtube.com/watch?v=SCwcJsBYL3o${played}`}
+      playing={true}
+      controls={true}
+      onProgress={(state) => playedFraction = state.played}
+      onDuration={(totaltime) => duration = totaltime}
+      onPlay={onPlay}
+    /> 
+    <div className="container has-text-centered">
+      <p className="title">
+        Title
+      </p>
+      <p className="subtitle">
+        Subtitle
+      </p>
+    </div>
+  </div>
+
+  <div className="hero-foot">
+    <nav className="tabs is-boxed is-fullwidth">
+      <div className="container">
+        <ul>
+          <li className="is-active">
+            <a>Overview</a>
+          </li>
+          <li>
+            <a>Modifiers</a>
+          </li>
+          <li>
+            <a>Grid</a>
+          </li>
+          <li>
+            <a>Elements</a>
+          </li>
+          <li>
+            <a>Components</a>
+          </li>
+          <li>
+            <a>Layout</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  </div>
    
     {/* <button className='button' onClick={handleClick}> Get number of clients here </button> */}
     
     {/* <Navbar /> */}
   
-    {/* <Form/> */}
     {/* is-fixed-top */}
-    <nav className="navbar i">
-        <span className="navbar-toggle" id="js-navbar-toggle">
-            <i className="fas fa-bars"></i>
-        </span>
-        <form id="search" className="Search">
-            <input type="search" placeholder="Search for a title..." />
-          </form>
-        <a href="/" className="logo"><img style={{borderRadius:'50%'}} src="https://cmkt-image-prd.global.ssl.fastly.net/0.1.0/ps/5771736/600/400/m2/fpnw/wm0/logo76-.jpg?1548586051&s=9710bd94971f15cab62d0116acbebcb4" /></a>
-        <ul className="main-nav" id="js-menu">
-            <li>
-                <a href="#" className="nav-links">Input</a>
-            </li>
-            <li>
-                <a href="#" className="nav-links">Input</a>
-            </li>
-            <li>
-                <a href="#" className="nav-links">About Us</a>
-            </li>
-            <li>
-                <a href="#" className="nav-links">Input</a>
-            </li>
-            <li>
-                <a href="#" className="nav-links">Input</a>
-            </li>
-        </ul>
-    </nav>
+{/*    
     <h1 className="admin-title">{ isAdmin ? 'You are admin' : ''}</h1>
     <section>
   <div className="containera">
@@ -147,7 +202,7 @@ const MovieRoom = (props) => {
 				</div>
 			
 			</div>
-    
+     */}
      
     </>
   )
