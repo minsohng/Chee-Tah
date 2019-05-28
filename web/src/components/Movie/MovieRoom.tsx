@@ -2,7 +2,7 @@ import * as React from 'react';
 import {useEffect, useState} from 'react'
 import * as io from 'socket.io-client'
 import Navbar from './Navbar';
-import Chathooks from './Chathooks';
+import Chatbar from './Chatbar';
 import Playlist from './Playlist';
 // import Video  from './Video';
 import Form from './Form';
@@ -75,38 +75,6 @@ const MovieRoom = (props) => {
 
   return (
     <>
-<<<<<<< HEAD
-      <div className="container chat-container">
-        <div className="block">
-          <div className="columns">
-            <div className="column">
-              <h1>{ isAdmin ? 'you are admin' : ''}</h1>
-                <button className='button' onClick={handleClick}> Get number of clients here </button>
-                <div>{ isAdmin ? 'you are admin' : ''}</div>
-              <Form/>
-              <ReactPlayer 
-                url={`https://www.youtube.com/watch?v=SCwcJsBYL3o${played}`}
-                playing={true}
-                controls={true}
-                onProgress={(state) => playedFraction = state.played}
-                onDuration={(totaltime) => duration = totaltime}
-                onPlay={onPlay}
-              /> 
-            </div>
-          <div className="column">
-            <p className="notification">second</p>
-          </div>
-          <div className="column">
-            <p className=""></p>
-          </div>
-          <div className="column is-one-third">
-            <Chathooks socket={socket} roomId={roomId}/>
-          </div>
-        </div>
-      </div>
-    </div>
-  </>
-=======
    
     {/* <button className='button' onClick={handleClick}> Get number of clients here </button> */}
     
@@ -182,7 +150,6 @@ const MovieRoom = (props) => {
     
      
     </>
->>>>>>> c948854a5615823bcff6d382a3b7dcf010b8a402
   )
 }
               
