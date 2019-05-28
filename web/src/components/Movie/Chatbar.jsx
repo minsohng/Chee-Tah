@@ -39,9 +39,7 @@ class Chat extends React.Component {
     return (
       <>
    <header className="Header">
-          <form id="search" className="Search">
-            <input type="search" placeholder="Search for a title..." />
-          </form>
+         
           </header>
           {/* this div below renders the messages */}
           <div className="all-in-one">
@@ -58,6 +56,7 @@ class Chat extends React.Component {
 
             <div className="">
               <input
+              className="hjk"
                 id="text"
                 type="text"
                 placeholder="Username"
@@ -67,6 +66,7 @@ class Chat extends React.Component {
                 }
               />
               <input
+              className="hjk"
                 id="text"
                 type="text"
                 placeholder="type here to chat"
