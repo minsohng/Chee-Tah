@@ -14,7 +14,7 @@ const PORT = 3001;
 app.set("port", process.env.PORT || 3001);
 app.use(cors());
 
-app.get('/youtube/:query', (req, res) => {
+app.get('/api/youtube/:query', (req, res) => {
   const {query} = req.params;
   console.log(query);
   axios.get(

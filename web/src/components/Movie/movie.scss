@@ -69,15 +69,13 @@
 }
 
 .Search {
+  pointer-events: none;
   align-items: center;
   justify-content: center;
   width: 100%;
-  position: absolute;
   display: flex;
-  justify-content: center;
-  pointer-events: none;
 
-  input {
+input {
     font-weight: 300;
     font-size: 14px;
     height: 37px;
@@ -155,6 +153,22 @@ html {
    
   // }
 // }
+
+#result-container {
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  display: flex;
+
+  .result {
+    border: solid 5px;
+    width: 35%;
+    p strong {
+      color: white;
+    }
+  }
+}
+
 
 .admin-title {
   color: white;

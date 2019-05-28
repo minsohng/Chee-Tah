@@ -9,7 +9,7 @@ var axios = require('axios');
 var PORT = 3001;
 app.set("port", process.env.PORT || 3001);
 app.use(cors());
-app.get('/youtube/:query', function (req, res) {
+app.get('/api/youtube/:query', function (req, res) {
     var query = req.params.query;
     console.log(query);
     axios.get('https://www.googleapis.com/youtube/v3/search', {
