@@ -77,13 +77,6 @@ const MovieRoom = (props) => {
 
   return (
     <>
-
-    {/* <button className='button' onClick={handleClick}> Get number of clients here </button> */}
-    
-    {/* <Navbar/>
- 
-    <Form/>
-    <Video/> */}
     
     
    
@@ -94,25 +87,20 @@ const MovieRoom = (props) => {
       <div className="columns">
         <div className="column">
         <h1>{ isAdmin ? 'you are admin' : ''}</h1>
-        <ReactPlayer 
-      className="react-player-video"
-
+   
     <button className='button' onClick={handleClick}> Get number of clients here </button>
     <div>{ isAdmin ? 'you are admin' : ''}</div>
-    {/* <Navbar/> */}
+    
  
     <Form/>
-    {/* <Video/> */}
+   
     <ReactPlayer 
-
       url={`https://www.youtube.com/watch?v=SCwcJsBYL3o${played}`}
       playing={true}
       controls={true}
       onProgress={(state) => playedFraction = state.played}
       onDuration={(totaltime) => duration = totaltime}
       onPlay={onPlay}
-
-
     /> 
         </div>
         <div className="column">
@@ -126,18 +114,13 @@ const MovieRoom = (props) => {
         </div>
       </div>
     </div>
+    </div>
         
 
     
 
       
 
-    </div>
-
-
-
-    {/* <Chathooks socket={socket} roomId={roomId}/> */}
- 
    
   
     </>
