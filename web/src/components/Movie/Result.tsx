@@ -2,8 +2,6 @@ import * as React from 'react';
 
 const Result = (props) => {
   const {title, id} = props;
-  console.log(title);
-  console.log(id);
   return (
     <>
       <div className="dropdown-content level">

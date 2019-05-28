@@ -80,13 +80,22 @@ const Form: React.FunctionComponent<{}> = props => {
   const onKeyUp = event => {
     if(event.key === 'Enter') {
       axios.get(
-        `http://localhost:3001/youtube/${formInput}`, {
+        `http://localhost:3001/api/youtube/${formInput}`, {
       }).then(result => {
         console.log('Received response');
         setData(result.data);
       }).catch(err => console.error('Failed to retrieve search data'));
     }
   }
+  // below is code to grab searches on input change
+  // useEffect(() => {
+  //   axios.get(
+  //     `http://localhost:3001/youtube/${formInput}`, {
+  //   }).then(result => {
+  //     console.log('Received response');
+  //     setData(result.data);
+  //   }).catch(err => console.error('Failed to retrieve search data'));
+  // }, [formInput])
   
   const searchResults = data.map(result => 
     <Result title={result.snippet} key={result.id.videoId} id={result.id.videoId}/>    
