@@ -4,9 +4,6 @@ import io from "socket.io-client";
 
 class Chat extends React.Component {
   constructor(props) {
-
-   
-
     super(props);
 
     this.state = {
@@ -14,20 +11,18 @@ class Chat extends React.Component {
       message: "",
       messages: []
     };
-    this.addMessage = this.addMessage.bind(this)
+    this.addMessage = this.addMessage.bind(this);
   }
-
 
   addMessage(data) {
-    console.log(this,'add message this');
+    console.log(this, "add message this");
     this.setState({ messages: [...this.state.messages, data] });
-  };
+  }
 
   componentDidMount() {
-    this.props.socket.on("message_receive", this.addMessage );
+    this.props.socket.on("message_receive", this.addMessage);
   }
   render() {
-    
     const keyPressEnter = event => {
       if (event.key === "Enter") {
         event.preventDefault();
@@ -41,15 +36,13 @@ class Chat extends React.Component {
     };
 
     return (
-      <div className="container">
-       
-        <div className="columns">
-          <div className="column">
-            <div className="column">
-              <div className="section">
-                <div className="message-header">chat message go below</div>
+      <>
+        <article className="message is-dark">
+            <div className="columns">
+              <div className="column">
+                <div className="message-header">Chat Header</div>
                 <hr />
-                <div className="message ">
+                <div className="message" >
                   {this.state.messages.map(message => {
                     return (
                       <div>
@@ -59,31 +52,30 @@ class Chat extends React.Component {
                   })}
                 </div>
               </div>
-              <div className="column message-is-primary">
+              <div className="column">
                 <input
                   type="text"
                   placeholder="Username"
                   value={this.state.username}
-                  onChange={event => this.setState({ username: event.target.value })}
+                  onChange={event =>
+                    this.setState({ username: event.target.value })
+                  }
                   className="form-control"
                 />
                 <br />
                 <input
                   type="text"
                   placeholder="type here to chat"
-                  className="column is-half"
                   value={this.state.message}
                   onKeyPress={keyPressEnter}
-                  onChange={event => this.setState({ message: event.target.value })}
+                  onChange={event =>
+                    this.setState({ message: event.target.value })
+                  }
                 />
-                <br />
-            
               </div>
-            </div>
-          </div>
-        </div>
-       
-      </div>
+              </div>
+        </article>
+      </>
     );
   }
 }
