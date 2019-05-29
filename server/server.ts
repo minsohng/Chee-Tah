@@ -5,18 +5,68 @@ const express = require('express');
 const app = express();
 const http = require('http').createServer(app);
 const io = require('socket.io')(http);
-const axios = require('axios')
+const axios = require('axios');
+const bodyParser = require('body-parser');
 
 
 // Set the port to 3001
 const PORT = 3001;
 
+interface Admin {
+  roomId: string
+  id: string
+}
+
+const adminSocketList: Admin[] = [];
+const roomList: string[] = [];
+
 app.set("port", process.env.PORT || 3001);
+// support parsing of application/json type post data
+app.use(bodyParser.json());
+
+//support parsing of application/x-www-form-urlencoded post data
+app.use(bodyParser.urlencoded({ extended: true }));
+
 app.use(cors());
 
-app.get('/api/youtube/:query', (req, res) => {
+app.post('/api/getRoom', (req, res) => {
+  const params = req.body.params;
+  if (!roomList.includes(params)) {
+    res.json({response: false});
+    return;
+  }
+  res.json({response: true});
+   
+});
+
+app.post('/api/createRoom', (req, res) => {
+  const promise1 = axios.get('https://api.datamuse.com/words?ml=fast');
+  const promise2 = axios.get('https://api.datamuse.com/words?ml=cheetah');
+  const socket = JSON.parse(req.body.socket);
+  
+  console.log(socket.id)
+  
+
+  Promise.all([promise1, promise2]).then(function(response) {
+    const randomNum = Math.floor(Math.random() * 100)
+    const data1 = response[0].data[randomNum].word.replace(/ /g, '');
+    const data2 = response[1].data[randomNum].word.replace(/ /g, '');
+    const roomId = `${data1}-${data2}`
+    roomList.push(roomId);
+    adminSocketList.push({
+      roomId: roomId,
+      id: socket.id
+    })
+
+    
+    
+ 
+    res.json({url: `${data1}-${data2}`});
+  });
+});
+
+app.get('/youtube/:query', (req, res) => {
   const {query} = req.params;
-  console.log(query);
   axios.get(
     'https://www.googleapis.com/youtube/v3/search', {
      params: {
@@ -29,46 +79,25 @@ app.get('/api/youtube/:query', (req, res) => {
        maxResults: 5
     }
   }).then(result => {
-    console.log(result.data.items);
     res.json(result.data.items);
   }).catch(error => console.log(error));
 })
 
-interface Admin {
-  roomId: string
-  id: string
-}
 
-let adminSocketList: Admin[] = [];
-const roomList: string[] = [];
 
 io.of('movie')
   .on('connection', (socket) => {
 
-
   console.log(socket.id + " connected to /movie");
 
- 
   socket.on('message_sent', function(data){
     io.of('movie').to(data.room).emit('message_receive', data);
-    console.log(data, 'let see if this works')
   })
   
 
   socket.on('joinRoom', (roomObject) => {
-    if (!roomList.includes(roomObject.roomId)) {
-      roomList.push(roomObject.roomId);
-
-      adminSocketList.push({
-        roomId: roomObject.roomId,
-        id: socket.id
-      })
-      socket.emit('save admin cookie', {
-        roomId: roomObject.roomId,
-        id: socket.id 
-      })
-    }
-    
+ 
+     
     
 
     if (roomObject.roomIdCookie && roomObject.adminIdCookie) {
@@ -85,7 +114,7 @@ io.of('movie')
     console.log('ADMIN LIST:', adminSocketList)
     console.log('ROOM LIST:', roomList)
 
-    console.log('joined ' + roomObject.roomId)
+    console.log(socket.id + 'joined ' + roomObject.roomId)
 
     socket.join(roomObject.roomId, () => {
       let rooms = Object.keys(socket.rooms);

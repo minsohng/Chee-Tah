@@ -1,3 +1,4 @@
+
 import * as React from 'react';
 import {useEffect, useState} from 'react'
 import * as io from 'socket.io-client'
@@ -5,20 +6,22 @@ import Navbar from './Navbar';
 import Form from'./Form';
 import Chatbar from './Chatbar';
 import Playlist from './Playlist';
-// import Video  from './Video';
+import { Socket } from 'net';
 import ReactPlayer from 'react-player';
 import Cookies from 'universal-cookie';
-import './movie.scss'
+import axios from 'axios';
 
-let socket = io.connect(`http://localhost:3001/movie`);
+// let socket = io.connect(`http://localhost:3001/movie`);
 
 
 
 const MovieRoom = (props) => {
+  const socket = props.socket;
   const [played, setPlayed] = useState('');
   const [isAdmin, setIsAdmin] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   
-  let queryString: string;
+  
   let playedFraction: number;
   let duration: number;
   
@@ -37,6 +40,19 @@ const MovieRoom = (props) => {
 
 
   useEffect(() => {
+
+    axios.post(`http://localhost:3001/api/getRoom`, {
+      params: roomId
+    })
+    .then( response => {
+      console.log(response.data.response)
+      if (response.data.response === true) {
+        setIsLoading(false);
+      }
+    })
+
+
+
     const cookies = new Cookies();
     const roomIdCookie = cookies.get('roomId');
     const adminIdCookie = cookies.get('adminId');
@@ -49,24 +65,17 @@ const MovieRoom = (props) => {
 
     
     socket.emit('joinRoom', roomObject)
-
     
 
     socket.on('sync video timestamp', (timestamp: number) => {
       const query = `?t=${timestamp}`
-      queryString = query
       setPlayed(query)
     })
-
+    
     socket.on('is admin', (adminInfo) => {
       setIsAdmin(true);
     })
 
-    socket.on('save admin cookie', (data) => {
-
-      cookies.set('adminId', data.id, { path: '/' });
-      cookies.set('roomId', data.roomId, { path: '/' });
-    })
 
   }, [])
   
@@ -75,40 +84,25 @@ const MovieRoom = (props) => {
 
   return (
     <>
-  <div className="hero-head">
-    <nav className="navbar">
-      <div className="container">
-        <div className="navbar-brand">
-          <a className="navbar-item">
-            <img src="https://bulma.io/images/bulma-type-white.png" alt="Logo"/>
-          </a>
-          <span className="navbar-burger burger" data-target="navbarMenuHeroB">
-            <span></span>
-            <span></span>
-            <span></span>
-          </span>
-        </div>
-        <div id="navbarMenuHeroB" className="navbar-menu">
-          <div className="navbar-end">
-            <a className="navbar-item is-active">
-              Home
-            </a>
-            <span className="navbar-item">
-              <a className="button is-info is-inverted">
-                <span className="icon">
-                  <i className="fab fa-github"></i>
-                </span>
-                <span>Download</span>
-              </a>
-            </span>
-          </div>
-        </div>
-      </div>
-    </nav>
-  </div>
+    {isLoading ? (<img src='https://s3-us-west-2.amazonaws.com/s.cdpn.io/28963/giphy%20(24).gif' alt="Loading..."/>) : 
+    
+    (
+    <>
+    <Playlist/>
 
-  <div className="hero-body">
-  <ReactPlayer 
+    <div className="container chat-container">
+    <div className="block">
+      <div className="columns">
+        <div className="column">
+        <h1>{ isAdmin ? 'you are admin' : ''}</h1>
+   
+    <button className='button' onClick={handleClick}> Get number of clients here </button>
+    <div>{ isAdmin ? 'you are admin' : ''}</div>
+    
+ 
+    <Form/>
+   
+    <ReactPlayer 
       url={`https://www.youtube.com/watch?v=SCwcJsBYL3o${played}`}
       playing={true}
       controls={true}
@@ -116,42 +110,27 @@ const MovieRoom = (props) => {
       onDuration={(totaltime) => duration = totaltime}
       onPlay={onPlay}
     /> 
-    <div className="container has-text-centered">
-      <p className="title">
-        Title
-      </p>
-      <p className="subtitle">
-        Subtitle
-      </p>
-    </div>
-  </div>
-
-  <div className="hero-foot">
-    <nav className="tabs is-boxed is-fullwidth">
-      <div className="container">
-        <ul>
-          <li className="is-active">
-            <a>Overview</a>
-          </li>
-          <li>
-            <a>Modifiers</a>
-          </li>
-          <li>
-            <a>Grid</a>
-          </li>
-          <li>
-            <a>Elements</a>
-          </li>
-          <li>
-            <a>Components</a>
-          </li>
-          <li>
-            <a>Layout</a>
-          </li>
-        </ul>
+        </div>
+        <div className="column">
+          <p className="notification">second</p>
+        </div>
+        <div className="column">
+          <p className=""></p>
+        </div>
+        <div className="column is-one-third">
+        <Chatbar socket={socket} roomId={roomId} />
+        </div>
       </div>
-    </nav>
-  </div>
+    </div>
+    </div>
+    </>
+    )
+    }
+
+      
+
+   
+  
     </>
   )
 }

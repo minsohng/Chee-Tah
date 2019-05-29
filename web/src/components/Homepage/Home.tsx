@@ -6,7 +6,9 @@ import Music from './Music';
 import Game from './Game';
 
 
-const Home = () => {
+const Home = (props) => {
+  
+  const socket = props.socket;
   const [containerLabel, setContainerLabel] = useState('port about');
   const [muteToggles, setMuteToggles] = useState({});
   
@@ -16,14 +18,15 @@ const Home = () => {
   return (
     <div className={containerLabel}>
       <button className='button clearfix' onClick={muteToggleAll}><span className='icon'><i className='fas fa-volume-mute'></i></span></button>
-      <About setContainerLabel={setContainerLabel}/>
+      <About socket={socket} setContainerLabel={setContainerLabel}/>
       <Movie 
+        socket={socket}
         setContainerLabel={setContainerLabel} 
         muteToggles={muteToggles} 
         setMuteToggles={setMuteToggles}
       />
-      <Music setContainerLabel={setContainerLabel} muteToggles={muteToggles} setMuteToggles={setMuteToggles}/>
-      <Game setContainerLabel={setContainerLabel} muteToggles={muteToggles} setMuteToggles={setMuteToggles}/>
+      <Music socket={socket} setContainerLabel={setContainerLabel} muteToggles={muteToggles} setMuteToggles={setMuteToggles}/>
+      <Game socket={socket} setContainerLabel={setContainerLabel} muteToggles={muteToggles} setMuteToggles={setMuteToggles}/>
     </div>
   )
 }
