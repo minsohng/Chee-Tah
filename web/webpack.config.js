@@ -15,11 +15,7 @@ const config = {
   },
   devServer: {
     contentBase: path.resolve(__dirname, '.'),
-    historyApiFallback: true,
-    proxy: {
-      '/movie/api': 'http://localhost:3001'
-    }
-
+    historyApiFallback: true
   },
   devtool: "source-map",
   resolve: {

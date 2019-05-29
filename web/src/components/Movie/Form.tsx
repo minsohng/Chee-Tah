@@ -5,7 +5,8 @@ import Result from './Result';
 
 
 const Form: React.FunctionComponent<{}> = props => {
-  const [formInput, setFormInput] = useState('')
+  const [formInput, setFormInput] = useState('');
+  const [resultVisibility, setResultVisibility] = useState('container is-overlay is-relative is-hidden');
   const [data, setData] = useState([
     // {
     //   "kind": "youtube#searchResult",
@@ -80,33 +81,39 @@ const Form: React.FunctionComponent<{}> = props => {
   const onKeyUp = event => {
     if(event.key === 'Enter') {
       axios.get(
-        `http://localhost:3001/youtube/${formInput}`, {
-      }).then(result => {
-        console.log('Received response');
-        setData(result.data);
+        `http://localhost:3001/api/youtube/${formInput}`, {
+        }).then(result => {
+          console.log('Received response');
+          setData(result.data);
+          setResultVisibility('container is-overlay is-relative')
+          setFormInput('');
       }).catch(err => console.error('Failed to retrieve search data'));
     }
   }
+  // below is code to grab searches on input change
+  // useEffect(() => {
+  //   axios.get(
+  //     `http://localhost:3001/youtube/${formInput}`, {
+  //   }).then(result => {
+  //     console.log('Received response');
+  //     setData(result.data);
+  //   }).catch(err => console.error('Failed to retrieve search data'));
+  // }, [formInput])
   
-  const searchResults = data.map(result => 
-    <Result title={result.snippet} key={result.id.videoId} id={result.id.videoId}/>    
+
+
+  const searchResults = data.map((result, i) => 
+    <Result title={result.snippet} key={i} id={result.id.videoId} setResultVisibility={setResultVisibility}/>    
   )
-  
+
   return (
     <>
-
-      <input type="text" onKeyUp={onKeyUp} onInput={onInput} value={formInput} placeholder='Press Enter to search for videos'/>
-      <div className="dropdown is-active">
-        <div className="dropdown-trigger">
-          <button className="button" aria-haspopup="true" aria-controls="dropdown-menu2">
-            <span>Search Results</span>
-          </button>
-        </div>
-        <div className="dropdown-menu" id="dropdown-menu2" role="menu">
+      <div className="Search">
+        <input id='search' type="text" onKeyUp={onKeyUp} onInput={onInput} value={formInput} placeholder='Press Enter to search for videos'/>
+        <div className={resultVisibility} id='result'>
           {searchResults}
         </div>
       </div>
-
     </>
   )
 }

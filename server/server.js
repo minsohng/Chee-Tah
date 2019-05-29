@@ -42,7 +42,7 @@ app.post('/api/createRoom', function (req, res) {
         res.json({ url: data1 + "-" + data2 });
     });
 });
-app.get('/youtube/:query', function (req, res) {
+app.get('/api/youtube/:query', function (req, res) {
     var query = req.params.query;
     axios.get('https://www.googleapis.com/youtube/v3/search', {
         params: {

@@ -5,7 +5,7 @@ import MovieRoom from './Movie/MovieRoom';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 
 
-let socket = io.connect(`192.168.88.14:3001/movie`);
+let socket = io.connect(`http://localhost:3001/movie`);
 
 
 const App = () => {
