@@ -105,12 +105,12 @@ const Form: React.FunctionComponent<{}> = props => {
   const searchResults = data.map((result, i) => 
     <Result title={result.snippet} key={i} id={result.id.videoId} setResultVisibility={setResultVisibility}/>    
   )
-  
+
   return (
     <>
       <div className="Search">
         <input id='search' type="text" onKeyUp={onKeyUp} onInput={onInput} value={formInput} placeholder='Press Enter to search for videos'/>
-        <div className={resultVisibility}>
+        <div className={resultVisibility} id='result'>
           {searchResults}
         </div>
       </div>

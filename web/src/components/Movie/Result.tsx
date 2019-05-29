@@ -6,7 +6,8 @@ const Result = (props) => {
     console.log('yes');
     console.log(id);
     setResultVisibility('container is-overlay is-relative is-hidden');
-}
+  }
+
   return (
     <>
       <div className='columns'>
