@@ -85,24 +85,24 @@ const MovieRoom = (props) => {
 
   return (
     <>
-      {/* {isLoading ? (<img src='https://s3-us-west-2.amazonaws.com/s.cdpn.io/28963/giphy%20(24).gif' alt="Loading..."/>) : 
+      {isLoading ? (<img src='https://s3-us-west-2.amazonaws.com/s.cdpn.io/28963/giphy%20(24).gif' alt="Loading..."/>) : 
     (
       <>
-        <Playlist/> */}
-{/* 
-        <div className="container chat-container">
-        <div className="block">
-          <div className="columns">
-            <div className="column">
-            <h1>{ isAdmin ? 'you are admin' : ''}</h1>
+        <Playlist/>
+ 
+         <div className="container chat-container">
+         <div className="block">
+           <div className="columns">
+             <div className="column">
+             <h1>{ isAdmin ? 'you are admin' : ''}</h1>
       
-        <button className='button' onClick={handleClick}> Get number of clients here </button>
-        <div>{ isAdmin ? 'you are admin' : ''}</div>
+         <button className='button' onClick={handleClick}> Get number of clients here </button>
+         <div>{ isAdmin ? 'you are admin' : ''}</div>
         
-     */}
+     
         <Form/>
       
-        {/* <ReactPlayer 
+        <ReactPlayer 
           url={`https://www.youtube.com/watch?v=SCwcJsBYL3o${played}`}
           playing={true}
           controls={true}
@@ -125,7 +125,7 @@ const MovieRoom = (props) => {
         </div>
         </>
         )
-        } */}
+        }
     </>
   )
 }
