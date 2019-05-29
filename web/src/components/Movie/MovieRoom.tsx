@@ -6,11 +6,9 @@ import Navbar from './Navbar';
 import Form from'./Form';
 import Chatbar from './Chatbar';
 import Playlist from './Playlist';
-import { Socket } from 'net';
 import ReactPlayer from 'react-player';
 import Cookies from 'universal-cookie';
 import axios from 'axios';
-require('./movie.scss')
 
 // let socket = io.connect(`192.168.88.14:3001/movie`);
 

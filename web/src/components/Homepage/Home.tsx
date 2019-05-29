@@ -4,6 +4,7 @@ import About from './About';
 import Movie from './Movie';
 import Music from './Music';
 import Game from './Game';
+import axios from 'axios';
 
 
 const Home = (props) => {
@@ -14,7 +15,14 @@ const Home = (props) => {
   
   const muteToggleAll =  () => {
     console.log('Click');
-  } 
+  }
+
+  useEffect(() => {
+    axios.get('http://localhost:3001/api/showRoom')
+    .then(response => {
+      console.log(response.data.list)
+    })
+  },[])
   return (
     <div className={containerLabel}>
       <button className='button clearfix' onClick={muteToggleAll}><span className='icon'><i className='fas fa-volume-mute'></i></span></button>
