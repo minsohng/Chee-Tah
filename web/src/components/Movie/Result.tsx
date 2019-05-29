@@ -1,21 +1,38 @@
 import * as React from 'react';
 
 const Result = (props) => {
-  const {title, id} = props;
+  const {title, setResultVisibility, id} = props;
+  
+  const handleClick = () => {
+    console.log("URL", title.thumbnails.medium.url)
+    props.addToPlaylist(title.thumbnails.medium.url);
+    console.log(id);
+    setResultVisibility('container is-overlay is-relative is-hidden');
+  }
+
   return (
     <>
-      <div className="columns" id='result'>
-        <div className="column is-overlay ">
-            <figure className="image is-128x128 level-item`">
-              <img src={title.thumbnails.medium.url}/>
-            </figure>
-        </div>
-        <div className="column is-8 is-overlay ">
-            <p className='content'><strong>{title.title}</strong></p>
-        </div>
-        <div className='column is-overlay '>
-          <span className="icon"><i className="fas fa-plus-square"></i></span>
-        </div>
+      <div className='columns'>
+        <div className="column is-6 is-offset-one-fifth">
+          <div className='box'>
+            <article className='media'>
+              <div className='media-left'>
+                <figure className="image is-128x128">
+                  <img src={title.thumbnails.medium.url}/>
+                </figure>
+              </div>
+              <div className="media-content">
+                <div className="content">
+                  <p className='title is-4'>{title.title}}</p>
+                  <p className='subtitle is-4'>{title.channelTitle}</p>
+                </div>
+              </div>
+              <div className="media-right">
+                <span className="icon" onClick={handleClick}><i className="fas fa-lg fa-plus-square"></i></span>  
+              </div>
+            </article>
+          </div>
+      </div>
       </div>
     </>
   )

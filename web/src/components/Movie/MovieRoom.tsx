@@ -3,16 +3,14 @@ import * as React from 'react';
 import {useEffect, useState} from 'react'
 import * as io from 'socket.io-client'
 import Navbar from './Navbar';
+import Form from'./Form';
 import Chatbar from './Chatbar';
-import Chathooks from './Chathooks';
-
 import Playlist from './Playlist';
 import { Socket } from 'net';
-import Form from './Form';
 import ReactPlayer from 'react-player';
 import Cookies from 'universal-cookie';
 import axios from 'axios';
-import "./movie.scss";
+
 
 // let socket = io.connect(`192.168.88.14:3001/movie`);
 
@@ -86,6 +84,7 @@ const MovieRoom = (props) => {
 
 
   }, [])
+  // <Form addToPlaylist={addToPlaylist}/>
   const dog =
     "https://pbs.twimg.com/profile_images/1046968391389589507/_0r5bQLl_400x400.jpg";
   const catTwo =
@@ -97,10 +96,14 @@ const MovieRoom = (props) => {
   const cat =
     "https://img.purch.com/w/660/aHR0cDovL3d3dy5saXZlc2NpZW5jZS5jb20vaW1hZ2VzL2kvMDAwLzEwNC84MTkvb3JpZ2luYWwvY3V0ZS1raXR0ZW4uanBn";
   return (
-    <>
+    
+     <>
+     {isLoading ? (<img src='https://s3-us-west-2.amazonaws.com/s.cdpn.io/28963/giphy%20(24).gif' alt="Loading..."/>) : 
+    
+    (
       <div>
         <header className="Header">
-          <Form />
+          <Form addToPlaylist={addToPlaylist}/>
         </header>
        
         <div
@@ -120,7 +123,7 @@ const MovieRoom = (props) => {
       onDuration={(totaltime) => duration = totaltime}
       onPlay={onPlay}
     /> 
-          <Chatbar className="logo" socket={socket} roomId={roomId}/>
+          <Chatbar socket={socket} roomId={roomId}/>
             {/* <img className="logo" src="http://www.returndates.com/backgrounds/narcos.logo.png" alt="" /> */}
             {/* <h2>something here</h2>
             <p>
@@ -128,6 +131,7 @@ const MovieRoom = (props) => {
               Doloremque id quam sapiente unde voluptatum alias vero debitis,
               magnam quis quod.
             </p> */}
+            <Playlist playlist={playlist}/>
           </div>
           <div className="overlay" />
          
@@ -138,7 +142,7 @@ const MovieRoom = (props) => {
             className="carousel slide"
             data-ride="carousel"
           >
-            <ol className="carousel-indicators">
+            <ol className="carousel-indicators ">
               <li
                 data-target="#carouselExampleIndicators"
                 data-slide-to="0"
@@ -257,7 +261,8 @@ const MovieRoom = (props) => {
           {/* testing purposes */}
       </div>
 
-
+)
+  }
       {/* {isLoading ? (<img src='https://s3-us-west-2.amazonaws.com/s.cdpn.io/28963/giphy%20(24).gif' alt="Loading..."/>) : 
     
     ()
@@ -275,6 +280,17 @@ const MovieRoom = (props) => {
 
 
 </>
+      
+    
+    
   )
+    
+    
+  
 }
+              
+                
+    
+    
+
 export default MovieRoom;

@@ -80,7 +80,7 @@ p {
 	position: absolute;
 	display: flex;
 	justify-content: center;
-	pointer-events: none;
+	// pointer-events: none;
 	
 	input {
 		font-family: $font;
@@ -325,3 +325,11 @@ p {
 	z-index: 20;
   }
 
+  #result {
+	width: 100%;
+	background: #50dfdb;
+	border: solid 5px;
+	.button{
+	  z-index: 1000;
+	}
+  }

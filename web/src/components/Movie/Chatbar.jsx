@@ -38,7 +38,9 @@ class Chat extends React.Component {
 
     return (
       <>
-            <div className="all-in-one">
+   
+          {/* this div below renders the messages */}
+          <div className="all-in-one">
             <div className=" chat-header-sizing">Chat goes here</div>
             <div className="bg-color-change">
               {this.state.messages.map(message => {

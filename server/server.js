@@ -18,23 +18,33 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
 app.post('/api/getRoom', function (req, res) {
     var params = req.body.params;
-    if (!roomList.includes(params)) {
+    var filteredRoom = roomList.filter(function (room) { return room.roomId === params; });
+    var haveRoom = filteredRoom.length > 0;
+    console.log("filteredROOM", filteredRoom);
+    if (!haveRoom) {
         res.json({ response: false });
         return;
     }
-    res.json({ response: true });
+    res.json({
+        response: true,
+        type: filteredRoom[0].type
+    });
 });
 app.post('/api/createRoom', function (req, res) {
     var promise1 = axios.get('https://api.datamuse.com/words?ml=fast');
     var promise2 = axios.get('https://api.datamuse.com/words?ml=cheetah');
     var socket = JSON.parse(req.body.socket);
+    var type = req.body.type;
     console.log(socket.id);
     Promise.all([promise1, promise2]).then(function (response) {
         var randomNum = Math.floor(Math.random() * 100);
         var data1 = response[0].data[randomNum].word.replace(/ /g, '');
         var data2 = response[1].data[randomNum].word.replace(/ /g, '');
         var roomId = data1 + "-" + data2;
-        roomList.push(roomId);
+        roomList.push({
+            roomId: roomId,
+            type: type
+        });
         adminSocketList.push({
             roomId: roomId,
             id: socket.id
@@ -42,7 +52,7 @@ app.post('/api/createRoom', function (req, res) {
         res.json({ url: data1 + "-" + data2 });
     });
 });
-app.get('/youtube/:query', function (req, res) {
+app.get('/api/youtube/:query', function (req, res) {
     var query = req.params.query;
     axios.get('https://www.googleapis.com/youtube/v3/search', {
         params: {
