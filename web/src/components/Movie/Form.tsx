@@ -4,7 +4,7 @@ import axios from 'axios';
 import Result from './Result';
 
 
-const Form: React.FunctionComponent<{}> = props => {
+const Form = props => {
   const [formInput, setFormInput] = useState('')
   const [data, setData] = useState([
     // {
@@ -88,8 +88,13 @@ const Form: React.FunctionComponent<{}> = props => {
     }
   }
   
-  const searchResults = data.map(result => 
-    <Result title={result.snippet} key={result.id.videoId} id={result.id.videoId}/>    
+  const searchResults = data.map(result =>
+    <Result 
+      title={result.snippet} 
+      key={result.id.videoId} 
+      id={result.id.videoId}
+      addToPlaylist={props.addToPlaylist}
+    />
   )
   
   return (

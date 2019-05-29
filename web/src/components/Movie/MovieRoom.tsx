@@ -22,6 +22,7 @@ const MovieRoom = (props) => {
   const [played, setPlayed] = useState('');
   const [isAdmin, setIsAdmin] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  const [playlist, setPlaylist] = useState([]);
   
   
   let playedFraction: number;
@@ -39,6 +40,9 @@ const MovieRoom = (props) => {
     socket.emit('share video timestamp', timestamp)
   }
 
+  const addToPlaylist = (thumbnail) => {
+    setPlaylist([...playlist, thumbnail]);
+  }
 
 
   useEffect(() => {
@@ -52,6 +56,7 @@ const MovieRoom = (props) => {
         setIsLoading(false);
       }
     })
+
 
 
 
@@ -90,7 +95,7 @@ const MovieRoom = (props) => {
     
     (
     <>
-    <Playlist/>
+    <Playlist playlist={playlist}/>
 
     <div className="container chat-container">
     <div className="block">
@@ -102,7 +107,7 @@ const MovieRoom = (props) => {
     <div>{ isAdmin ? 'you are admin' : ''}</div>
     
  
-    <Form/>
+    <Form addToPlaylist={addToPlaylist}/>
    
     <ReactPlayer 
       url={`https://www.youtube.com/watch?v=SCwcJsBYL3o${played}`}

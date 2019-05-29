@@ -30,6 +30,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
 
 app.post('/api/getRoom', (req, res) => {
+  io.of("movie").emit('hello');
   const params = req.body.params;
   if (!roomList.includes(params)) {
     res.json({response: false});
@@ -45,7 +46,6 @@ app.post('/api/createRoom', (req, res) => {
   const socket = JSON.parse(req.body.socket);
   
   console.log(socket.id)
-  
 
   Promise.all([promise1, promise2]).then(function(response) {
     const randomNum = Math.floor(Math.random() * 100)
@@ -57,9 +57,6 @@ app.post('/api/createRoom', (req, res) => {
       roomId: roomId,
       id: socket.id
     })
-
-    
-    
  
     res.json({url: `${data1}-${data2}`});
   });

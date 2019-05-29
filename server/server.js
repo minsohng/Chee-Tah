@@ -17,6 +17,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
 app.post('/api/getRoom', function (req, res) {
+    io.of("movie").emit('hello');
     var params = req.body.params;
     if (!roomList.includes(params)) {
         res.json({ response: false });
