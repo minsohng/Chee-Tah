@@ -112,15 +112,15 @@ const MovieRoom = (props) => {
           }}
         >
           <div className="content">
-          {/* <ReactPlayer 
+          <ReactPlayer 
       url={`https://www.youtube.com/watch?v=SCwcJsBYL3o${played}`}
       playing={true}
       controls={true}
       onProgress={(state) => playedFraction = state.played}
       onDuration={(totaltime) => duration = totaltime}
       onPlay={onPlay}
-    />  */}
-          <Chatbar socket={socket} roomId={roomId}/>
+    /> 
+          <Chatbar className="logo" socket={socket} roomId={roomId}/>
             {/* <img className="logo" src="http://www.returndates.com/backgrounds/narcos.logo.png" alt="" /> */}
             {/* <h2>something here</h2>
             <p>

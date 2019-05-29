@@ -117,7 +117,8 @@ p {
 	.content {
 		position: relative;
 		z-index: 4;
-		width: 500px;
+		// width: 500px;
+		display:flex;
 		left: 10vw;
 		top: 10vw;
 		
@@ -272,7 +273,7 @@ p {
   // changes message BG
   .bg-color-change {
 	background-color: #001420;
-	height: 39vh;
+	height: 73vh;
 	border-bottom-left-radius: 15px;
 	border-bottom-right-radius: 15px;
    
@@ -307,7 +308,7 @@ p {
 	color: white;
 	margin: 0;
 	text-align: center;
-	padding: 0;
+	
   }
   //   .username-text-input{
   //       width:25%;
