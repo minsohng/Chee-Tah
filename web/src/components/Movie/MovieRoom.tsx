@@ -76,7 +76,7 @@ const MovieRoom = (props) => {
   return (
     <>
   <div className="hero-head">
-    {/* <nav className="navbar">
+    <nav className="navbar">
       <div className="container">
         <div className="navbar-brand">
           <a className="navbar-item">
@@ -104,11 +104,7 @@ const MovieRoom = (props) => {
           </div>
         </div>
       </div>
-    </nav> */}
-      <div className='container'>
-        <Form/>
-
-      </div>
+    </nav>
   </div>
 
   <div className="hero-body">
@@ -156,54 +152,6 @@ const MovieRoom = (props) => {
       </div>
     </nav>
   </div>
-   
-    {/* <button className='button' onClick={handleClick}> Get number of clients here </button> */}
-    
-    {/* <Navbar /> */}
-  
-    {/* is-fixed-top */}
-{/*    
-    <h1 className="admin-title">{ isAdmin ? 'You are admin' : ''}</h1>
-    <section>
-  <div className="containera">
-
-      <div className="boxa">
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-        <div className="contenta">
-          <h2>Playlist Box Two </h2>
-          <p><a href="#" style={{color:'#00ffe9'}} target="_blank">mdd dkdka daedaed</a></p>
-        
-        
-      </div>
-    </div>
-  </div>
-</section>
-    <Chatbar socket={socket} roomId={roomId}/>
-    <div className="another-one">
-    <ReactPlayer 
-      url={`https://www.youtube.com/watch?v=SCwcJsBYL3o${played}`}
-      playing={true}
-      controls={true}
-      onProgress={(state) => playedFraction = state.played}
-      onDuration={(totaltime) => duration = totaltime}
-      onPlay={onPlay}
-    /> 
-    </div>
-			<div id="hero" className="Hero" >
-				<div className="contentM">
-					
-					<h1 className="play-list" style={{color:'orange'}}>Playlist</h1>
-					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Doloremque id quam sapiente unde voluptatum alias vero debitis, magnam quis quod.</p>
-				
-					
-				</div>
-			
-			</div>
-     */}
-     
     </>
   )
 }
