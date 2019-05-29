@@ -14,10 +14,10 @@ const Movie: React.FunctionComponent<Home> = props => {
   const socket = props.socket;
   const [playing, toggle, destroy] = useAudio(soundFile);
   
-  const handleClick = () => {
-    
+  const handleClick = (type: string) => {
     axios.post(`http://192.168.88.14:3001/api/createRoom`, {
-      socket: JSON.stringify(socket, getCircularReplacer())
+      socket: JSON.stringify(socket, getCircularReplacer()),
+      type
     })
     .then(response => {
       window.location.replace(`/movie/${response.data.url}`);
@@ -61,7 +61,8 @@ const Movie: React.FunctionComponent<Home> = props => {
             </div>
           </div>
         </div>
-        <button className='button clearfix' onClick={handleClick}>Create Room</button>
+        <button className='button clearfix' onClick={() => handleClick("public")}>Create Public Room</button>
+        <button className='button clearfix' onClick={() => handleClick("private")}>Create Private Room</button>
       </>
     );
 }

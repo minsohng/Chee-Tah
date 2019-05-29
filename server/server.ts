@@ -17,8 +17,13 @@ interface Admin {
   id: string
 }
 
+interface RoomInfo {
+  roomId: string
+  type: string
+}
+
 const adminSocketList: Admin[] = [];
-const roomList: string[] = [];
+const roomList: RoomInfo[] = [];
 
 app.set("port", process.env.PORT || 3001);
 // support parsing of application/json type post data
@@ -30,13 +35,18 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
 
 app.post('/api/getRoom', (req, res) => {
-  io.of("movie").emit('hello');
   const params = req.body.params;
-  if (!roomList.includes(params)) {
+  const filteredRoom = roomList.filter(room => room.roomId === params);
+  const haveRoom = filteredRoom.length > 0;
+  console.log("filteredROOM", filteredRoom);
+  if (!haveRoom) {
     res.json({response: false});
     return;
   }
-  res.json({response: true});
+  res.json({
+    response: true,
+    type: filteredRoom[0].type
+  });
    
 });
 
@@ -44,6 +54,7 @@ app.post('/api/createRoom', (req, res) => {
   const promise1 = axios.get('https://api.datamuse.com/words?ml=fast');
   const promise2 = axios.get('https://api.datamuse.com/words?ml=cheetah');
   const socket = JSON.parse(req.body.socket);
+  const type = req.body.type;
   
   console.log(socket.id)
 
@@ -52,7 +63,10 @@ app.post('/api/createRoom', (req, res) => {
     const data1 = response[0].data[randomNum].word.replace(/ /g, '');
     const data2 = response[1].data[randomNum].word.replace(/ /g, '');
     const roomId = `${data1}-${data2}`
-    roomList.push(roomId);
+    roomList.push({
+      roomId,
+      type
+    });
     adminSocketList.push({
       roomId: roomId,
       id: socket.id
