@@ -75,11 +75,7 @@ body, html {height:100%;}
   width: 100%;
   position: absolute;
   display: flex;
- 
-  pointer-events: none;
-
   input {
-    font-weight: 300;
     font-size: 14px;
     height: 37px;
     width: 20%;
@@ -95,7 +91,7 @@ body, html {height:100%;}
     transition: border 0.25s ease, width 0.125s ease 0.125s;
 
     &:focus {
-      border: 2px solid white;
+      border: 2px solid grey;
       width: 30%;
     }
   }
@@ -154,16 +150,11 @@ html {
 // }
 
 #result {
-  position: relative;
-  z-index: 100;
-  left: 26.5vw;
-  top: 7.5vh;
+  width: 70%;
   background: #50dfdb;
   border: solid 5px;
-  width: 45%;
-  height: 300%;
-  p strong {
-    color: white;
+  .button{
+    z-index: 10;
   }
 }
 
