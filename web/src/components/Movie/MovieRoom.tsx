@@ -6,12 +6,22 @@ import Navbar from './Navbar';
 import Form from'./Form';
 import Chatbar from './Chatbar';
 import Playlist from './Playlist';
+<<<<<<< HEAD
+// import Video  from './Video';
+import ReactPlayer from 'react-player';
+import Cookies from 'universal-cookie';
+import './movie.scss'
+
+let socket = io.connect(`http://localhost:3001/movie`);
+=======
 import { Socket } from 'net';
+import Form from './Form';
 import ReactPlayer from 'react-player';
 import Cookies from 'universal-cookie';
 import axios from 'axios';
 
-// let socket = io.connect(`http://localhost:3001/movie`);
+// let socket = io.connect(`192.168.88.14:3001/movie`);
+>>>>>>> 1547c4c69d7fc60f8a20490fa93638f7b1f5226f
 
 
 
@@ -41,7 +51,7 @@ const MovieRoom = (props) => {
 
   useEffect(() => {
 
-    axios.post(`http://localhost:3001/api/getRoom`, {
+    axios.post(`http://192.168.88.14:3001/api/getRoom`, {
       params: roomId
     })
     .then( response => {

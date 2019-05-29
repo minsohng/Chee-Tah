@@ -65,7 +65,7 @@ app.post('/api/createRoom', (req, res) => {
   });
 });
 
-app.get('/youtube/:query', (req, res) => {
+app.get('/api/youtube/:query', (req, res) => {
   const {query} = req.params;
   axios.get(
     'https://www.googleapis.com/youtube/v3/search', {
