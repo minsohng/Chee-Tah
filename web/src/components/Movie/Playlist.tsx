@@ -1,23 +1,21 @@
 import * as React from 'react';
+import ReactPlayer from 'react-player';
+import {useState, useEffect} from 'react';
 
+const Playlist = (props) => {
+  // const [playlistItems, setPlaylistItems] = useState([]);
 
-const Playlist = () => {
+  // useEffect(()=> {
+  //   setPlaylistItems(props.playlist)
+  // })
+  
   return (
     <>
-  <section>
- 
-
- <div className="boxa">
-  
-   <div className="contenta">
-     <h2>Playlist Box Two </h2>
-     <p><a href="#" style={{color:'#00ffe9'}} target="_blank">mdd dkdka daedaed</a></p>
-   
-   
-
-</div>
-</div>
-</section>
+    <div className="container boxtest">
+    {props.playlist.map(item => {
+      return <img src={item} alt="image"/>
+    })}
+    </div>
     </>
   )
 }

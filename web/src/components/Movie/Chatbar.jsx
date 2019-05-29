@@ -38,9 +38,7 @@ class Chat extends React.Component {
 
     return (
       <>
-   <header className="Header">
-         
-          </header>
+   
           {/* this div below renders the messages */}
           <div className="all-in-one">
             <div className=" chat-header-sizing">Chat goes here</div>

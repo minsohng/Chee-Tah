@@ -21,6 +21,7 @@ const MovieRoom = (props) => {
   const [played, setPlayed] = useState('');
   const [isAdmin, setIsAdmin] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  const [playlist, setPlaylist] = useState([]);
   
   
   let playedFraction: number;
@@ -38,6 +39,9 @@ const MovieRoom = (props) => {
     socket.emit('share video timestamp', timestamp)
   }
 
+  const addToPlaylist = (thumbnail) => {
+    setPlaylist([...playlist, thumbnail]);
+  }
 
 
   useEffect(() => {
@@ -51,6 +55,7 @@ const MovieRoom = (props) => {
         setIsLoading(false);
       }
     })
+
 
 
 
@@ -86,21 +91,21 @@ const MovieRoom = (props) => {
   return (
     <>
       {isLoading ? (<img src='https://s3-us-west-2.amazonaws.com/s.cdpn.io/28963/giphy%20(24).gif' alt="Loading..."/>) : 
-    (
-      <>
-        <Playlist/>
- 
-         <div className="container chat-container">
-         <div className="block">
-           <div className="columns">
-             <div className="column">
-             <h1>{ isAdmin ? 'you are admin' : ''}</h1>
+        (
+        <>
+        <Playlist playlist={playlist}/>
+
+        <div className="container chat-container">
+        <div className="block">
+          <div className="columns">
+            <div className="column">
+            <h1>{ isAdmin ? 'you are admin' : ''}</h1>
       
-         <button className='button' onClick={handleClick}> Get number of clients here </button>
-         <div>{ isAdmin ? 'you are admin' : ''}</div>
+        <button className='button' onClick={handleClick}> Get number of clients here </button>
+        <div>{ isAdmin ? 'you are admin' : ''}</div>
         
-     
-        <Form/>
+    
+        <Form addToPlaylist={addToPlaylist}/>
       
         <ReactPlayer 
           url={`https://www.youtube.com/watch?v=SCwcJsBYL3o${played}`}
@@ -110,24 +115,26 @@ const MovieRoom = (props) => {
           onDuration={(totaltime) => duration = totaltime}
           onPlay={onPlay}
         /> 
-            </div>
-            <div className="column">
-              <p className="notification">second</p>
-            </div>
-            <div className="column">
-              <p className=""></p>
-            </div>
-            <div className="column is-one-third">
-            <Chatbar socket={socket} roomId={roomId} />
-            </div>
+          </div>
+          <div className="column">
+            <p className="notification">second</p>
+          </div>
+          <div className="column">
+            <p className=""></p>
+          </div>
           </div>
         </div>
         </div>
+        <Chatbar socket={socket} roomId={roomId}/>
         </>
         )
-        }
+      }
     </>
+    
   )
+    
+    
+  
 }
               
                 

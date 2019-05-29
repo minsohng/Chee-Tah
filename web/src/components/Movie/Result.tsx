@@ -2,8 +2,10 @@ import * as React from 'react';
 
 const Result = (props) => {
   const {title, setResultVisibility, id} = props;
-  const onClick = () => {
-    console.log('yes');
+  
+  const handleClick = () => {
+    console.log("URL", title.thumbnails.medium.url)
+    props.addToPlaylist(title.thumbnails.medium.url);
     console.log(id);
     setResultVisibility('container is-overlay is-relative is-hidden');
   }
@@ -26,11 +28,11 @@ const Result = (props) => {
                 </div>
               </div>
               <div className="media-right">
-                <span className="icon" onClick={onClick}><i className="fas fa-lg fa-plus-square"></i></span>  
+                <span className="icon" onClick={handleClick}><i className="fas fa-lg fa-plus-square"></i></span>  
               </div>
             </article>
           </div>
-        </div>
+      </div>
       </div>
     </>
   )

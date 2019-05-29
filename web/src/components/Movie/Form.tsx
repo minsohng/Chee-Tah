@@ -4,7 +4,7 @@ import axios from 'axios';
 import Result from './Result';
 
 
-const Form: React.FunctionComponent<{}> = props => {
+const Form = props => {
   const [formInput, setFormInput] = useState('');
   const [resultVisibility, setResultVisibility] = useState('container is-overlay is-relative is-hidden');
   const [data, setData] = useState([
@@ -103,7 +103,8 @@ const Form: React.FunctionComponent<{}> = props => {
 
 
   const searchResults = data.map((result, i) => 
-    <Result title={result.snippet} key={i} id={result.id.videoId} setResultVisibility={setResultVisibility}/>    
+    <Result title={result.snippet} key={i} id={result.id.videoId} setResultVisibility={setResultVisibility}
+    addToPlaylist={props.addToPlaylist}/>    
   )
 
   return (
