@@ -1,20 +1,25 @@
 import * as React from 'react';
 import Home from '../../interfaces/Home.interface';
 import axios from 'axios';
+import {getCircularReplacer} from '../helpers/helper';
+import Cookies from 'universal-cookie';
 
 
 const About: React.FunctionComponent<Home> = props => {
-  const handleClick = () => {
-    const promise1 = axios.get('https://api.datamuse.com/words?ml=fast');
-    const promise2 = axios.get('https://api.datamuse.com/words?ml=cheetah');
-
-    Promise.all([promise1, promise2]).then(function(response) {
-    const randomNum = Math.floor(Math.random() * 100)
-    const data1 = response[0].data[randomNum].word
-    const data2 = response[1].data[randomNum].word
-    window.location.replace(`/movie/${data1}-${data2}`);
-  });
-  }
+    let socket = props.socket
+    const handleClick = () => {
+    
+      axios.post(`http://localhost:3001/api/createRoom`, {
+        socket: JSON.stringify(socket, getCircularReplacer())
+      })
+      .then(response => {
+        window.location.replace(`/movie/${response.data.url}`);
+        const cookies = new Cookies();
+        cookies.set('adminId', socket.id, { path: '/' });
+        cookies.set('roomId', response.data.url, {path: '/' });
+      })
+    }
+  
   
     return (
       <>

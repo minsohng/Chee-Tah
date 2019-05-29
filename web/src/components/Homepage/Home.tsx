@@ -1,10 +1,12 @@
 import * as React from 'react';
 const { useState, useEffect } = React;
-import About from './About';
+import Movie from './Movie';
 
 
 
-const Home = () => {
+const Home = (props) => {
+  
+  const socket = props.socket;
   const [containerLabel, setContainerLabel] = useState('port about');
   const [muteToggles, setMuteToggles] = useState({});
   
@@ -14,7 +16,7 @@ const Home = () => {
   return (
     <div className={containerLabel}>
    
-      <About setContainerLabel={setContainerLabel}/>
+      <Movie socket={socket} setContainerLabel={setContainerLabel}/>
      
       
     </div>

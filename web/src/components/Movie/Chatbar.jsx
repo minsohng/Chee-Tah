@@ -38,19 +38,20 @@ class Chat extends React.Component {
 
     return (
       <>
+            <div className="all-in-one">
             <div className=" chat-header-sizing">Chat goes here</div>
             <div className="bg-color-change">
               {this.state.messages.map(message => {
                 return (
-                  <div className="message">
-                    <span className="message-username">{message.user}:</span>
-                    <span className="message-content">{message.message}</span>
+                  <div className="herotom">
+                    {message.user}: {message.message}
                   </div>
                 );
               })}
-            <div className="chatbar">
+            </div>
+            <div className="">
               <input
-              className="chatbar-username"
+              className="hjk"
                 id="text"
                 type="text"
                 placeholder="Username"
@@ -60,7 +61,7 @@ class Chat extends React.Component {
                 }
               />
               <input
-              className="chatbar-message"
+              className="hjk"
                 id="text"
                 type="text"
                 placeholder="type here to chat"

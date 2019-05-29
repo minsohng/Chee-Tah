@@ -262,3 +262,65 @@ p {
 // Item [ANIMATION]
 
 
+
+
+.message {
+	//   width:25%;
+	background-color: #001420;
+	height: 100vh;
+  }
+  // changes message BG
+  .bg-color-change {
+	background-color: #001420;
+	height: 39vh;
+	border-bottom-left-radius: 15px;
+	border-bottom-right-radius: 15px;
+   
+  }
+//   body, html {height:100%;}
+//   .wrap {height:100%; overflow:hidden;}
+  .herotom {
+	background-size: cover;
+	background-attachment: fixed;
+	background-position: center;
+	text-align: center;
+	outline: 0;
+	color: white;
+  }
+  .hjk {
+	outline: 0;
+  }
+ 
+  .chat-header-sizing {
+	text-align: center;
+	//   width: 25%;
+	border-top-left-radius: 15px;
+	border-top-right-radius: 15px;
+	border-bottom: 1px solid white;
+	color: white;
+	background-color: #001420;
+  }
+  #text {
+	border-radius: 10px;
+	border: 2px solid rgb(177, 174, 169);
+	background-color: black;
+	color: white;
+	margin: 0;
+	text-align: center;
+	padding: 0;
+  }
+  //   .username-text-input{
+  //       width:25%;
+  //     border-style: solid;
+  //     border-width: 5px;
+  //     border-radius: 15px;
+  // }
+  .all-in-one {
+	float: right;
+	width: 25%;
+	padding-right: 5px;
+	height: 10vh;
+	outline: none;
+	z-index: 20;
+  }
+
