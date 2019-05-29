@@ -114,9 +114,7 @@ const MovieRoom = (props) => {
           onPlay={onPlay}
         /> 
           </div>
-          <div className="column">
-            <p className="notification">second</p>
-          </div>
+          
           <div className="column">
             <p className=""></p>
           </div>

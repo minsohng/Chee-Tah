@@ -155,7 +155,7 @@ io.of('movie')
         }
         if (isAdmin && timestamp) {
           console.log(timestamp)
-          socket.to(roomObject.roomId).broadcast.emit('sync video timestamp', timestamp);
+          socket.to(roomObject.roomId).broadcast.emit('sync video timestamp', timestamp+1);
         }
         
       })
