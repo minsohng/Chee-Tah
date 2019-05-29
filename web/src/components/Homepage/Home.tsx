@@ -1,10 +1,8 @@
 import * as React from 'react';
 const { useState, useEffect } = React;
-import About from './About';
 import Movie from './Movie';
-import Music from './Music';
-import Game from './Game';
 import axios from 'axios';
+
 
 
 const Home = (props) => {
@@ -25,16 +23,10 @@ const Home = (props) => {
   },[])
   return (
     <div className={containerLabel}>
-      <button className='button clearfix' onClick={muteToggleAll}><span className='icon'><i className='fas fa-volume-mute'></i></span></button>
-      <About socket={socket} setContainerLabel={setContainerLabel}/>
-      <Movie 
-        socket={socket}
-        setContainerLabel={setContainerLabel} 
-        muteToggles={muteToggles} 
-        setMuteToggles={setMuteToggles}
-      />
-      <Music socket={socket} setContainerLabel={setContainerLabel} muteToggles={muteToggles} setMuteToggles={setMuteToggles}/>
-      <Game socket={socket} setContainerLabel={setContainerLabel} muteToggles={muteToggles} setMuteToggles={setMuteToggles}/>
+   
+      <Movie socket={socket} setContainerLabel={setContainerLabel}/>
+     
+      
     </div>
   )
 }

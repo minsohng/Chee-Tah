@@ -51,8 +51,7 @@ class Chat extends React.Component {
                 );
               })}
             </div>
-
-            <div className="">
+            <div className="d-inline-flex flex-row">
               <input
               className="hjk"
                 id="text"
