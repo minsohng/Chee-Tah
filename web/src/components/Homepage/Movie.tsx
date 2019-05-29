@@ -1,20 +1,29 @@
+
 import * as React from 'react';
 const { useState, useEffect } = React;
 import { Link } from 'react-router-dom';
 import Home from '../../interfaces/Home.interface';
 import {useAudio} from '../../hooks/audio'
 import axios from 'axios';
+import {getCircularReplacer} from '../helpers/helper';
+import Cookies from 'universal-cookie';
 const soundFile = require('../../assets/movie.mp3');
 
 
 const Movie: React.FunctionComponent<Home> = props => { 
+  const socket = props.socket;
   const [playing, toggle, destroy] = useAudio(soundFile);
-
+  
   const handleClick = () => {
-    axios.post('http://localhost:3001/rooms')
+    
+    axios.post(`http://192.168.88.14:3001/api/createRoom`, {
+      socket: JSON.stringify(socket, getCircularReplacer())
+    })
     .then(response => {
-      console.log(response)
       window.location.replace(`/movie/${response.data.url}`);
+      const cookies = new Cookies();
+      cookies.set('adminId', socket.id, { path: '/' });
+      cookies.set('roomId', response.data.url, {path: '/' });
     })
   }
 

@@ -5,17 +5,40 @@ var app = express();
 var http = require('http').createServer(app);
 var io = require('socket.io')(http);
 var axios = require('axios');
+var bodyParser = require('body-parser');
 // Set the port to 3001
 var PORT = 3001;
+var adminSocketList = [];
+var roomList = [];
 app.set("port", process.env.PORT || 3001);
+// support parsing of application/json type post data
+app.use(bodyParser.json());
+//support parsing of application/x-www-form-urlencoded post data
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
-app.post('/rooms', function (req, res) {
+app.post('/api/getRoom', function (req, res) {
+    var params = req.body.params;
+    if (!roomList.includes(params)) {
+        res.json({ response: false });
+        return;
+    }
+    res.json({ response: true });
+});
+app.post('/api/createRoom', function (req, res) {
     var promise1 = axios.get('https://api.datamuse.com/words?ml=fast');
     var promise2 = axios.get('https://api.datamuse.com/words?ml=cheetah');
+    var socket = JSON.parse(req.body.socket);
+    console.log(socket.id);
     Promise.all([promise1, promise2]).then(function (response) {
         var randomNum = Math.floor(Math.random() * 100);
         var data1 = response[0].data[randomNum].word.replace(/ /g, '');
         var data2 = response[1].data[randomNum].word.replace(/ /g, '');
+        var roomId = data1 + "-" + data2;
+        roomList.push(roomId);
+        adminSocketList.push({
+            roomId: roomId,
+            id: socket.id
+        });
         res.json({ url: data1 + "-" + data2 });
     });
 });
@@ -35,8 +58,6 @@ app.get('/youtube/:query', function (req, res) {
         res.json(result.data.items);
     })["catch"](function (error) { return console.log(error); });
 });
-var adminSocketList = [];
-var roomList = [];
 io.of('movie')
     .on('connection', function (socket) {
     console.log(socket.id + " connected to /movie");
@@ -44,17 +65,6 @@ io.of('movie')
         io.of('movie').to(data.room).emit('message_receive', data);
     });
     socket.on('joinRoom', function (roomObject) {
-        if (!roomList.includes(roomObject.roomId)) {
-            roomList.push(roomObject.roomId);
-            adminSocketList.push({
-                roomId: roomObject.roomId,
-                id: socket.id
-            });
-            socket.emit('save admin cookie', {
-                roomId: roomObject.roomId,
-                id: socket.id
-            });
-        }
         if (roomObject.roomIdCookie && roomObject.adminIdCookie) {
             var filteredAdmin = adminSocketList.filter(function (admin) { return admin.id === roomObject.adminIdCookie && admin.roomId === roomObject.roomId; });
             var isAdmin = filteredAdmin.length > 0;
@@ -67,7 +77,7 @@ io.of('movie')
         }
         console.log('ADMIN LIST:', adminSocketList);
         console.log('ROOM LIST:', roomList);
-        console.log('joined ' + roomObject.roomId);
+        console.log(socket.id + 'joined ' + roomObject.roomId);
         socket.join(roomObject.roomId, function () {
             var rooms = Object.keys(socket.rooms);
             console.log(rooms);

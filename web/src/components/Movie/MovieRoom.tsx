@@ -1,3 +1,4 @@
+
 import * as React from 'react';
 import {useEffect, useState} from 'react'
 import * as io from 'socket.io-client'
@@ -10,14 +11,17 @@ import { Socket } from 'net';
 import Form from './Form';
 import ReactPlayer from 'react-player';
 import Cookies from 'universal-cookie';
+import axios from 'axios';
 
-let socket = io.connect(`192.168.88.14:3001/movie`);
+// let socket = io.connect(`192.168.88.14:3001/movie`);
 
 
 
 const MovieRoom = (props) => {
+  const socket = props.socket;
   const [played, setPlayed] = useState('');
   const [isAdmin, setIsAdmin] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   
   
   let playedFraction: number;
@@ -38,6 +42,19 @@ const MovieRoom = (props) => {
 
 
   useEffect(() => {
+
+    axios.post(`http://192.168.88.14:3001/api/getRoom`, {
+      params: roomId
+    })
+    .then( response => {
+      console.log(response.data.response)
+      if (response.data.response === true) {
+        setIsLoading(false);
+      }
+    })
+
+
+
     const cookies = new Cookies();
     const roomIdCookie = cookies.get('roomId');
     const adminIdCookie = cookies.get('adminId');
@@ -61,11 +78,6 @@ const MovieRoom = (props) => {
       setIsAdmin(true);
     })
 
-    socket.on('save admin cookie', (data) => {
-
-      cookies.set('adminId', data.id, { path: '/' });
-      cookies.set('roomId', data.roomId, { path: '/' });
-    })
 
   }, [])
   
@@ -74,9 +86,10 @@ const MovieRoom = (props) => {
 
   return (
     <>
+    {isLoading ? (<img src='https://s3-us-west-2.amazonaws.com/s.cdpn.io/28963/giphy%20(24).gif' alt="Loading..."/>) : 
     
-    
-   
+    (
+    <>
     <Playlist/>
 
     <div className="container chat-container">
@@ -112,9 +125,9 @@ const MovieRoom = (props) => {
       </div>
     </div>
     </div>
-        
-
-    
+    </>
+    )
+    }
 
       
 
