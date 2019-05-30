@@ -10,8 +10,6 @@ import ReactPlayer from 'react-player';
 import Cookies from 'universal-cookie';
 import axios from 'axios';
 
-// let socket = io.connect(`192.168.88.14:3001/movie`);
-
 
 
 const MovieRoom = (props) => {
@@ -44,7 +42,7 @@ const MovieRoom = (props) => {
 
   useEffect(() => {
 
-    axios.post(`http://localhost:3001/api/getRoom`, {
+    axios.post(process.env.URL + `/api/getRoom`, {
       params: roomId
     })
     .then( response => {

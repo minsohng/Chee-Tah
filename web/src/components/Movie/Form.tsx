@@ -81,7 +81,7 @@ const Form = props => {
   const onKeyUp = event => {
     if(event.key === 'Enter') {
       axios.get(
-        `http://localhost:3001/api/youtube/${formInput}`, {
+        process.env.URL + `/api/youtube/${formInput}`, {
         }).then(result => {
           console.log('Received response');
           setData(result.data);
