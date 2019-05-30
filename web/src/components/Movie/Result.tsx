@@ -23,7 +23,7 @@ const Result = (props) => {
               </div>
               <div className="media-content">
                 <div className="content">
-                  <p className='title is-4'>{title.title}}</p>
+                  <p className='title is-4'>{title.title}</p>
                   <p className='subtitle is-4'>{title.channelTitle}</p>
                 </div>
               </div>
