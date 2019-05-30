@@ -79,7 +79,6 @@ const Form: React.FunctionComponent<{addToPlaylist(url: string): void, sendMessa
   }
 
   const onKeyUp = event => {
-    setResultVisibility('container is-overlay is-relative')
     if(event.key === 'Enter') {
       axios.get(
         `http://localhost:3001/api/youtube/${formInput}`, {
@@ -87,6 +86,7 @@ const Form: React.FunctionComponent<{addToPlaylist(url: string): void, sendMessa
           console.log('Received response');
           setData(result.data);
           setFormInput('');
+          setResultVisibility('container is-overlay is-relative')
       }).catch(err => console.error('Failed to retrieve search data'));
     }
   }
