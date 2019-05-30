@@ -4,7 +4,7 @@ import {useEffect, useState, useRef} from 'react'
 import * as io from 'socket.io-client'
 import Navbar from './Navbar';
 import Form from'./Form';
-import Chatbar from './Chatbar';
+import "./movie.scss";
 import Playlist from './Playlist';
 import ReactPlayer from 'react-player';
 import Cookies from 'universal-cookie';
@@ -17,10 +17,36 @@ const MovieRoom = (props) => {
   const [played, setPlayed] = useState('');
   const [isAdmin, setIsAdmin] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
-  const [playlist, setPlaylist] = useState([]);
+  const [playlist, setPlaylist] = useState([{
+    "publishedAt": "2018-10-10T09:00:06.000Z",
+    "channelId": "UCweOkPb1wVVH0Q0Tlj4a5Pw",
+    "title": "[MV] IU(아이유) _ BBIBBI(삐삐)",
+    "description": "[MV] IU(아이유) _ BBIBBI(삐삐) *English subtitles are now available. :D (Please click on 'CC' button or activate 'Interactive Transcript' function) [Notice] 1theK ...",
+    "thumbnails": {
+      "default": {
+        "url": "https://i.ytimg.com/vi/nM0xDI5R50E/default.jpg",
+        "width": 120,
+        "height": 90
+        },
+      "medium": {
+        "url": "https://i.ytimg.com/vi/nM0xDI5R50E/mqdefault.jpg",
+        "width": 320,
+        "height": 180
+        },
+      "high": {
+        "url": "https://i.ytimg.com/vi/nM0xDI5R50E/hqdefault.jpg",
+        "width": 480,
+        "height": 360
+        }
+    },
+    "channelTitle": "1theK (원더케이)",
+    "liveBroadcastContent": "none"
+    }]);
+
   const ref = player => {
     this.player = player
   }
+
   
   
   let playedFraction: number;
@@ -39,14 +65,25 @@ const MovieRoom = (props) => {
     socket.emit('share video timestamp', timestamp)
   }
 
-  const addToPlaylist = (thumbnail) => {
-    setPlaylist([...playlist, thumbnail]);
+  const addToPlaylist = (videoData) => {
+    setPlaylist([...playlist, videoData]);
   }
-
-
+  
+  const sendMessage = (data, id) => {
+    let message = {
+      socketId: socket.id,
+      roomId,
+      ...data,
+      id
+    }
+    console.log(message);
+    socket.emit('add to playlist', message)
+  }
+  
   useEffect(() => {
 
     axios.post(process.env.URL + `/api/getRoom`, {
+
       params: roomId
     })
     .then( response => {
@@ -55,9 +92,6 @@ const MovieRoom = (props) => {
         setIsLoading(false);
       }
     })
-
-
-
 
     const cookies = new Cookies();
     const roomIdCookie = cookies.get('roomId');
@@ -69,17 +103,12 @@ const MovieRoom = (props) => {
       adminIdCookie
     }
 
-    
     socket.emit('joinRoom', roomObject)
     
 
-    
-    
     socket.on('is admin', (adminInfo) => {
       setIsAdmin(true);
     })
-
-
   }, [])
 
   socket.on('sync video timestamp', (timestamp: number) => {
@@ -100,6 +129,7 @@ const MovieRoom = (props) => {
     "https://www.healthypawspetinsurance.com/Images/V3/CatAndKittenInsurance/Cat-kitten-insurance-for-your-cat_CTA_desktop.jpg";
   const cat =
     "https://img.purch.com/w/660/aHR0cDovL3d3dy5saXZlc2NpZW5jZS5jb20vaW1hZ2VzL2kvMDAwLzEwNC84MTkvb3JpZ2luYWwvY3V0ZS1raXR0ZW4uanBn";
+
   return (
     
      <>
@@ -108,9 +138,12 @@ const MovieRoom = (props) => {
     (
       <div>
         <header className="Header">
+
+          <Form addToPlaylist={addToPlaylist} sendMessage={sendMessage}/>
+
           <h1>{ isAdmin ? 'Admin Mode' : ''}</h1>
           
-          <Form addToPlaylist={addToPlaylist}/>
+
         </header>
         
         <div
@@ -122,6 +155,7 @@ const MovieRoom = (props) => {
           }}
         >
           <div className="content">
+
     <ReactPlayer 
       ref={ref}
       url={`https://www.youtube.com/watch?v=SCwcJsBYL3o`}
@@ -133,6 +167,7 @@ const MovieRoom = (props) => {
     /> 
     <button className="button" onClick={handleClick}>GET NUM CLIENTS</button>
           <Chatbar socket={socket} roomId={roomId}/>
+
             {/* <img className="logo" src="http://www.returndates.com/backgrounds/narcos.logo.png" alt="" /> */}
             {/* <h2>something here</h2>
             <p>
@@ -140,154 +175,15 @@ const MovieRoom = (props) => {
               Doloremque id quam sapiente unde voluptatum alias vero debitis,
               magnam quis quod.
             </p> */}
-            <Playlist playlist={playlist}/>
           </div>
           <div className="overlay" />
-         
         </div>
-
-          <div
-            id="carouselExampleIndicators"
-            className="carousel slide"
-            data-ride="carousel"
-          >
-            <ol className="carousel-indicators ">
-              <li
-                data-target="#carouselExampleIndicators"
-                data-slide-to="0"
-                className="active"
-              />
-              <li data-target="#carouselExampleIndicators" data-slide-to="1" />
-              <li data-target="#carouselExampleIndicators" data-slide-to="2" />
-            </ol>
-            <div className="carousel-inner">
-              <div className="carousel-item active">
-                <div className="d-inline-flex flex-row">
-                <div
-                  className="Item "
-                  style={{ backgroundImage: "url(" + dog + ")" }}
-                >
-                  <div className="overlay ">
-                    <div className="title">TITLE</div>
-
-                    <div className="plot">
-                      aowdhaow jdaiwojdoia jodiawj oawjdo jadwoija owidjoa
-                    </div>
-                  </div>
-                </div>
-
-                <div
-                  className="Item "
-                  style={{ backgroundImage: "url(" + cat + ")" }}
-                >
-                  <div className="overlay ">
-                    <div className="title">TITLE</div>
-
-                    <div className="plot">
-                      aowdhaow jdaiwojdoia jodiawj oawjdo jadwoija owidjoa
-                    </div>
-                  </div>
-                </div>
-
-
-                <div
-                  className="Item "
-                  style={{ backgroundImage: "url(" + catTwo + ")" }}
-                >
-                  <div className="overlay ">
-                    <div className="title">TITLE</div>
-
-                    <div className="plot">
-                      aowdhaow jdaiwojdoia jodiawj oawjdo jadwoija owidjoa
-                    </div>
-                  </div>
-                </div>
-
-
-
-
-                <div
-                  className="Item "
-                  style={{ backgroundImage: "url(" + dog + ")" }}
-                >
-                  <div className="overlay ">
-                    <div className="title">TITLE</div>
-
-                    <div className="plot">
-                      aowdhaow jdaiwojdoia jodiawj oawjdo jadwoija owidjoa
-                    </div>
-                  </div>
-                </div>
-
-
-
-                <div
-                  className="Item "
-                  style={{ backgroundImage: "url(" + kanye + ")" }}
-                >
-                  <div className="overlay ">
-                    <div className="title">TITLE</div>
-
-                    <div className="plot">
-                      aowdhaow jdaiwojdoia jodiawj oawjdo jadwoija owidjoa
-                    </div>
-                  </div>
-                </div>
-
-
-
-                
-
-                </div>
-              </div>
-              <div className="carousel-item">
-                {/* <img className="d-block w-100" src={kanye} alt="Second slide" /> */}
-              </div>
-              <div className="carousel-item">
-                {/* <img className="d-block w-100" src={catTwo} alt="Third slide" /> */}
-              </div>
-            </div>
-            <a
-              className="carousel-control-prev"
-              href="#carouselExampleIndicators"
-              role="button"
-              data-slide="prev"
-            >
-              <span className="carousel-control-prev-icon" aria-hidden="true" />
-              <span className="sr-only">Previous</span>
-            </a>
-            <a
-              className="carousel-control-next"
-              href="#carouselExampleIndicators"
-              role="button"
-              data-slide="next"
-            >
-              <span className="carousel-control-next-icon" aria-hidden="true" />
-              <span className="sr-only">Next</span>
-            </a>
-          </div>
-
+        <Playlist playlist={playlist}/>
           {/* testing purposes */}
       </div>
 
 )
   }
-      {/* {isLoading ? (<img src='https://s3-us-west-2.amazonaws.com/s.cdpn.io/28963/giphy%20(24).gif' alt="Loading..."/>) : 
-    
-    ()
-  } */}
-
-{/* <ReactPlayer 
-      url={`https://www.youtube.com/watch?v=SCwcJsBYL3o${played}`}
-      playing={true}
-      controls={true}
-      onProgress={(state) => playedFraction = state.played}
-      onDuration={(totaltime) => duration = totaltime}
-      onPlay={onPlay}
-    />  */}
-     {/* <h1>{ isAdmin ? 'you are admin' : ''}</h1> */}
-
-
 </>
       
     
