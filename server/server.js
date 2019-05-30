@@ -6,11 +6,11 @@ var http = require('http').createServer(app);
 var io = require('socket.io')(http);
 var axios = require('axios');
 var bodyParser = require('body-parser');
-var Queue = require('queue-fifo');
 // Set the port to 3001
 var PORT = 3001;
 var adminSocketList = [];
 var roomList = [];
+var playlistObj = {};
 app.set("port", process.env.PORT || 3001);
 // support parsing of application/json type post data
 app.use(bodyParser.json());
@@ -36,6 +36,7 @@ app.post('/api/getRoom', function (req, res) {
         response: true,
         type: filteredRoom[0].type
     });
+    io.of('movie').to(params).emit('sync playlist', playlistObj[params]);
 });
 app.post('/api/createRoom', function (req, res) {
     var promise1 = axios.get('https://api.datamuse.com/words?ml=fast');
@@ -56,6 +57,7 @@ app.post('/api/createRoom', function (req, res) {
             roomId: roomId,
             id: socket.id
         });
+        playlistObj[roomId] = [];
         res.json({ url: data1 + "-" + data2 });
     });
 });
@@ -80,6 +82,10 @@ io.of('movie')
     console.log(socket.id + " connected to /movie");
     socket.on('message_sent', function (data) {
         io.of('movie').to(data.room).emit('message_receive', data);
+    });
+    socket.on('add to playlist', function (data) {
+        playlistObj[data.roomId].push(data);
+        socket.to(data.roomId).broadcast.emit('sync playlist', playlistObj[data.roomId]);
     });
     socket.on('joinRoom', function (roomObject) {
         if (roomObject.roomIdCookie && roomObject.adminIdCookie) {

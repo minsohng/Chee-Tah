@@ -7,7 +7,7 @@ const http = require('http').createServer(app);
 const io = require('socket.io')(http);
 const axios = require('axios');
 const bodyParser = require('body-parser');
-const Queue = require('queue-fifo');
+
 
 
 // Set the port to 3001
@@ -25,6 +25,7 @@ interface RoomInfo {
 
 const adminSocketList: Admin[] = [];
 const roomList: RoomInfo[] = [];
+const playlistObj = {};
 
 app.set("port", process.env.PORT || 3001);
 // support parsing of application/json type post data
@@ -51,10 +52,12 @@ app.post('/api/getRoom', (req, res) => {
     res.json({response: false});
     return;
   }
+
   res.json({
     response: true,
     type: filteredRoom[0].type
   });
+  io.of('movie').to(params).emit('sync playlist', playlistObj[params]);
    
 });
 
@@ -78,7 +81,8 @@ app.post('/api/createRoom', (req, res) => {
     adminSocketList.push({
       roomId: roomId,
       id: socket.id
-    })
+    });
+    playlistObj[roomId] = [];
  
     res.json({url: `${data1}-${data2}`});
   });
@@ -109,9 +113,14 @@ io.of('movie')
 
   console.log(socket.id + " connected to /movie");
 
-  socket.on('message_sent', function(data){
+  socket.on('message_sent', (data) => {
     io.of('movie').to(data.room).emit('message_receive', data);
   })
+  
+  socket.on('add to playlist', (data) => {
+    playlistObj[data.roomId].push(data);
+    socket.to(data.roomId).broadcast.emit('sync playlist', playlistObj[data.roomId]);
+  });
   
 
   socket.on('joinRoom', (roomObject) => {
