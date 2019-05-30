@@ -1,5 +1,4 @@
 import React from "react";
-import "./movie.scss";
 import ReactPlayer from 'react-player';
 
 class Chat extends React.Component {

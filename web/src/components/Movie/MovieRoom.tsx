@@ -1,10 +1,8 @@
 
 import * as React from 'react';
 import {useEffect, useState} from 'react'
-import * as io from 'socket.io-client'
-import Navbar from './Navbar';
 import Form from'./Form';
-import Chatbar from './Chatbar';
+import "./movie.scss";
 import Playlist from './Playlist';
 import ReactPlayer from 'react-player';
 import Cookies from 'universal-cookie';
@@ -64,10 +62,20 @@ const MovieRoom = (props) => {
   const addToPlaylist = (videoData) => {
     setPlaylist([...playlist, videoData]);
   }
-
-
+  
+  const sendMessage = (data, id) => {
+    let message = {
+      socketId: socket.id,
+      roomId,
+      ...data,
+      id
+    }
+    console.log(message);
+    socket.emit('add to playlist', message)
+  }
+  
   useEffect(() => {
-
+    
     axios.post(`http://localhost:3001/api/getRoom`, {
       params: roomId
     })
@@ -108,7 +116,7 @@ const MovieRoom = (props) => {
     (
       <div>
         <header className="Header">
-          <Form addToPlaylist={addToPlaylist}/>
+          <Form addToPlaylist={addToPlaylist} sendMessage={sendMessage}/>
         </header>
        
         <div
@@ -128,7 +136,7 @@ const MovieRoom = (props) => {
             onDuration={(totaltime) => duration = totaltime}
             onPlay={onPlay}
           /> 
-          <Chatbar socket={socket} roomId={roomId}/>
+          {/* <Chatbar socket={socket} roomId={roomId}/> */}
             {/* <img className="logo" src="http://www.returndates.com/backgrounds/narcos.logo.png" alt="" /> */}
             {/* <h2>something here</h2>
             <p>

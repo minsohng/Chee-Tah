@@ -214,6 +214,7 @@ p {
 		transition: opacity .125s ease;
 		
 		.title {
+			color: white;
 			font-size: 22px;
 			font-weight: 200;
 			opacity: 0;
@@ -224,6 +225,7 @@ p {
 		
 		
 		.plot {
+			color: white;
 			$lines-to-show: 3;
 			font-size: 14px;
 			display: -webkit-box;
@@ -332,4 +334,8 @@ p {
 	.button{
 	  z-index: 1000;
 	}
-  }
+	}
+	
+	.video-container {
+		overflow-x: scroll;
+	}

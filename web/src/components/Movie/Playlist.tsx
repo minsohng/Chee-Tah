@@ -39,7 +39,7 @@ const Playlist = (props) => {
         </ol>
         <div className="carousel-inner">
           <div className="carousel-item active">
-            <div className="d-inline-flex flex-row">
+            <div className="d-inline-flex flex-row video-container">
               {videoList}
             {/* <div
               className="Item"

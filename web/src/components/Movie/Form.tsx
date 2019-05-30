@@ -4,7 +4,7 @@ import axios from 'axios';
 import Result from './Result';
 
 
-const Form: React.FunctionComponent<{addToPlaylist(url: string): void}> = props => {
+const Form: React.FunctionComponent<{addToPlaylist(url: string): void, sendMessage(data: object, id: object):void}> = props => {
   const [formInput, setFormInput] = useState('');
   const [resultVisibility, setResultVisibility] = useState('container is-overlay is-relative is-hidden');
   const [data, setData] = useState([
@@ -80,15 +80,15 @@ const Form: React.FunctionComponent<{addToPlaylist(url: string): void}> = props 
 
   const onKeyUp = event => {
     setResultVisibility('container is-overlay is-relative')
-    // if(event.key === 'Enter') {
-    //   axios.get(
-    //     `http://localhost:3001/api/youtube/${formInput}`, {
-    //     }).then(result => {
-    //       console.log('Received response');
-    //       setData(result.data);
-    //       setFormInput('');
-    //   }).catch(err => console.error('Failed to retrieve search data'));
-    // }
+    if(event.key === 'Enter') {
+      axios.get(
+        `http://localhost:3001/api/youtube/${formInput}`, {
+        }).then(result => {
+          console.log('Received response');
+          setData(result.data);
+          setFormInput('');
+      }).catch(err => console.error('Failed to retrieve search data'));
+    }
   }
   // below is code to grab searches on input change
   // useEffect(() => {
@@ -107,7 +107,8 @@ const Form: React.FunctionComponent<{addToPlaylist(url: string): void}> = props 
       key={i}
       id={result.id.videoId}
       setResultVisibility={setResultVisibility}
-      addToPlaylist={props.addToPlaylist}/>    
+      addToPlaylist={props.addToPlaylist}
+      sendMessage={props.sendMessage}/>    
   )
 
   return (

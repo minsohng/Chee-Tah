@@ -6,7 +6,7 @@ const Result = (props) => {
   const handleClick = () => {
     console.log("URL", title.thumbnails.medium.url)
     props.addToPlaylist(title);
-    console.log(id);
+    props.sendMessage(title, id);
     setResultVisibility('container is-overlay is-relative is-hidden');
   }
 
