@@ -18,7 +18,7 @@ body, html {height:100%;}
 // .wrap {height:100%; overflow:hidden;}
 // General
 body {
-	background: $black;
+	// background: $black;
 	color: $white;
 	font-family: $font;
 }
@@ -338,19 +338,19 @@ p {
 
   //nav bar
 
-  .navbar {
-	border-bottom-left-radius: 15px;
-	border-bottom-right-radius: 15px;
-	position:fixed;
-	overflow:hidden;
-	top: 0;
-	width: 100%;
-	font-size: 18px;
-	// 1b1a1b
-	background-image: linear-gradient(260deg, #001420 0%, #312f31 100%);
-	border: 1px solid rgba(0, 0, 0, 0.2);
-	padding-bottom: 5px;
-  }
+//   .navbar {
+// 	border-bottom-left-radius: 15px;
+// 	border-bottom-right-radius: 15px;
+// 	position:fixed;
+// 	overflow:hidden;
+// 	top: 0;
+// 	width: 100%;
+// 	font-size: 18px;
+// 	// 1b1a1b
+// 	background-image: linear-gradient(260deg, #001420 0%, #312f31 100%);
+// 	border: 1px solid rgba(0, 0, 0, 0.2);
+// 	padding-bottom: 5px;
+//   }
   
   .main-nav {
 	overflow:hidden;

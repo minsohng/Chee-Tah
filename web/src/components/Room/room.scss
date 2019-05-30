@@ -1,0 +1,66 @@
+// .row.align-items-stretch .card:only-of-type { height: 100%; }
+
+
+body {
+    text-align: center;
+    text-transform: uppercase;
+    padding: 50px 0;
+  }
+  
+  .box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #aaa;
+    margin: 20px 0;
+    padding: 10px;
+    width: 100%;
+    min-height: 200px;
+    border: 2px #ccc solid;
+    color: #fff;
+  }
+
+  .bottom-align-text {
+    position: absolute;
+    bottom: 0;
+    right: 1  ;
+    text-align:center;
+  }
+
+  .picture-sizing{
+    width: 100%;
+    height: 10vw;
+    object-fit: cover;
+   
+  }
+ 
+
+  .nav-hover-on{
+      display:flex;
+      justify-content:center;
+  }
+
+  .nav-hover-on:hover{
+      opacity:0.6;
+  }
+
+  @media screen and (max-width: 600px){
+    .picture-sizing{
+        width: 100%;
+        height: 22vh;
+        object-fit: cover;
+       
+      }
+  }
+
+
+  @media screen and (max-width: 800px){
+    .picture-sizing{
+        width: 100%;
+        height: 23vh;
+        object-fit: cover;
+       
+      }
+  }
+
+  
