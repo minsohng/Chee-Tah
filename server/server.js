@@ -6,6 +6,7 @@ var http = require('http').createServer(app);
 var io = require('socket.io')(http);
 var axios = require('axios');
 var bodyParser = require('body-parser');
+var Queue = require('queue-fifo');
 // Set the port to 3001
 var PORT = 3001;
 var adminSocketList = [];
