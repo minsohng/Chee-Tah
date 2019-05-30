@@ -7,7 +7,6 @@ import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 
 let socket = io.connect(process.env.URL + `/movie`);
 
-console.log(process.env.URL)
 const App = () => {
   
   return ( 

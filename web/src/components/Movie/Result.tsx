@@ -3,10 +3,15 @@ import * as React from 'react';
 const Result = (props) => {
   const {title, setResultVisibility, id} = props;
   
-  const handleClick = () => {
-    console.log("URL", title.thumbnails.medium.url)
-    props.addToPlaylist(title);
-    props.sendMessage(title, id);
+  const handleClick = (command) => {
+    // console.log("URL", title.thumbnails.medium.url)
+    if (command === "add") {
+      props.addToPlaylist(title);
+      props.sendMessage(title, id);
+    }
+    if (command === "play") {
+      props.playVideo(id);
+    }
     setResultVisibility('container is-overlay is-relative is-hidden');
   }
 
@@ -28,7 +33,9 @@ const Result = (props) => {
                 </div>
               </div>
               <div className="media-right">
-                <span className="icon" onClick={handleClick}><i className="fas fa-lg fa-plus-square"></i></span>  
+                <span className="icon playVideo" onClick={() => handleClick("play")}><i className="fas fa-play-circle"></i></span>
+                <span className="icon addPlaylist" onClick={() => handleClick("add")}><i className="fas fa-lg fa-plus-square"></i></span>  
+                
               </div>
             </article>
           </div>
