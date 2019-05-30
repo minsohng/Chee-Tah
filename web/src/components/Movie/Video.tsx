@@ -11,7 +11,6 @@ const Video = props => {
         <div className="title">{video.title}</div>
         <div className="plot">
           {video.channelTitle}
-          {}
         </div>
       </div>
     </div>

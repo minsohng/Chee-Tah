@@ -16,8 +16,8 @@ const Playlist = (props) => {
   //   setPlaylistItems(props.playlist)
   // })
 
-  const videoList = playlist.map(data => 
-    <Video video={data}/>
+  const videoList = playlist.map((data, i) => 
+    <Video video={data} key={i + 100}/>
   )
   
   return (
