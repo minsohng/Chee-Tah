@@ -4,6 +4,7 @@ import {useEffect, useState, useRef} from 'react'
 import * as io from 'socket.io-client'
 import Navbar from './Navbar';
 import Form from'./Form';
+import Chatbar from './Chatbar'
 import "./movie.scss";
 import Playlist from './Playlist';
 import ReactPlayer from 'react-player';
