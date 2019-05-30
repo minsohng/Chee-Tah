@@ -1,14 +1,15 @@
 
 import * as React from 'react';
-import {useEffect, useState} from 'react'
+import {useEffect, useState, useRef} from 'react'
+import * as io from 'socket.io-client'
+import Navbar from './Navbar';
 import Form from'./Form';
+import Chatbar from './Chatbar'
 import "./movie.scss";
 import Playlist from './Playlist';
 import ReactPlayer from 'react-player';
 import Cookies from 'universal-cookie';
 import axios from 'axios';
-
-// let socket = io.connect(`192.168.88.14:3001/movie`);
 
 
 
@@ -42,6 +43,11 @@ const MovieRoom = (props) => {
     "channelTitle": "1theK (원더케이)",
     "liveBroadcastContent": "none"
     }]);
+
+  const ref = player => {
+    this.player = player
+  }
+
   
   
   let playedFraction: number;
@@ -51,6 +57,7 @@ const MovieRoom = (props) => {
   
 
   const handleClick = () => {
+    
     socket.emit('get number of clients', roomId)
   }
 
@@ -75,8 +82,9 @@ const MovieRoom = (props) => {
   }
   
   useEffect(() => {
-    
-    axios.post(`http://localhost:3001/api/getRoom`, {
+
+    axios.post(process.env.URL + `/api/getRoom`, {
+
       params: roomId
     })
     .then( response => {
@@ -98,16 +106,31 @@ const MovieRoom = (props) => {
 
     socket.emit('joinRoom', roomObject)
     
-    socket.on('sync video timestamp', (timestamp: number) => {
-      const query = `?t=${timestamp}`
-      setPlayed(query)
-    })
-    
+
     socket.on('is admin', (adminInfo) => {
       setIsAdmin(true);
     })
   }, [])
- 
+
+  socket.on('sync video timestamp', (timestamp: number) => {
+    this.player.seekTo(timestamp);
+    
+  })
+
+
+
+  // <Form addToPlaylist={addToPlaylist}/>
+  const dog =
+    "https://pbs.twimg.com/profile_images/1046968391389589507/_0r5bQLl_400x400.jpg";
+  const catTwo =
+    "https://www.thebeaverton.com/wp-content/uploads/2019/03/cat-800x600.jpg";
+  const kanye =
+    "https://www.billboard.com/files/media/kanye-west-top-five-premiere-2014-billboard-1548.jpg";
+  const catThree =
+    "https://www.healthypawspetinsurance.com/Images/V3/CatAndKittenInsurance/Cat-kitten-insurance-for-your-cat_CTA_desktop.jpg";
+  const cat =
+    "https://img.purch.com/w/660/aHR0cDovL3d3dy5saXZlc2NpZW5jZS5jb20vaW1hZ2VzL2kvMDAwLzEwNC84MTkvb3JpZ2luYWwvY3V0ZS1raXR0ZW4uanBn";
+
   return (
     
      <>
@@ -116,9 +139,14 @@ const MovieRoom = (props) => {
     (
       <div>
         <header className="Header">
+
           <Form addToPlaylist={addToPlaylist} sendMessage={sendMessage}/>
+
+          <h1>{ isAdmin ? 'Admin Mode' : ''}</h1>
+          
+
         </header>
-       
+        
         <div
           id="hero"
           className="Hero"
@@ -128,15 +156,19 @@ const MovieRoom = (props) => {
           }}
         >
           <div className="content">
-          <ReactPlayer 
-            url={`https://www.youtube.com/watch?v=BzYnNdJhZQw${played}`}
-            playing={true}
-            controls={true}
-            onProgress={(state) => playedFraction = state.played}
-            onDuration={(totaltime) => duration = totaltime}
-            onPlay={onPlay}
-          /> 
-          {/* <Chatbar socket={socket} roomId={roomId}/> */}
+
+    <ReactPlayer 
+      ref={ref}
+      url={`https://www.youtube.com/watch?v=SCwcJsBYL3o`}
+      playing={true}
+      controls={true}
+      onProgress={(state) => playedFraction = state.played}
+      onDuration={(totaltime) => duration = totaltime}
+      onPlay={onPlay}
+    /> 
+    <button className="button" onClick={handleClick}>GET NUM CLIENTS</button>
+          <Chatbar socket={socket} roomId={roomId}/>
+
             {/* <img className="logo" src="http://www.returndates.com/backgrounds/narcos.logo.png" alt="" /> */}
             {/* <h2>something here</h2>
             <p>
