@@ -5,12 +5,14 @@ import * as io from 'socket.io-client'
 import Navbar from './Navbar';
 import Form from'./Form';
 import Chatbar from './Chatbar';
+import Public from './Public';
 import Playlist from './Playlist';
 import { Socket } from 'net';
 import ReactPlayer from 'react-player';
 import Cookies from 'universal-cookie';
 import axios from 'axios';
-
+import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+import "./movie.scss";
 
 // let socket = io.connect(`192.168.88.14:3001/movie`);
 
@@ -103,7 +105,28 @@ const MovieRoom = (props) => {
     (
       <div>
         <header className="Header">
-          <Form addToPlaylist={addToPlaylist}/>
+
+         <Form addToPlaylist={addToPlaylist}/>
+        
+         <div id="navigation" className="Navigation">
+				<nav>
+          
+					<ul>
+         
+						<li>
+            <Link to="/" style={{ textDecoration: 'none', color: 'white' }}>Browse</Link>
+            </li>
+						<li>
+              
+            </li>
+						<li></li>
+            <li>
+            <Link to="/" style={{ textDecoration: 'none', color: 'white' }}>Home</Link>
+					</li>
+					</ul>
+				</nav>
+			</div>
+         
         </header>
        
         <div
@@ -173,7 +196,7 @@ const MovieRoom = (props) => {
                 >
                   <div className="overlay ">
                     <div className="title">TITLE</div>
-
+                    
                     <div className="plot">
                       aowdhaow jdaiwojdoia jodiawj oawjdo jadwoija owidjoa
                     </div>
@@ -276,7 +299,7 @@ const MovieRoom = (props) => {
       onDuration={(totaltime) => duration = totaltime}
       onPlay={onPlay}
     />  */}
-     {/* <h1>{ isAdmin ? 'you are admin' : ''}</h1> */}
+     <h1>{ isAdmin ? 'you are admin' : ''}</h1>
 
 
 </>
