@@ -1,6 +1,6 @@
 
 import * as React from 'react';
-import {useEffect, useState} from 'react'
+import {useEffect, useState, useRef} from 'react'
 import * as io from 'socket.io-client'
 import Navbar from './Navbar';
 import Form from'./Form';
@@ -18,6 +18,9 @@ const MovieRoom = (props) => {
   const [isAdmin, setIsAdmin] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [playlist, setPlaylist] = useState([]);
+  const ref = player => {
+    this.player = player
+  }
   
   
   let playedFraction: number;
@@ -27,6 +30,7 @@ const MovieRoom = (props) => {
   
 
   const handleClick = () => {
+    
     socket.emit('get number of clients', roomId)
   }
 
@@ -69,10 +73,7 @@ const MovieRoom = (props) => {
     socket.emit('joinRoom', roomObject)
     
 
-    socket.on('sync video timestamp', (timestamp: number) => {
-      const query = `?t=${timestamp}`
-      setPlayed(query)
-    })
+    
     
     socket.on('is admin', (adminInfo) => {
       setIsAdmin(true);
@@ -80,6 +81,14 @@ const MovieRoom = (props) => {
 
 
   }, [])
+
+  socket.on('sync video timestamp', (timestamp: number) => {
+    this.player.seekTo(timestamp);
+    
+  })
+
+
+
   // <Form addToPlaylist={addToPlaylist}/>
   const dog =
     "https://pbs.twimg.com/profile_images/1046968391389589507/_0r5bQLl_400x400.jpg";
@@ -99,9 +108,11 @@ const MovieRoom = (props) => {
     (
       <div>
         <header className="Header">
+          <h1>{ isAdmin ? 'Admin Mode' : ''}</h1>
+          
           <Form addToPlaylist={addToPlaylist}/>
         </header>
-       
+        
         <div
           id="hero"
           className="Hero"
@@ -111,14 +122,16 @@ const MovieRoom = (props) => {
           }}
         >
           <div className="content">
-          <ReactPlayer 
-      url={`https://www.youtube.com/watch?v=SCwcJsBYL3o${played}`}
+    <ReactPlayer 
+      ref={ref}
+      url={`https://www.youtube.com/watch?v=SCwcJsBYL3o`}
       playing={true}
       controls={true}
       onProgress={(state) => playedFraction = state.played}
       onDuration={(totaltime) => duration = totaltime}
       onPlay={onPlay}
     /> 
+    <button className="button" onClick={handleClick}>GET NUM CLIENTS</button>
           <Chatbar socket={socket} roomId={roomId}/>
             {/* <img className="logo" src="http://www.returndates.com/backgrounds/narcos.logo.png" alt="" /> */}
             {/* <h2>something here</h2>
