@@ -121,6 +121,10 @@ io.of('movie')
     playlistObj[data.roomId].push(data);
     socket.to(data.roomId).broadcast.emit('sync playlist', playlistObj[data.roomId]);
   });
+
+  socket.on('play video', (data) => {
+    socket.to(data.roomId).broadcast.emit('play video', data.videoId);
+  })
   
 
   socket.on('joinRoom', (roomObject) => {

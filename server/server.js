@@ -87,6 +87,9 @@ io.of('movie')
         playlistObj[data.roomId].push(data);
         socket.to(data.roomId).broadcast.emit('sync playlist', playlistObj[data.roomId]);
     });
+    socket.on('play video', function (data) {
+        socket.to(data.roomId).broadcast.emit('play video', data.videoId);
+    });
     socket.on('joinRoom', function (roomObject) {
         if (roomObject.roomIdCookie && roomObject.adminIdCookie) {
             var filteredAdmin = adminSocketList.filter(function (admin) { return admin.id === roomObject.adminIdCookie && admin.roomId === roomObject.roomId; });

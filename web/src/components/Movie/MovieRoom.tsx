@@ -12,10 +12,15 @@ import Cookies from 'universal-cookie';
 import axios from 'axios';
 
 
+let playedFraction: number;
+let duration: number;
 
 const MovieRoom = (props) => {
   const socket = props.socket;
-  const [played, setPlayed] = useState('');
+
+  const roomId = props.match.params.id;
+
+  const [currentPlaying, setCurrentPlaying] = useState(undefined);
   const [isAdmin, setIsAdmin] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [playlist, setPlaylist] = useState([{
@@ -47,23 +52,19 @@ const MovieRoom = (props) => {
   const ref = player => {
     this.player = player
   }
-
-  
-  
-  let playedFraction: number;
-  let duration: number;
-  
-  const roomId = props.match.params.id;
   
 
   const handleClick = () => {
-    
     socket.emit('get number of clients', roomId)
   }
 
   const onPlay = () => {
-    let timestamp = Math.floor(playedFraction * duration)
-    socket.emit('share video timestamp', timestamp)
+    
+    setTimeout(() => {
+      let timestamp = Math.floor(playedFraction * duration)
+      socket.emit('share video timestamp', timestamp+1)
+    },1000)
+  
   }
 
   const addToPlaylist = (videoData) => {
@@ -80,11 +81,20 @@ const MovieRoom = (props) => {
     console.log(message);
     socket.emit('add to playlist', message)
   }
+
+  const playVideo = (videoId) => {
+    setCurrentPlaying(videoId);
+    const videoObj = {
+      videoId,
+      roomId
+    }
+    socket.emit("play video", videoObj)
+  }
+  
   
   useEffect(() => {
 
     axios.post(process.env.URL + `/api/getRoom`, {
-
       params: roomId
     })
     .then( response => {
@@ -93,6 +103,8 @@ const MovieRoom = (props) => {
         setIsLoading(false);
       }
     })
+
+
 
     const cookies = new Cookies();
     const roomIdCookie = cookies.get('roomId');
@@ -110,26 +122,28 @@ const MovieRoom = (props) => {
     socket.on('is admin', (adminInfo) => {
       setIsAdmin(true);
     })
+
+    socket.on('sync playlist', (data) => {
+      console.log(data);
+      setPlaylist(data)
+    })
+
+    socket.on('sync video timestamp', (timestamp: number) => {
+      
+      this.player.seekTo(timestamp);
+      console.log("timestamp", timestamp)
+    
+     
+    })
+
+    socket.on('play video', (videoId) => {
+      setCurrentPlaying(videoId);
+    })
   }, [])
 
-  socket.on('sync video timestamp', (timestamp: number) => {
-    this.player.seekTo(timestamp);
-    
-  })
 
 
 
-  // <Form addToPlaylist={addToPlaylist}/>
-  const dog =
-    "https://pbs.twimg.com/profile_images/1046968391389589507/_0r5bQLl_400x400.jpg";
-  const catTwo =
-    "https://www.thebeaverton.com/wp-content/uploads/2019/03/cat-800x600.jpg";
-  const kanye =
-    "https://www.billboard.com/files/media/kanye-west-top-five-premiere-2014-billboard-1548.jpg";
-  const catThree =
-    "https://www.healthypawspetinsurance.com/Images/V3/CatAndKittenInsurance/Cat-kitten-insurance-for-your-cat_CTA_desktop.jpg";
-  const cat =
-    "https://img.purch.com/w/660/aHR0cDovL3d3dy5saXZlc2NpZW5jZS5jb20vaW1hZ2VzL2kvMDAwLzEwNC84MTkvb3JpZ2luYWwvY3V0ZS1raXR0ZW4uanBn";
 
   return (
     
@@ -139,12 +153,8 @@ const MovieRoom = (props) => {
     (
       <div>
         <header className="Header">
-
-          <Form addToPlaylist={addToPlaylist} sendMessage={sendMessage}/>
-
+          <Form addToPlaylist={addToPlaylist} sendMessage={sendMessage} playVideo={playVideo}/>
           <h1>{ isAdmin ? 'Admin Mode' : ''}</h1>
-          
-
         </header>
         
         <div
@@ -159,7 +169,7 @@ const MovieRoom = (props) => {
 
     <ReactPlayer 
       ref={ref}
-      url={`https://www.youtube.com/watch?v=SCwcJsBYL3o`}
+      url={`https://www.youtube.com/watch?v=${currentPlaying}`}
       playing={true}
       controls={true}
       onProgress={(state) => playedFraction = state.played}
@@ -167,21 +177,14 @@ const MovieRoom = (props) => {
       onPlay={onPlay}
     /> 
     <button className="button" onClick={handleClick}>GET NUM CLIENTS</button>
-          <Chatbar socket={socket} roomId={roomId}/>
+    <Chatbar socket={socket} roomId={roomId}/>
 
-            {/* <img className="logo" src="http://www.returndates.com/backgrounds/narcos.logo.png" alt="" /> */}
-            {/* <h2>something here</h2>
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-              Doloremque id quam sapiente unde voluptatum alias vero debitis,
-              magnam quis quod.
-            </p> */}
-          </div>
-          <div className="overlay" />
-        </div>
-        <Playlist playlist={playlist}/>
-          {/* testing purposes */}
+    </div>
+    <div className="overlay" />
       </div>
+      <Playlist playlist={playlist}/>
+        {/* testing purposes */}
+    </div>
 
 )
   }
