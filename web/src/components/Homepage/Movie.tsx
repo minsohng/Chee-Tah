@@ -58,7 +58,7 @@ const Movie: React.FunctionComponent<Home> = props => {
               <span></span>
               <div className="contenth pointer" onClick={handleClick}>
                 <h2>Cheetah </h2>
-                <p style={{color:'#00ffe9'}} >Welcome to Cheetah a fast way to sync and watch videos with others. Click here to create a room</p>
+                <p><a  style={{color:'#00ffe9'}} target="_blank">Welcome to Cheetah a fast way to sync and watch videos with others. Click here to create a room</a></p>
               </div>
               
             </div>
