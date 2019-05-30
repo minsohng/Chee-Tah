@@ -7,7 +7,6 @@ import Form from'./Form';
 import Chatbar from './Chatbar';
 import Public from './Public';
 import Playlist from './Playlist';
-import { Socket } from 'net';
 import ReactPlayer from 'react-player';
 import Cookies from 'universal-cookie';
 import axios from 'axios';
@@ -304,7 +303,6 @@ const MovieRoom = (props) => {
 
 </>
       
-    
     
   )
     

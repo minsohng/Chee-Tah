@@ -16,6 +16,12 @@ app.use(bodyParser.json());
 //support parsing of application/x-www-form-urlencoded post data
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
+app.get('/api/showRoom', function (req, res) {
+    var filteredPublic = roomList.filter(function (room) { return room.type === "public"; });
+    res.json({
+        list: filteredPublic
+    });
+});
 app.post('/api/getRoom', function (req, res) {
     var params = req.body.params;
     var filteredRoom = roomList.filter(function (room) { return room.roomId === params; });
@@ -100,7 +106,7 @@ io.of('movie')
                 }
                 if (isAdmin && timestamp) {
                     console.log(timestamp);
-                    socket.to(roomObject.roomId).broadcast.emit('sync video timestamp', timestamp);
+                    socket.to(roomObject.roomId).broadcast.emit('sync video timestamp', timestamp + 1);
                 }
             });
         });

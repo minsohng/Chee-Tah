@@ -34,6 +34,13 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(cors());
 
+app.get('/api/showRoom', (req, res) => {
+  const filteredPublic = roomList.filter(room => room.type === "public")
+  res.json({
+    list: filteredPublic
+  })
+})
+
 app.post('/api/getRoom', (req, res) => {
   const params = req.body.params;
   const filteredRoom = roomList.filter(room => room.roomId === params);
@@ -148,7 +155,7 @@ io.of('movie')
         }
         if (isAdmin && timestamp) {
           console.log(timestamp)
-          socket.to(roomObject.roomId).broadcast.emit('sync video timestamp', timestamp);
+          socket.to(roomObject.roomId).broadcast.emit('sync video timestamp', timestamp+1);
         }
         
       })
