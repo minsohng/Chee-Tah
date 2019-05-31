@@ -86,6 +86,8 @@ const MovieRoom = (props) => {
         setIsLoading(false);
         setIsRoom(true);
         setUsername(response.data.username);
+        setPlaylist(response.data.playlist);
+        setCurrentPlaying(response.data.currentVideo);
       } else {
         setIsLoading(false);
       }
@@ -114,10 +116,8 @@ const MovieRoom = (props) => {
     })
 
     socket.on('sync video timestamp', (timestamp: number) => {
-      
       this.player.seekTo(timestamp);
       console.log("timestamp", timestamp)
-    
      
     })
 
