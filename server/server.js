@@ -12,6 +12,7 @@ var adminSocketList = [];
 var roomList = [];
 var playlistObj = {};
 var statusObj = {};
+
 app.set("port", process.env.PORT || 3001);
 // support parsing of application/json type post data
 app.use(bodyParser.json());
@@ -29,15 +30,22 @@ app.post('/api/getRoom', function (req, res) {
     var filteredRoom = roomList.filter(function (room) { return room.roomId === params; });
     var haveRoom = filteredRoom.length > 0;
     console.log("filteredROOM", filteredRoom);
-    if (!haveRoom) {
-        res.json({ response: false });
-        return;
-    }
-    res.json({
-        response: true,
-        type: filteredRoom[0].type
+    var promise1 = axios.get('https://api.datamuse.com/words?ml=fast');
+    var promise2 = axios.get('https://api.datamuse.com/words?ml=cheetah');
+    Promise.all([promise1, promise2]).then(function (response) {
+        var randomNum = Math.floor(Math.random() * 100);
+        var data1 = response[0].data[randomNum].word.replace(/ /g, '');
+        var data2 = response[1].data[randomNum].word.replace(/ /g, '');
+        if (!haveRoom) {
+            res.json({ response: false });
+            return;
+        }
+        res.json({
+            response: true,
+            type: filteredRoom[0].type,
+            username: "" + data1 + data2
+        });
     });
-    io.of('movie').to(params).emit('sync playlist', playlistObj[params]);
 });
 app.post('/api/createRoom', function (req, res) {
     var promise1 = axios.get('https://api.datamuse.com/words?ml=fast');
@@ -58,6 +66,7 @@ app.post('/api/createRoom', function (req, res) {
             roomId: roomId,
             id: socket.id
         });
+
         playlistObj[roomId] = [];
         statusObj[roomId] = {};
         res.json({ url: data1 + "-" + data2 });
@@ -86,6 +95,7 @@ io.of('movie')
     socket.on('message_sent', function (data) {
         io.of('movie').to(data.room).emit('message_receive', data);
     });
+
     socket.on('add to playlist', function (data) {
         playlistObj[data.roomId].push(data);
         socket.to(data.roomId).broadcast.emit('sync playlist', playlistObj[data.roomId]);
@@ -103,6 +113,7 @@ io.of('movie')
             console.log(statusObj);
         }
     });
+
     socket.on('joinRoom', function (roomObject) {
         roomId = roomObject.roomId;
         if (roomObject.roomIdCookie && roomObject.adminIdCookie) {

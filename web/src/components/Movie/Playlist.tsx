@@ -16,13 +16,13 @@ const Playlist = (props) => {
   //   setPlaylistItems(props.playlist)
   // })
 
-  const videoList = playlist.map(data => 
-    <Video video={data}/>
+  const videoList = playlist.map((data, i) => 
+    <Video video={data} key={i + 100}/>
   )
   
   return (
     <>
-      <div
+      {/* <div
         id="carouselExampleIndicators"
         className="carousel slide carousel-fade"
         data-ride="carousel"
@@ -36,9 +36,9 @@ const Playlist = (props) => {
           />
           {/* <li data-target="#carouselExampleIndicators" data-slide-to="1" />
           <li data-target="#carouselExampleIndicators" data-slide-to="2" /> */}
-        </ol>
-        <div className="carousel-inner">
-          <div className="carousel-item active">
+        {/* </ol> */}
+       {/* <div className="carousel-inner">
+          <div className="carousel-item active"> */}
             <div className="d-inline-flex flex-row video-container">
               {videoList}
             {/* <div
@@ -67,11 +67,6 @@ const Playlist = (props) => {
               </div>
             </div> */}
 
-
-
-
-            </div>
-          </div>
 
         {/* <div className='carousel-item'>
           <div className="d-inline-flex flex-row">
@@ -105,7 +100,6 @@ const Playlist = (props) => {
           </div> */}
 
         </div>
-      </div>
     </>
   )
 }
