@@ -11,15 +11,28 @@ const Roomstate = (props) => {
   const roomId = props.roomId;
   
   useEffect(()=> {
+    
+      
     axios.post(process.env.URL + '/api/fetchState',{
-        roomId,
-        id: socket.id
+      roomId
     })
     .then(response => {
-        console.log(response.data.nextVideo)
-        setState(response.data.nextVideo);
-
+        console.log("HEYYYYYY", response.data)
+        setState(response.data);
     })
+
+    socket.on('update room state', () => {
+      console.log("RECEIVED UPDATE ROOM STATE")
+      
+      axios.post(process.env.URL + '/api/fetchState',{
+        roomId
+      })
+      .then(response => {
+          console.log("HEYYYYYY", response.data)
+          setState(response.data);
+      })
+    })
+
   },[])
 
   return (
@@ -28,9 +41,9 @@ const Roomstate = (props) => {
             <h1>{state && state.roomId}</h1>
             <img
               className="picture-sizing"
-              src={state && state.thumbnails.high.url}
+              src={state && state.videoData.thumbnails.high.url}
             />
-            <p>playing next... {state && state.title}</p>
+            <p>Currently Playing... {state && state.videoData.title}</p>
           </div>
           <p id="online-people">4 people watching currently</p>
     </div>

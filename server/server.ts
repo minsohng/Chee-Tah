@@ -41,14 +41,16 @@ app.use(cors());
 
 app.post('/api/fetchState', (req,res) => {
   const roomId = req.body.roomId;
-  const returnObj = {
-    nextVideo: playlistObj[roomId][0]
-  }
-  res.json(returnObj);
+  console.log("fetchState-room", roomId)
+  console.log("fetchState-obj", curVideoObj)
+  console.log("fetchState-objroom", curVideoObj[roomId])
+  
+  res.json(curVideoObj[roomId] && curVideoObj[roomId]);
 })
 
 app.get('/api/showRoom', (req, res) => {
   const filteredPublic = roomList.filter(room => room.type === "public")
+  
   res.json({
     list: filteredPublic
   })
@@ -70,6 +72,8 @@ app.post('/api/getRoom', (req, res) => {
       res.json({response: false});
       return;
     }
+    io.of('movie').emit('update create room state');
+    
     res.json({
       response: true,
       type: filteredRoom[0].type,
@@ -78,6 +82,7 @@ app.post('/api/getRoom', (req, res) => {
       currentVideo
     });
   })
+  
 });
 
 app.post('/api/createRoom', (req, res) => {
@@ -104,6 +109,7 @@ app.post('/api/createRoom', (req, res) => {
     });
     playlistObj[roomId] = [];
     statusObj[roomId] = {};
+    
 
     res.json({url: `${data1}-${data2}`});
   });
@@ -163,7 +169,22 @@ io.of('movie')
       for (let key in statusObj[data]) {
         statusObj[data][key] = true
       }
-      
+      curVideoObj[roomId] = {
+        videoData: nextVideo, 
+        videoId: nextVideo.id,
+        roomId
+       };
+    // socketId: '/movie#-5V8j5wI85yVikOmAAAE',
+    // roomId: 'rapid-chetah',
+    // publishedAt: '2017-04-21T09:00:05.000Z',
+    // channelId: 'UCweOkPb1wVVH0Q0Tlj4a5Pw',
+    // title: '[MV] IU(아이유) _ Palette(팔레트) (Feat. G-DRAGON)',
+    // description: '[MV] IU(아이유) _ Palette(팔레트) (Feat. G-DRAGON) *English subtitles are now available. :D (Please click on \'CC\' button or activate \'Interactive Transcript\' ...',
+    // thumbnails: { default: [Object], medium: [Object], high: [Object] },
+    // channelTitle: '1theK (원더케이)',
+    // liveBroadcastContent: 'none',
+    // id: 'd9IxdwEFk1c' }
+      io.of('movie').emit('update room state');
       console.log(statusObj)
     }
   })
@@ -215,6 +236,7 @@ io.of('movie')
           curVideoObj[roomId] = data;
           console.log(`current video:  ${curVideoObj[roomId].videoId}`);
           socket.to(data.roomId).broadcast.emit('play video', data.videoId);
+          io.of('movie').emit('update room state');
         }
       })
  
@@ -229,7 +251,7 @@ io.of('movie')
       })
       socket.on('disconnect', () => {
         console.log('socket disconnected')
-        if (roomId && socket && statusObj[roomId][socket.id]) {
+        if (roomId && socket && statusObj[roomId] && statusObj[roomId][socket.id]) {
           delete statusObj[roomId][socket.id]
         }
       })

@@ -10,7 +10,7 @@ const Result = (props) => {
       props.sendMessage(title, id);
     }
     if (command === "play") {
-      props.playVideo(id);
+      props.playVideo(title, id);
     }
     setResultVisibility('container is-overlay is-relative is-hidden');
   }

@@ -5,14 +5,14 @@ import Home from "../../interfaces/Home.interface";
 import Roomstate from "./Roomstate";
 
 const Publicroom = props => {
-  const [roomList, setRoomList] = useState([]);
   const socket = props.socket;
+  console.log("PROPS", props.roomList)
+  const rooms = props.roomList && props.roomList.map(room =>
+    <Roomstate socket={socket} roomId={room.roomId}/>
+  );
+  console.log("mappedroom", rooms)
+  
 
-  useEffect(() => {
-    setRoomList(props.roomList);
-  },[])
-
-  const rooms = roomList && roomList.map(room => <Roomstate socket={socket} roomId={room.roomId}/>)
 
   return (
     <div className="container">
@@ -39,9 +39,7 @@ const Publicroom = props => {
       </nav>
 
       <div className="row">
-        {/* <Roomstate socket={socket} roomId={"tinted-duiker"}/> */}
         {rooms}
-
         
       </div>
       <hr />

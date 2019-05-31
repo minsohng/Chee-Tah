@@ -17,10 +17,19 @@ const App = () => {
 
   useEffect(() => {
     axios.get(process.env.URL + '/api/showRoom')
-    .then(response => {
-      console.log("roomLIST", response.data.list)
-      setRoomList(response.data.list)
+      .then(response => {
+        console.log("roomLIST", response.data.list)
+        setRoomList(response.data.list)
+      })
+    socket.on('update create room state', ()=> {
+      axios.get(process.env.URL + '/api/showRoom')
+      .then(response => {
+        console.log("roomLIST", response.data.list)
+        setRoomList(response.data.list)
+      })
     })
+
+    
   },[])
   
   return ( 

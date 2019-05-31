@@ -21,10 +21,10 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
 app.post('/api/fetchState', function (req, res) {
     var roomId = req.body.roomId;
-    var returnObj = {
-        nextVideo: playlistObj[roomId][0]
-    };
-    res.json(returnObj);
+    console.log("fetchState-room", roomId);
+    console.log("fetchState-obj", curVideoObj);
+    console.log("fetchState-objroom", curVideoObj[roomId]);
+    res.json(curVideoObj[roomId] && curVideoObj[roomId]);
 });
 app.get('/api/showRoom', function (req, res) {
     var filteredPublic = roomList.filter(function (room) { return room.type === "public"; });
@@ -48,6 +48,7 @@ app.post('/api/getRoom', function (req, res) {
             res.json({ response: false });
             return;
         }
+        io.of('movie').emit('update create room state');
         res.json({
             response: true,
             type: filteredRoom[0].type,
@@ -125,6 +126,22 @@ io.of('movie')
             for (var key in statusObj[data]) {
                 statusObj[data][key] = true;
             }
+            curVideoObj[roomId] = {
+                videoData: nextVideo,
+                videoId: nextVideo.id,
+                roomId: roomId
+            };
+            // socketId: '/movie#-5V8j5wI85yVikOmAAAE',
+            // roomId: 'rapid-chetah',
+            // publishedAt: '2017-04-21T09:00:05.000Z',
+            // channelId: 'UCweOkPb1wVVH0Q0Tlj4a5Pw',
+            // title: '[MV] IU(아이유) _ Palette(팔레트) (Feat. G-DRAGON)',
+            // description: '[MV] IU(아이유) _ Palette(팔레트) (Feat. G-DRAGON) *English subtitles are now available. :D (Please click on \'CC\' button or activate \'Interactive Transcript\' ...',
+            // thumbnails: { default: [Object], medium: [Object], high: [Object] },
+            // channelTitle: '1theK (원더케이)',
+            // liveBroadcastContent: 'none',
+            // id: 'd9IxdwEFk1c' }
+            io.of('movie').emit('update room state');
             console.log(statusObj);
         }
     });
@@ -161,6 +178,7 @@ io.of('movie')
                     curVideoObj[roomId] = data;
                     console.log("current video:  " + curVideoObj[roomId].videoId);
                     socket.to(data.roomId).broadcast.emit('play video', data.videoId);
+                    io.of('movie').emit('update room state');
                 }
             });
             socket.on('share video timestamp', function (timestamp) {
@@ -171,7 +189,7 @@ io.of('movie')
             });
             socket.on('disconnect', function () {
                 console.log('socket disconnected');
-                if (roomId && socket && statusObj[roomId][socket.id]) {
+                if (roomId && socket && statusObj[roomId] && statusObj[roomId][socket.id]) {
                     delete statusObj[roomId][socket.id];
                 }
             });

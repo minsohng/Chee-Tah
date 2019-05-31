@@ -61,10 +61,11 @@ const MovieRoom = (props) => {
     socket.emit('add to playlist', message)
   }
 
-  const playVideo = (videoId) => {
+  const playVideo = (videoData, videoId) => {
     if (isAdmin) {
       setCurrentPlaying(videoId);
       const videoObj = {
+        videoData,
         videoId,
         roomId
       }
