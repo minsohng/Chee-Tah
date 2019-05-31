@@ -12,6 +12,7 @@ const Publicroom = props => {
       <nav className="navbarA ">
           
         <header className="Header">
+        <h4>Public Room's</h4>
           <ul>
             <li className="nav-hover-on">
               <Link className="nav-hover-on" to="/" style={{ textDecoration: "none", color: "white" }}>
