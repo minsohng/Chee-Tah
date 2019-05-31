@@ -16,7 +16,7 @@ const Home = (props) => {
   }
 
   useEffect(() => {
-    axios.get('http://localhost:3001/api/showRoom')
+    axios.get(process.env.URL + '/api/showRoom')
     .then(response => {
       console.log(response.data.list)
     })

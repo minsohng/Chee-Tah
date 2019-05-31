@@ -6,8 +6,8 @@ import Roompage from './Room/Roompage';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 
 
-let socket = io.connect(`http://localhost:3001/movie`);
-
+let socket = io.connect(process.env.URL + `/movie`);
+console.log('testttt',process.env.URL)
 
 const App = () => {
   

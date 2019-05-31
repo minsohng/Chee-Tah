@@ -16,7 +16,7 @@ const Movie: React.FunctionComponent<Home> = props => {
   
     const handleClick = () => {
       
-      axios.post(`http://localhost:3001/api/createRoom`, {
+      axios.post(process.env.URL + `/api/createRoom`, {
         socket: JSON.stringify(socket, getCircularReplacer())
       })
       .then(response => {
