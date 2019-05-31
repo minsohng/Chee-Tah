@@ -103,6 +103,10 @@ const MovieRoom = (props) => {
 
     socket.emit('joinRoom', roomObject)
     
+    socket.on('admin timestamp', (data) => {
+      let timestamp = Math.floor(playedFraction * duration)
+      socket.emit('give admin timestamp', timestamp + 3);
+    })
 
     socket.on('is admin', (adminInfo) => {
       setIsAdmin(true);
