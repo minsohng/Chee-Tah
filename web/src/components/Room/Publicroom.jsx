@@ -9,7 +9,7 @@ const Publicroom = props => {
   return (
     <div className="container">
        
-      <nav className="navbar ">
+      <nav className="navbarA ">
           
         <header className="Header">
           <ul>
@@ -31,7 +31,7 @@ const Publicroom = props => {
 
       <div className="row">
         <div className="col-xs-12 col-sm-6 col-md-3">
-          <div className="box">
+          <div className="box" id="inner-box">
             <h1>Room Name</h1>
             <img
               className="picture-sizing"
@@ -39,11 +39,11 @@ const Publicroom = props => {
             />
             <p>Title of youtube video</p>
           </div>
-          <p>4 people watching currently</p>
+          <p id="online-people">4 people watching currently</p>
         </div>
 
         <div className="col-xs-12 col-sm-6 col-md-3">
-          <div className="box">
+          <div className="box" id="inner-box">
             <h1>Room Name</h1>
             <img
               className="picture-sizing"
@@ -51,11 +51,11 @@ const Publicroom = props => {
             />
             <p>Title of youtube video</p>
           </div>
-          <p>4 people watching currently</p>
+          <p id="online-people">4 people watching currently</p>
         </div>
 
         <div className="col-xs-12 col-sm-6 col-md-3">
-          <div className="box">
+          <div className="box" id="inner-box">
             <h1>Room Name</h1>
             <img
               className="picture-sizing"
@@ -63,11 +63,11 @@ const Publicroom = props => {
             />
             <p>Title of youtube video</p>
           </div>
-          <p>4 people watching currently</p>
+          <p id="online-people">4 people watching currently</p>
         </div>
 
         <div className="col-xs-12 col-sm-6 col-md-3">
-          <div className="box">
+          <div className="box" id="inner-box">
             <h1>Room Name</h1>
             <img
               className="picture-sizing"
@@ -75,13 +75,13 @@ const Publicroom = props => {
             />
             <p>Title of youtube video</p>
           </div>
-          <p>4 people watching currently</p>
+          <p id="online-people">4 people watching currently</p>
         </div>
       </div>
       <hr />
       <div className="row">
         <div className="col-xs-12 col-sm-6 col-md-3">
-          <div className="box">
+          <div className="box" id="inner-box">
             <h1>Room Name</h1>
             <img
               className="picture-sizing"
@@ -89,11 +89,11 @@ const Publicroom = props => {
             />
             <p>Title of youtube video</p>
           </div>
-          <p>4 people watching currently</p>
+          <p id="online-people">4 people watching currently</p>
         </div>
 
         <div className="col-xs-12 col-sm-6 col-md-3">
-          <div className="box">
+          <div className="box" id="inner-box">
             <h1>Room Name</h1>
             <img
               className="picture-sizing"
@@ -101,11 +101,11 @@ const Publicroom = props => {
             />
             <p>Title of youtube video</p>
           </div>
-          <p>4 people watching currently</p>
+          <p id="online-people">4 people watching currently</p>
         </div>
 
         <div className="col-xs-12 col-sm-6 col-md-3">
-          <div className="box">
+          <div className="box" id="inner-box">
             <h1>Room Name</h1>
             <img
               className="picture-sizing"
@@ -113,11 +113,11 @@ const Publicroom = props => {
             />
             <p>Title of youtube video</p>
           </div>
-          <p>4 people watching currently</p>
+          <p id="online-people">4 people watching currently</p>
         </div>
 
         <div className="col-xs-12 col-sm-6 col-md-3">
-          <div className="box">
+          <div className="box" id="inner-box">
             <h1>Room Name</h1>
             <img
               className="picture-sizing"
@@ -125,7 +125,7 @@ const Publicroom = props => {
             />
             <p>Title of youtube video</p>
           </div>
-          <p>4 people watching currently</p>
+          <p id="online-people">4 people watching currently</p>
         </div>
       </div>
 
@@ -133,7 +133,7 @@ const Publicroom = props => {
 
       <div className="row">
         <div className="col-xs-12 col-sm-6 col-md-3">
-          <div className="box">
+          <div className="box" id="inner-box">
             <h1>Room Name</h1>
             <img
               className="picture-sizing"
@@ -141,11 +141,11 @@ const Publicroom = props => {
             />
             <p>Title of youtube video</p>
           </div>
-          <p>4 people watching currently</p>
+          <p id="online-people">4 people watching currently</p>
         </div>
 
         <div className="col-xs-12 col-sm-6 col-md-3">
-          <div className="box">
+          <div className="box" id="inner-box">
             <h1>Room Name</h1>
             <img
               className="picture-sizing"
@@ -153,11 +153,11 @@ const Publicroom = props => {
             />
             <p>Title of youtube video</p>
           </div>
-          <p>4 people watching currently</p>
+          <p id="online-people">4 people watching currently</p>
         </div>
 
         <div className="col-xs-12 col-sm-6 col-md-3">
-          <div className="box">
+          <div className="box" id="inner-box">
             <h1>Room Name</h1>
             <img
               className="picture-sizing"
@@ -165,11 +165,11 @@ const Publicroom = props => {
             />
             <p>Title of youtube video</p>
           </div>
-          <p>4 people watching currently</p>
+          <p id="online-people">4 people watching currently</p>
         </div>
 
         <div className="col-xs-12 col-sm-6 col-md-3">
-          <div className="box">
+          <div className="box" id="inner-box">
             <h1>Room Name</h1>
             <img
               className="picture-sizing"
@@ -177,7 +177,7 @@ const Publicroom = props => {
             />
             <p>Title of youtube video</p>
           </div>
-          <p>4 people watching currently</p>
+          <p id="online-people">4 people watching currently</p>
         </div>
       </div>
     </div>
