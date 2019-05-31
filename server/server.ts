@@ -26,6 +26,7 @@ interface RoomInfo {
 const adminSocketList: Admin[] = [];
 const roomList: RoomInfo[] = [];
 const playlistObj = {};
+const statusObj = {};
 
 app.set("port", process.env.PORT || 3001);
 // support parsing of application/json type post data
@@ -35,6 +36,8 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(cors());
+
+
 
 app.get('/api/showRoom', (req, res) => {
   const filteredPublic = roomList.filter(room => room.type === "public")
@@ -83,6 +86,7 @@ app.post('/api/createRoom', (req, res) => {
       id: socket.id
     });
     playlistObj[roomId] = [];
+    statusObj[roomId]= {};
  
     res.json({url: `${data1}-${data2}`});
   });
@@ -110,6 +114,7 @@ app.get('/api/youtube/:query', (req, res) => {
 
 io.of('movie')
   .on('connection', (socket) => {
+  let roomId;
 
   console.log(socket.id + " connected to /movie");
 
@@ -122,16 +127,30 @@ io.of('movie')
     socket.to(data.roomId).broadcast.emit('sync playlist', playlistObj[data.roomId]);
   });
 
-  socket.on('play video', (data) => {
-    socket.to(data.roomId).broadcast.emit('play video', data.videoId);
-  })
   
+  socket.on('done playing', (data) => {
+    statusObj[data][socket.id] = false
+    console.log(statusObj)
+    const statusArr = Object.values(statusObj[data]);
+    
+    if (!statusArr.includes(true) && playlistObj[data].length > 0) {
+      
+      
+      const nextVideo = playlistObj[data].shift();
+      
+      io.of('movie').to(data).emit('play next video', nextVideo.id);
+
+      for (let key in statusObj[data]) {
+        statusObj[data][key] = true
+      }
+      
+      console.log(statusObj)
+    }
+  })
 
   socket.on('joinRoom', (roomObject) => {
+    roomId = roomObject.roomId;
  
-     
-    
-
     if (roomObject.roomIdCookie && roomObject.adminIdCookie) {
       const filteredAdmin = adminSocketList.filter(admin => admin.id === roomObject.adminIdCookie && admin.roomId === roomObject.roomId);
       const isAdmin = filteredAdmin.length > 0;
@@ -149,6 +168,11 @@ io.of('movie')
     console.log(socket.id + 'joined ' + roomObject.roomId)
 
     socket.join(roomObject.roomId, () => {
+      if (statusObj[roomObject.roomId]) {
+        statusObj[roomObject.roomId][socket.id] = true
+      }
+      console.log(statusObj)
+
       let rooms = Object.keys(socket.rooms);
       console.log(rooms);
 
@@ -160,13 +184,20 @@ io.of('movie')
       console.log("filtered", filteredAdmin)
       
       const isAdmin = filteredAdmin.length > 0;
+
+      if (isAdmin) {
+        socket.emit('is admin', filteredAdmin[0]);
+      }
+
+      socket.on('play video', (data) => {
+        if (isAdmin) {
+          socket.to(data.roomId).broadcast.emit('play video', data.videoId);
+        }
+      })
  
 
 
       socket.on('share video timestamp', (timestamp: number) => {
-        if (isAdmin) {
-          socket.emit('is admin', filteredAdmin[0]);
-        }
         if (isAdmin && timestamp) {
           console.log(timestamp)
           socket.to(roomObject.roomId).broadcast.emit('sync video timestamp', timestamp);
@@ -185,6 +216,9 @@ io.of('movie')
 
   socket.on('disconnect', () => {
     console.log('socket disconnected')
+    if (roomId) {
+      delete statusObj[roomId][socket.id]
+    }
     
   })
 })

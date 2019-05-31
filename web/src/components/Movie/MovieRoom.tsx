@@ -23,31 +23,8 @@ const MovieRoom = (props) => {
   const [currentPlaying, setCurrentPlaying] = useState(undefined);
   const [isAdmin, setIsAdmin] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
-  const [playlist, setPlaylist] = useState([{
-    "publishedAt": "2018-10-10T09:00:06.000Z",
-    "channelId": "UCweOkPb1wVVH0Q0Tlj4a5Pw",
-    "title": "[MV] IU(아이유) _ BBIBBI(삐삐)",
-    "description": "[MV] IU(아이유) _ BBIBBI(삐삐) *English subtitles are now available. :D (Please click on 'CC' button or activate 'Interactive Transcript' function) [Notice] 1theK ...",
-    "thumbnails": {
-      "default": {
-        "url": "https://i.ytimg.com/vi/nM0xDI5R50E/default.jpg",
-        "width": 120,
-        "height": 90
-        },
-      "medium": {
-        "url": "https://i.ytimg.com/vi/nM0xDI5R50E/mqdefault.jpg",
-        "width": 320,
-        "height": 180
-        },
-      "high": {
-        "url": "https://i.ytimg.com/vi/nM0xDI5R50E/hqdefault.jpg",
-        "width": 480,
-        "height": 360
-        }
-    },
-    "channelTitle": "1theK (원더케이)",
-    "liveBroadcastContent": "none"
-    }]);
+  const [playlist, setPlaylist] = useState([]);
+  const [isPlaying, setIsPlaying] = useState();
 
   const ref = player => {
     this.player = player
@@ -67,6 +44,10 @@ const MovieRoom = (props) => {
   
   }
 
+  const onEnded = () => {
+    socket.emit('done playing', roomId);
+  }
+
   const addToPlaylist = (videoData) => {
     setPlaylist([...playlist, videoData]);
   }
@@ -83,12 +64,14 @@ const MovieRoom = (props) => {
   }
 
   const playVideo = (videoId) => {
-    setCurrentPlaying(videoId);
-    const videoObj = {
-      videoId,
-      roomId
+    if (isAdmin) {
+      setCurrentPlaying(videoId);
+      const videoObj = {
+        videoId,
+        roomId
+      }
+      socket.emit("play video", videoObj)
     }
-    socket.emit("play video", videoObj)
   }
   
   
@@ -139,6 +122,11 @@ const MovieRoom = (props) => {
     socket.on('play video', (videoId) => {
       setCurrentPlaying(videoId);
     })
+
+    socket.on('play next video', (videoId) => {
+      console.log(videoId)
+      setCurrentPlaying(videoId)
+    })
   }, [])
 
 
@@ -175,6 +163,7 @@ const MovieRoom = (props) => {
       onProgress={(state) => playedFraction = state.played}
       onDuration={(totaltime) => duration = totaltime}
       onPlay={onPlay}
+      onEnded={onEnded}
     /> 
     <button className="button" onClick={handleClick}>GET NUM CLIENTS</button>
     <Chatbar socket={socket} roomId={roomId}/>
