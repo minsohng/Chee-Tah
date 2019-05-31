@@ -1,0 +1,141 @@
+// .row.align-items-stretch .card:only-of-type { height: 100%; }
+
+h4{
+  align-items: center;
+  justify-content: flex-end;
+  align-items:flex-end; 
+	width: 100%;
+	position: absolute;
+	display: flex;
+  justify-content: center;
+  color:white;
+}
+body {
+    text-align: center;
+    text-transform: uppercase;
+    padding: 50px 0;
+  }
+  
+  .about{
+      background-image:url('https://wallpaperplay.com/walls/full/3/7/a/37709.jpg');
+      background-size: cover;
+  background-attachment: fixed;
+  background-position: center;
+  }
+  .box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #aaa;
+    margin: 20px 0;
+    padding: 10px;
+    width: 100%;
+    min-height: 200px;
+    border:3px solid white;
+    color: #fff;
+    background-color:red;
+  }
+
+  .box:hover .picture-sizing {
+    -moz-box-shadow: 0 0 20px #ccc;
+		-webkit-box-shadow: 0 0 20px #ccc;
+		box-shadow: 0 0 20px #ccc;
+  }
+
+  #inner-box{
+      color:black;
+      background-image: linear-gradient(#3D7EAA, #19547b);
+  }
+
+  .box:hover {
+    opacity: 0.5;
+    
+  }
+
+  p{
+    color:white;
+  }
+  h1{
+    color:white;
+  }
+  .bottom-align-text {
+    position: absolute;
+    bottom: 0;
+    right: 1  ;
+    text-align:center;
+  }
+
+  .picture-sizing{
+    width: 100%;
+    height: 10vw;
+    object-fit: cover;
+    // border: 3px solid orange;
+    background: #eee;
+    border-radius: 5px;
+    border: 3px solid transparent;
+    -moz-border-image: -moz-linear-gradient(top, #3acfd5 0%, #3a4ed5 100%);
+    -webkit-border-image: -webkit-linear-gradient(top, #3acfd5 0%, #3a4ed5 100%);
+    border-image: linear-gradient(to bottom, #3acfd5 0%, #3a4ed5 100%);
+    border-image-slice: 1;
+  }
+
+  // .picture-sizing:hover{
+  //   // -ms-transform: scale(1); /* IE 9 */
+  //   // -webkit-transform: scale(1); /* Safari 3-8 */
+  //   // transform: scale(1.2); 
+  //   // width: 100%;
+  //   // height:12vw;
+  //   -moz-box-shadow: 0 0 20px #ccc;
+	// 	-webkit-box-shadow: 0 0 20px #ccc;
+	// 	box-shadow: 0 0 20px #ccc;
+  // }
+ 
+ 
+
+  .nav-hover-on{
+      display:flex;
+      justify-content:center;
+  }
+
+  .navbarA{
+    min-height: 3.25rem;
+    position: relative;
+    z-index: 30;
+  }
+  .nav-hover-on:hover{
+      opacity:0.6;
+  }
+
+  #online-people{
+      color:white
+  }
+
+  @media screen and (max-width: 600px){
+    .picture-sizing{
+        width: 100%;
+        height: 22vh;
+        object-fit: cover;
+       
+      }
+  }
+
+
+  @media screen and (max-width: 800px){
+    .picture-sizing{
+        width: 100%;
+        height: 23vh;
+        object-fit: cover;
+       
+      }
+  }
+
+  
+
+  //border animation
+  // Mixin for shadow button with block sliding up
+ 
+
+  
+  
+  
+  

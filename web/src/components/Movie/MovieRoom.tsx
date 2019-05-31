@@ -8,6 +8,8 @@ import Playlist from './Playlist';
 import ReactPlayer from 'react-player';
 import Cookies from 'universal-cookie';
 import axios from 'axios';
+import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+import "./movie.scss";
 
 
 let playedFraction: number;
@@ -133,11 +135,34 @@ const MovieRoom = (props) => {
   const renderPage = () => {
     if(!isLoading && isRoom) {
       return (
-        <div>
-          <header className="Header">
+        
+            // <Form addToPlaylist={addToPlaylist} sendMessage={sendMessage} playVideo={playVideo}/>
+            <div>
+            <header className="Header">
+    
             <Form addToPlaylist={addToPlaylist} sendMessage={sendMessage} playVideo={playVideo}/>
-            <h1>{ isAdmin ? 'Admin Mode' : ''}</h1>
-          </header>
+            
+             <div id="navigation" className="Navigation">
+             <h6 id="admin-notice">{ isAdmin ? 'Admin Mode' : ''}</h6>
+            <nav>
+              
+              <ul>
+             
+                <li>
+                <Link to="/" style={{ textDecoration: 'none', color: 'white' }}>Browse</Link>
+                </li>
+                <li>
+                  
+                </li>
+                <li></li>
+                <li>
+                <Link to="/" style={{ textDecoration: 'none', color: 'white' }}>Home</Link>
+              </li>
+              </ul>
+            </nav>
+          </div>
+             
+            </header>
           
           <div
             id="hero"

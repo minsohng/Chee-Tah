@@ -28,24 +28,6 @@ const Movie: React.FunctionComponent<Home> = props => {
     }
 
 
-  const onMouseEnter = () => {
-    if(!playing) {
-      toggle();
-    }
-    props.setContainerLabel('port movie')
-  }
-  const onMouseExit = () => {
-    if(playing) {
-      toggle();
-    }
-  }
-
-  const onClick = () => {
-    if(playing) {
-      destroy();
-    }
-  }
-
   return ( 
       <>
         <section>
