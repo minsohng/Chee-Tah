@@ -1,13 +1,13 @@
 import * as React from 'react';
-const { useState, useEffect } = React;
 import Publicroom from './Publicroom';
+import {useState, useEffect} from 'react';
 import axios from 'axios';
 import "./room.scss";
 
 
 
 const Roompage = (props) => {
-  
+
   const socket = props.socket;
   const [containerLabel, setContainerLabel] = useState('port about');
   // const [muteToggles, setMuteToggles] = useState({});
@@ -25,7 +25,7 @@ const Roompage = (props) => {
   return (
     <div className={containerLabel}>
    
-      <Publicroom socket={socket} setContainerLabel={setContainerLabel}/>
+      <Publicroom socket={socket} setContainerLabel={setContainerLabel} roomList={props.roomList}/>
      
       
     </div>

@@ -18,6 +18,13 @@ app.use(bodyParser.json());
 //support parsing of application/x-www-form-urlencoded post data
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
+app.post('/api/fetchState', function (req, res) {
+    var roomId = req.body.roomId;
+    var returnObj = {
+        nextVideo: playlistObj[roomId][0]
+    };
+    res.json(returnObj);
+});
 app.get('/api/showRoom', function (req, res) {
     var filteredPublic = roomList.filter(function (room) { return room.type === "public"; });
     res.json({
