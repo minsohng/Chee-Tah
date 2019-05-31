@@ -12,7 +12,6 @@ var adminSocketList = [];
 var roomList = [];
 var playlistObj = {};
 var statusObj = {};
-
 app.set("port", process.env.PORT || 3001);
 // support parsing of application/json type post data
 app.use(bodyParser.json());
@@ -66,7 +65,6 @@ app.post('/api/createRoom', function (req, res) {
             roomId: roomId,
             id: socket.id
         });
-
         playlistObj[roomId] = [];
         statusObj[roomId] = {};
         res.json({ url: data1 + "-" + data2 });
@@ -95,7 +93,6 @@ io.of('movie')
     socket.on('message_sent', function (data) {
         io.of('movie').to(data.room).emit('message_receive', data);
     });
-
     socket.on('add to playlist', function (data) {
         playlistObj[data.roomId].push(data);
         socket.to(data.roomId).broadcast.emit('sync playlist', playlistObj[data.roomId]);
@@ -113,7 +110,6 @@ io.of('movie')
             console.log(statusObj);
         }
     });
-
     socket.on('joinRoom', function (roomObject) {
         roomId = roomObject.roomId;
         if (roomObject.roomIdCookie && roomObject.adminIdCookie) {
