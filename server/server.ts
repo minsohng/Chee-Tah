@@ -147,6 +147,7 @@ io.of('movie')
 
   
   socket.on('done playing', (data) => {
+    console.log("PLAYLIST", playlistObj[roomId])
     statusObj[data][socket.id] = false
     console.log(statusObj)
     const statusArr = Object.values(statusObj[data]);
@@ -226,6 +227,12 @@ io.of('movie')
         }
         
       })
+      socket.on('disconnect', () => {
+        console.log('socket disconnected')
+        if (roomId && socket && statusObj[roomId][socket.id]) {
+          delete statusObj[roomId][socket.id]
+        }
+      })
     });
   })
 
@@ -236,13 +243,6 @@ io.of('movie')
     });
   })
 
-  socket.on('disconnect', () => {
-    console.log('socket disconnected')
-    if (roomId) {
-      delete statusObj[roomId][socket.id]
-    }
-    
-  })
 })
 
 http.listen(PORT, '0.0.0.0',() => {

@@ -109,6 +109,7 @@ io.of('movie')
         socket.to(data.roomId).broadcast.emit('sync playlist', playlistObj[data.roomId]);
     });
     socket.on('done playing', function (data) {
+        console.log("PLAYLIST", playlistObj[roomId]);
         statusObj[data][socket.id] = false;
         console.log(statusObj);
         var statusArr = Object.values(statusObj[data]);
@@ -168,6 +169,12 @@ io.of('movie')
                     socket.to(roomObject.roomId).broadcast.emit('sync video timestamp', timestamp);
                 }
             });
+            socket.on('disconnect', function () {
+                console.log('socket disconnected');
+                if (roomId && socket && statusObj[roomId][socket.id]) {
+                    delete statusObj[roomId][socket.id];
+                }
+            });
         });
     });
     socket.on('get number of clients', function (roomId) {
@@ -176,12 +183,6 @@ io.of('movie')
                 throw error;
             console.log("number of clients " + clients.length + " " + clients);
         });
-    });
-    socket.on('disconnect', function () {
-        console.log('socket disconnected');
-        if (roomId) {
-            delete statusObj[roomId][socket.id];
-        }
     });
 });
 http.listen(PORT, '0.0.0.0', function () {
