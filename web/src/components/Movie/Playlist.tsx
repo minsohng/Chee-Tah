@@ -2,6 +2,9 @@ import * as React from 'react';
 import Video from './Video';
 const MAX_PER_LINE = 5;
 
+
+
+
 const Playlist = (props) => {
   const playlist = props.playlist;
   const pages = Math.floor(playlist.length / MAX_PER_LINE);
@@ -50,7 +53,12 @@ const Playlist = (props) => {
         <div className="title">really cool video title</div>
         <div className="plot">
           amazing description
+        
+        <div className="buttonX">
+  <p>Remove</p>
+</div>
         </div>
+   
       </div>
     </div>
 
@@ -60,6 +68,8 @@ const Playlist = (props) => {
       style={{ backgroundImage: `url(https://images.pexels.com/photos/356378/pexels-photo-356378.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500)` }}
     >
       <div className="overlay ">
+          <button style={{float:'right', left:'10px'}} className="buttonX "><i className="far fa-fw fa-trash-alt "></i>
+</button>
         <div className="title">really cool video title</div>
         <div className="plot">
           amazing description
@@ -156,7 +166,7 @@ const Playlist = (props) => {
         <div className="title">really cool video title</div>
         <div className="plot">
           amazing description
-          <button className="delete-me">remove</button>
+      
         </div>
       </div>
     </div>
