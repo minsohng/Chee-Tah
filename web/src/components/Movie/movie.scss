@@ -17,8 +17,24 @@ iframe{
   width:50vh !important;
   height:50vh !important;
 }
-body, html {height:100%;}
-// .wrap {height:100%; overflow:hidden;}
+
+::-webkit-scrollbar {
+    width: 0px;
+    background: transparent; /* make scrollbar transparent */
+}
+// non scroll
+// body, html {height:100%;}
+// #root {height:100%; overflow:hidden;}
+
+.movie-contains-all{
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	overflow: hidden;
+	
+}
 // General
 body {
 	// background: $black;
@@ -43,8 +59,8 @@ p {
 }
 
 .scrolling-container{
-  overflow-x: scroll;
-  padding-bottom: 1.5em;
+//   overflow-x: scroll;
+
 }
 
 ////////////
@@ -80,6 +96,7 @@ p {
 	width: 100%;
 	position: absolute;
 	display: flex;
+	right: 5vh;
 	
 }
 // Search
@@ -166,32 +183,32 @@ p {
 	z-index: 4;
 }
 
-// Hack for first after Hero
-.TitleList {
-	padding: 20px 40px;
-	box-sizing: border-box;
-	transition: opacity 3s ease;
-	opacity: 0;
+// // Hack for first after Hero
+// .TitleList {
+// 	padding: 20px 40px;
+// 	box-sizing: border-box;
+// 	transition: opacity 3s ease;
+// 	opacity: 0;
 	
-	.Title {
-		@extend h2;
-	}
+// 	.Title {
+// 		@extend h2;
+// 	}
 	
-	.titles-wrapper {
-		display: flex;
-		flex-wrap: wrap;
-		margin: 20px 0;
+// 	.titles-wrapper {
+// 		display: flex;
+// 		flex-wrap: wrap;
+// 		margin: 20px 0;
 		
-		width: calc(100vw - 80px);
-		box-sizing: border-box;
-		justify-content: space-between;
+// 		width: calc(100vw - 80px);
+// 		box-sizing: border-box;
+// 		justify-content: space-between;
 		
-	}
+// 	}
 	
-	// Animation
+// 	// Animation
 	
 	
-}
+// }
 
 // Item
 .Item {
@@ -206,9 +223,10 @@ p {
 	overflow: hidden;
 	margin-right: 10px;
 	transition: background 1s ease;
+	z-index: 5000;
 	
 	&:nth-child(n+6) {
-		margin-top: 20px;
+		
 	}
 	
 	&:last-child {
@@ -233,7 +251,11 @@ p {
 			transition: opacity .25s ease;
 		}
 		
-		
+		.delete-me{
+			opacity: 1;
+			color:red;
+			z-index:9999;
+		}
 		
 		.plot {
 			color: white;
@@ -251,6 +273,7 @@ p {
 			
 			transition: margin .25s ease .125s, opacity .25s ease .25s;
 		}
+			
 	}
 	
 	&:hover {
@@ -268,6 +291,8 @@ p {
 			.title {
 				opacity: 1;
 			}
+
+			
 				
 		}
 	}
@@ -478,3 +503,20 @@ p {
 		overflow-x: scroll;
 	}
 
+
+	.pin-bottom {
+		
+		// border-top: 5px solid #6473C3;
+		// border-bottom: 5px solid #6473C3;
+		bottom: 0;
+		display: flex;
+		padding-top: 30px;
+		align-items: center;
+		justify-content: center;
+		position: fixed;
+		z-index: 5000;
+	  }
+
+
+	
+	

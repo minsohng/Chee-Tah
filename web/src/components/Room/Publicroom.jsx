@@ -1,4 +1,4 @@
-import * as React from "react";
+import React from "react";
 const { useState, useEffect } = React;
 import { Link } from "react-router-dom";
 import Home from "../../interfaces/Home.interface";
@@ -7,7 +7,8 @@ const Publicroom = props => {
   const socket = props.socket;
 
   return (
-    <div className="container">
+    <div className="contains-all">
+    <div className="container" id="room-specific">
        
       <nav className="navbarA ">
           
@@ -181,6 +182,7 @@ const Publicroom = props => {
           <p id="online-people">4 people watching currently</p>
         </div>
       </div>
+    </div>
     </div>
   );
 };

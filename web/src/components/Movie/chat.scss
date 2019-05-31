@@ -16,8 +16,9 @@
 }
 #viewport > .chatbox {
 	position: relative;
-	display: table;
-	float: left;
+	display: flex;
+	justify-content: flex-end;
+	bottom: 14vh;
 	margin: 1rem;
 	width: 20rem;
 	height: 36rem;

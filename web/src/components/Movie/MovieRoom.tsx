@@ -9,7 +9,6 @@ import ReactPlayer from 'react-player';
 import Cookies from 'universal-cookie';
 import axios from 'axios';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
-import "./movie.scss";
 
 
 let playedFraction: number;
@@ -137,7 +136,7 @@ const MovieRoom = (props) => {
       return (
         
             // <Form addToPlaylist={addToPlaylist} sendMessage={sendMessage} playVideo={playVideo}/>
-            <div>
+            <div className="movie-contains-all">
             <header className="Header">
     
             <Form addToPlaylist={addToPlaylist} sendMessage={sendMessage} playVideo={playVideo}/>
@@ -186,11 +185,18 @@ const MovieRoom = (props) => {
           /> 
           <button className="button" onClick={handleClick}>GET NUM CLIENTS</button>
           <Chatbar username={username} socket={socket} roomId={roomId}/>
-    
+          
           </div>
+         
           <div className="overlay" />
+          
             </div>
-            <Playlist playlist={playlist}/>
+            <footer className="pin-bottom">
+
+          <Playlist playlist={playlist}/>
+
+            </footer>
+          
               {/* testing purposes */}
           </div>
       )
