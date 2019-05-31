@@ -9,7 +9,6 @@ const axios = require('axios');
 const bodyParser = require('body-parser');
 
 
-
 // Set the port to 3001
 const PORT = 3001;
 
@@ -25,7 +24,6 @@ interface RoomInfo {
 
 const adminSocketList: Admin[] = [];
 const roomList: RoomInfo[] = [];
-const playlistObj = {};
 
 app.set("port", process.env.PORT || 3001);
 // support parsing of application/json type post data
@@ -48,17 +46,22 @@ app.post('/api/getRoom', (req, res) => {
   const filteredRoom = roomList.filter(room => room.roomId === params);
   const haveRoom = filteredRoom.length > 0;
   console.log("filteredROOM", filteredRoom);
-  if (!haveRoom) {
-    res.json({response: false});
-    return;
-  }
-
-  res.json({
-    response: true,
-    type: filteredRoom[0].type
-  });
-  io.of('movie').to(params).emit('sync playlist', playlistObj[params]);
-   
+  const promise1 = axios.get('https://api.datamuse.com/words?ml=fast');
+  const promise2 = axios.get('https://api.datamuse.com/words?ml=cheetah');
+  Promise.all([promise1, promise2]).then(function(response) {
+    const randomNum = Math.floor(Math.random() * 100)
+    const data1 = response[0].data[randomNum].word.replace(/ /g, '');
+    const data2 = response[1].data[randomNum].word.replace(/ /g, '');
+    if (!haveRoom) {
+      res.json({response: false});
+      return;
+    }
+    res.json({
+      response: true,
+      type: filteredRoom[0].type,
+      username: `${data1}${data2}`
+    });
+  })
 });
 
 app.post('/api/createRoom', (req, res) => {
@@ -81,8 +84,7 @@ app.post('/api/createRoom', (req, res) => {
     adminSocketList.push({
       roomId: roomId,
       id: socket.id
-    });
-    playlistObj[roomId] = [];
+    })
  
     res.json({url: `${data1}-${data2}`});
   });
@@ -113,17 +115,9 @@ io.of('movie')
 
   console.log(socket.id + " connected to /movie");
 
-  socket.on('message_sent', (data) => {
-    io.of('movie').to(data.room).emit('message_receive', data);
-  })
-  
-  socket.on('add to playlist', (data) => {
-    playlistObj[data.roomId].push(data);
-    socket.to(data.roomId).broadcast.emit('sync playlist', playlistObj[data.roomId]);
-  });
+  socket.on('message_sent', function(data) {
 
-  socket.on('play video', (data) => {
-    socket.to(data.roomId).broadcast.emit('play video', data.videoId);
+    io.of('movie').to(data.room).emit('message_receive', data);
   })
   
 

@@ -79,16 +79,16 @@ const Form: React.FunctionComponent<{addToPlaylist(url: string): void, sendMessa
   }
 
   const onKeyUp = event => {
+    setResultVisibility('container is-overlay is-relative')
     if(event.key === 'Enter') {
-      axios.get(
-        process.env.URL + `/api/youtube/${formInput}`, {
-        }).then(result => {
-          setResultVisibility('container is-overlay is-relative')
-          console.log('Received response');
-          setData(result.data);
-          setFormInput('');
-          setResultVisibility('container is-overlay is-relative')
-      }).catch(err => console.error('Failed to retrieve search data'));
+      // axios.get(
+      //   process.env.URL + `/api/youtube/${formInput}`, {
+      //   }).then(result => {
+      //     console.log('Received response');
+      //     setData(result.data);
+      //     setFormInput('');
+      //     setResultVisibility('container is-overlay is-relative')
+      // }).catch(err => console.error('Failed to retrieve search data'));
     }
   }
   // below is code to grab searches on input change

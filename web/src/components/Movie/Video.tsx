@@ -5,7 +5,7 @@ const Video = props => {
   return (
     <div
       className="Item"
-      style={{ backgroundImage: `url(${video.thumbnails.medium.url})` }}
+      style={{ backgroundImage: `url(${video.thumbnails.high.url})` }}
     >
       <div className="overlay ">
         <div className="title">{video.title}</div>
