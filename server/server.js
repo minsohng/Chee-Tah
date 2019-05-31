@@ -10,6 +10,9 @@ var bodyParser = require('body-parser');
 var PORT = 3001;
 var adminSocketList = [];
 var roomList = [];
+var playlistObj = {};
+var statusObj = {};
+
 app.set("port", process.env.PORT || 3001);
 // support parsing of application/json type post data
 app.use(bodyParser.json());
@@ -63,6 +66,9 @@ app.post('/api/createRoom', function (req, res) {
             roomId: roomId,
             id: socket.id
         });
+
+        playlistObj[roomId] = [];
+        statusObj[roomId] = {};
         res.json({ url: data1 + "-" + data2 });
     });
 });
@@ -84,11 +90,32 @@ app.get('/api/youtube/:query', function (req, res) {
 });
 io.of('movie')
     .on('connection', function (socket) {
+    var roomId;
     console.log(socket.id + " connected to /movie");
     socket.on('message_sent', function (data) {
         io.of('movie').to(data.room).emit('message_receive', data);
     });
+
+    socket.on('add to playlist', function (data) {
+        playlistObj[data.roomId].push(data);
+        socket.to(data.roomId).broadcast.emit('sync playlist', playlistObj[data.roomId]);
+    });
+    socket.on('done playing', function (data) {
+        statusObj[data][socket.id] = false;
+        console.log(statusObj);
+        var statusArr = Object.values(statusObj[data]);
+        if (!statusArr.includes(true) && playlistObj[data].length > 0) {
+            var nextVideo = playlistObj[data].shift();
+            io.of('movie').to(data).emit('play next video', nextVideo.id);
+            for (var key in statusObj[data]) {
+                statusObj[data][key] = true;
+            }
+            console.log(statusObj);
+        }
+    });
+
     socket.on('joinRoom', function (roomObject) {
+        roomId = roomObject.roomId;
         if (roomObject.roomIdCookie && roomObject.adminIdCookie) {
             var filteredAdmin = adminSocketList.filter(function (admin) { return admin.id === roomObject.adminIdCookie && admin.roomId === roomObject.roomId; });
             var isAdmin = filteredAdmin.length > 0;
@@ -103,15 +130,24 @@ io.of('movie')
         console.log('ROOM LIST:', roomList);
         console.log(socket.id + 'joined ' + roomObject.roomId);
         socket.join(roomObject.roomId, function () {
+            if (statusObj[roomObject.roomId]) {
+                statusObj[roomObject.roomId][socket.id] = true;
+            }
+            console.log(statusObj);
             var rooms = Object.keys(socket.rooms);
             console.log(rooms);
             var filteredAdmin = adminSocketList.filter(function (admin) { return admin.id === socket.id; });
             console.log("filtered", filteredAdmin);
             var isAdmin = filteredAdmin.length > 0;
-            socket.on('share video timestamp', function (timestamp) {
+            if (isAdmin) {
+                socket.emit('is admin', filteredAdmin[0]);
+            }
+            socket.on('play video', function (data) {
                 if (isAdmin) {
-                    socket.emit('is admin', filteredAdmin[0]);
+                    socket.to(data.roomId).broadcast.emit('play video', data.videoId);
                 }
+            });
+            socket.on('share video timestamp', function (timestamp) {
                 if (isAdmin && timestamp) {
                     console.log(timestamp);
                     socket.to(roomObject.roomId).broadcast.emit('sync video timestamp', timestamp);
@@ -128,6 +164,9 @@ io.of('movie')
     });
     socket.on('disconnect', function () {
         console.log('socket disconnected');
+        if (roomId) {
+            delete statusObj[roomId][socket.id];
+        }
     });
 });
 http.listen(PORT, '0.0.0.0', function () {
