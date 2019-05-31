@@ -38,6 +38,13 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
 
 
+app.post('/api/fetchState', (req,res) => {
+  const roomId = req.body.roomId;
+  const returnObj = {
+    nextVideo: playlistObj[roomId][0]
+  }
+  res.json(returnObj);
+})
 
 app.get('/api/showRoom', (req, res) => {
   const filteredPublic = roomList.filter(room => room.type === "public")
