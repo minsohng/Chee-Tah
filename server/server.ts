@@ -24,6 +24,7 @@ interface RoomInfo {
 
 const adminSocketList: Admin[] = [];
 const roomList: RoomInfo[] = [];
+const curVideoObj = {};
 const playlistObj = {};
 const statusObj = {};
 
@@ -58,8 +59,9 @@ app.post('/api/getRoom', (req, res) => {
   const filteredRoom = roomList.filter(room => room.roomId === params);
   const haveRoom = filteredRoom.length > 0;
   console.log("filteredROOM", filteredRoom);
-  const promise1 = axios.get('https://api.datamuse.com/words?ml=fast');
-  const promise2 = axios.get('https://api.datamuse.com/words?ml=cheetah');
+  const promise1 = axios.get('https://api.datamuse.com/words?ml=ocean');
+  const promise2 = axios.get('https://api.datamuse.com/words?ml=animal');
+  const currentVideo = curVideoObj[params] ? curVideoObj[params].videoId : '';
   Promise.all([promise1, promise2]).then(function(response) {
     const randomNum = Math.floor(Math.random() * 100)
     const data1 = response[0].data[randomNum].word.replace(/ /g, '');
@@ -71,7 +73,9 @@ app.post('/api/getRoom', (req, res) => {
     res.json({
       response: true,
       type: filteredRoom[0].type,
-      username: `${data1}${data2}`
+      username: `${data1}${data2}`,
+      playlist: playlistObj[params],
+      currentVideo
     });
   })
 });
@@ -99,7 +103,7 @@ app.post('/api/createRoom', (req, res) => {
 
     });
     playlistObj[roomId] = [];
-    statusObj[roomId]= {};
+    statusObj[roomId] = {};
 
     res.json({url: `${data1}-${data2}`});
   });
@@ -148,12 +152,13 @@ io.of('movie')
     const statusArr = Object.values(statusObj[data]);
     
     if (!statusArr.includes(true) && playlistObj[data].length > 0) {
-      
-      
       const nextVideo = playlistObj[data].shift();
-      
-      io.of('movie').to(data).emit('play next video', nextVideo.id);
-
+      if(curVideoObj[roomId].videoId === nextVideo.id) {
+        io.of('movie').to(data).emit('sync video timestamp', 0);
+      } else {
+        io.of('movie').to(data).emit('play next video', nextVideo.id);
+      }
+      io.of('movie').to(data).emit('sync playlist', playlistObj[data]);
       for (let key in statusObj[data]) {
         statusObj[data][key] = true
       }
@@ -206,6 +211,8 @@ io.of('movie')
 
       socket.on('play video', (data) => {
         if (isAdmin) {
+          curVideoObj[roomId] = data;
+          console.log(`current video:  ${curVideoObj[roomId].videoId}`);
           socket.to(data.roomId).broadcast.emit('play video', data.videoId);
         }
       })

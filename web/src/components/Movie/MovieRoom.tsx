@@ -1,6 +1,6 @@
 
 import * as React from 'react';
-import {useEffect, useState, useRef} from 'react'
+const {useEffect, useState, useRef} = React;
 import Form from'./Form';
 import Chatbar from './Chatbar'
 import "./movie.scss";
@@ -9,7 +9,6 @@ import ReactPlayer from 'react-player';
 import Cookies from 'universal-cookie';
 import axios from 'axios';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
-import "./movie.scss";
 
 
 let playedFraction: number;
@@ -26,7 +25,6 @@ const MovieRoom = (props) => {
   const [isRoom, setIsRoom] = useState(false);
   const [username, setUsername] = useState('');
   const [playlist, setPlaylist] = useState([]);
-  const [isPlaying, setIsPlaying] = useState();
 
   const ref = player => {
     this.player = player
@@ -86,6 +84,8 @@ const MovieRoom = (props) => {
         setIsLoading(false);
         setIsRoom(true);
         setUsername(response.data.username);
+        setPlaylist(response.data.playlist);
+        setCurrentPlaying(response.data.currentVideo);
       } else {
         setIsLoading(false);
       }
@@ -114,10 +114,8 @@ const MovieRoom = (props) => {
     })
 
     socket.on('sync video timestamp', (timestamp: number) => {
-      
       this.player.seekTo(timestamp);
       console.log("timestamp", timestamp)
-    
      
     })
 
