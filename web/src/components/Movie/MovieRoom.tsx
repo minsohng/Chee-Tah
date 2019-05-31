@@ -24,6 +24,8 @@ const MovieRoom = (props) => {
   const [isRoom, setIsRoom] = useState(false);
   const [playlist, setPlaylist] = useState([]);
   const [username, setUsername] = useState('');
+  const [playlist, setPlaylist] = useState([]);
+  const [isPlaying, setIsPlaying] = useState();
 
   const ref = player => {
     this.player = player
@@ -39,6 +41,10 @@ const MovieRoom = (props) => {
       socket.emit('share video timestamp', timestamp+1)
     },1000)
   
+  }
+
+  const onEnded = () => {
+    socket.emit('done playing', roomId);
   }
 
   const addToPlaylist = (videoData) => {
@@ -57,12 +63,14 @@ const MovieRoom = (props) => {
   }
 
   const playVideo = (videoId) => {
-    setCurrentPlaying(videoId);
-    const videoObj = {
-      videoId,
-      roomId
+    if (isAdmin) {
+      setCurrentPlaying(videoId);
+      const videoObj = {
+        videoId,
+        roomId
+      }
+      socket.emit("play video", videoObj)
     }
-    socket.emit("play video", videoObj)
   }
   
   
@@ -115,6 +123,11 @@ const MovieRoom = (props) => {
     socket.on('play video', (videoId) => {
       setCurrentPlaying(videoId);
     })
+
+    socket.on('play next video', (videoId) => {
+      console.log(videoId)
+      setCurrentPlaying(videoId)
+    })
   }, [])
 
 
@@ -145,6 +158,7 @@ const MovieRoom = (props) => {
             onProgress={(state) => playedFraction = state.played}
             onDuration={(totaltime) => duration = totaltime}
             onPlay={onPlay}
+            onEnded={onEnded}
           /> 
           <button className="button" onClick={handleClick}>GET NUM CLIENTS</button>
           <Chatbar username={username} socket={socket} roomId={roomId}/>
@@ -161,6 +175,7 @@ const MovieRoom = (props) => {
     } else if(isLoading) {
       return <img src='https://s3-us-west-2.amazonaws.com/s.cdpn.io/28963/giphy%20(24).gif' alt="Loading..."/> 
     }
+
   }
 
   return (
