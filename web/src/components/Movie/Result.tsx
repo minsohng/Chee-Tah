@@ -17,7 +17,57 @@ const Result = (props) => {
 
   return (
     <>
-      <div className='columns'>
+      {/* <div style={{color:'white'}}>{title.title}</div>
+     */}
+
+        
+        <div className="col-m-9 offset-m-4">
+          <div className="box box-padding">
+            <h3>{title.title}</h3>
+            <img className="picture-search" src={title.thumbnails.medium.url}></img>
+            <h5 >{title.channelTitle}</h5>
+            <p>className="col-lg-12"</p>
+          </div>
+        </div>
+   
+
+
+    {/* <div style={{overflowY:'scroll', zIndex:9000}} className="search-result new-job">
+ 
+  <div className="">
+  
+  </div>
+  <div className="content">
+      <span className="company"><a href="#"> <p className='title is-4'>{title.title}</p></a></span>
+    <h2><a href="/viewjob/1234"> <img src={title.thumbnails.medium.url}/></a></h2>
+    <p>
+      
+     
+    </p>
+    <p className='subtitle is-4'>{title.channelTitle}</p>
+    <div>
+      <p></p>
+    </div>
+  
+    <div className="more">
+      <div className="close">x</div>
+      <p className='subtitle is-4'>{title.channelTitle}</p>
+    </div>
+  </div>
+</div> */}
+      
+      
+     
+
+       
+
+
+     
+
+                 
+            
+
+      {/* <div className='columns'>
         <div className="column is-6 is-offset-one-fifth">
           <div className='box'>
             <article className='media'>
@@ -40,7 +90,7 @@ const Result = (props) => {
             </article>
           </div>
       </div>
-      </div>
+      </div> */}
     </>
   )
 }
