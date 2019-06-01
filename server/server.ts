@@ -283,6 +283,10 @@ io.of('movie')
   socket.on('get number of clients', (roomId) => {
     io.of('/movie').in(roomId).clients((error, clients) => {
       if (error) throw error;
+      io.of('movie').emit("send number of clients", ({
+        numClients: clients.length,
+        roomId
+      }));
       console.log(`number of clients ${clients.length} ${clients}`)
     });
   })
