@@ -232,6 +232,7 @@ const Form: React.FunctionComponent<{addToPlaylist(url: string): void, sendMessa
     //   "liveBroadcastContent": "none"
     //   }}
     ]);
+
   const onInput = event => {
     setFormInput(event.target.value);
   }
@@ -249,15 +250,8 @@ const Form: React.FunctionComponent<{addToPlaylist(url: string): void, sendMessa
     //   }).catch(err => console.error('Failed to retrieve search data'));
     // }
   }
-  // below is code to grab searches on input change
-  // useEffect(() => {
-  //   axios.get(
-  //     `http://localhost:3001/youtube/${formInput}`, {
-  //   }).then(result => {
-  //     console.log('Received response');
-  //     setData(result.data);
-  //   }).catch(err => console.error('Failed to retrieve search data'));
-  // }, [formInput])
+  
+  
   
 
 
@@ -280,7 +274,11 @@ const Form: React.FunctionComponent<{addToPlaylist(url: string): void, sendMessa
           onKeyUp={onKeyUp}
           onInput={onInput}
           value={formInput}
-          placeholder='Press Enter to search for videos'/>
+          placeholder='Press Enter to search for videos'
+          
+          autoComplete="off"
+        />
+        
       </div>
      
       <div className={resultVisibility} id='result'>
