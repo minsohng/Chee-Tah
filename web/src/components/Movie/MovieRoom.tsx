@@ -204,7 +204,7 @@ const MovieRoom = (props) => {
             </div>
             <footer className="pin-bottom">
 
-          <Playlist playlist={playlist}/>
+          <Playlist playlist={playlist} admin={isAdmin}/>
 
             </footer>
           

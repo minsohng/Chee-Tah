@@ -147,7 +147,7 @@ io.of('movie')
   .on('connection', (socket) => {
   let roomId;
 
-  console.log(socket.id + " connected to /movie");
+  console.log(socket.id + " connected to /movie"); 
 
   socket.on('message_sent', function(data) {
     io.of('movie').to(data.room).emit('message_receive', data);
