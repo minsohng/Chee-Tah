@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 const Video = props => {
-  const { video } = props;
+  const { video, id } = props;
   console.log(video);
   return (
     <div
@@ -13,7 +13,7 @@ const Video = props => {
         <div className="plot">
         {video.channelTitle}
           <div className="buttonX">
-            <p>Remove</p>
+            <p>{id}</p>
           </div>
         </div>
       </div>

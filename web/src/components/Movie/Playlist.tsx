@@ -1,13 +1,10 @@
 import * as React from "react";
 import Video from "./Video";
 import { useEffect, useState } from "react";
-const MAX_PER_LINE = 5;
 
 const Playlist = props => {
   const [isHidden, setIsHidden] = useState(true);
-
   const playlist = props.playlist;
-  const pages = Math.floor(playlist.length / MAX_PER_LINE);
   // let firstPage;
   // let secondPage;
   // if(playlist.length > MAX_PER_LINE) {
@@ -24,7 +21,7 @@ const Playlist = props => {
   };
 
   const videoList = playlist.map((data, i) => (
-    <Video video={data} key={i + 100} />
+    <Video video={data} key={i + 100} id={i}/>
   ));
 
   return (

@@ -50,12 +50,13 @@ const MovieRoom = (props) => {
     setPlaylist([...playlist, videoData]);
   }
   
-  const sendMessage = (data, id) => {
+  const sendMessage = (data, id, index) => {
     let message = {
       socketId: socket.id,
       roomId,
       ...data,
-      id
+      id,
+      i: index
     }
     console.log(message);
     socket.emit('add to playlist', message)

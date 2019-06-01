@@ -4,7 +4,7 @@ import axios from 'axios';
 import Result from './Result';
 
 
-const Form: React.FunctionComponent<{addToPlaylist(url: string): void, sendMessage(data: object, id: object):void, playVideo(title: any,id: string)}> = props => {
+const Form: React.FunctionComponent<{addToPlaylist(url: string): void, sendMessage(data: object, id: object, index: number):void, playVideo(title: any,id: string)}> = props => {
   const [formInput, setFormInput] = useState('');
   const [resultVisibility, setResultVisibility] = useState('is-overlay is-hidden');
   const [data, setData] = useState([
@@ -263,6 +263,7 @@ const Form: React.FunctionComponent<{addToPlaylist(url: string): void, sendMessa
       addToPlaylist={props.addToPlaylist}
       sendMessage={props.sendMessage}
       playVideo={props.playVideo}
+      index={i}
     />    
   )
 
