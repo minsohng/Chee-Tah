@@ -26,6 +26,11 @@ const MovieRoom = (props) => {
   const [isRoom, setIsRoom] = useState(false);
   const [username, setUsername] = useState('');
   const [playlist, setPlaylist] = useState([]);
+  
+  const userObj = {
+    socket,
+    isAdmin
+  }
 
   const ref = player => {
     this.player = player
@@ -53,12 +58,13 @@ const MovieRoom = (props) => {
     setPlaylist([...playlist, videoData]);
   }
   
-  const sendMessage = (data, id) => {
+  const sendMessage = (data, id, index) => {
     let message = {
       socketId: socket.id,
       roomId,
       ...data,
-      id
+      id,
+      i: index
     }
     console.log(message);
     socket.emit('add to playlist', message)
@@ -77,10 +83,15 @@ const MovieRoom = (props) => {
     }
   }
 
-  const deleteFromPlaylist = () => {
-    
+  const deleteVideo = (video, id) => {
+    console.log('yes');
+    const videoObj = {
+      video,
+      id
+    }
+    socket.emit("delete from playlist", videoObj);
   }
-  
+
   
   useEffect(() => {
     
@@ -97,7 +108,7 @@ const MovieRoom = (props) => {
         }, 3000)
         setIsRoom(true);
         setUsername(response.data.username);
-        // setPlaylist(response.data.playlist);
+        setPlaylist(response.data.playlist);
         setCurrentPlaying(response.data.currentVideo);
       } else {
         setTimeout(() => {
@@ -159,7 +170,10 @@ const MovieRoom = (props) => {
             <div className="movie-contains-all">
             <header className="Header">
     
-            <Form addToPlaylist={addToPlaylist} sendMessage={sendMessage} playVideo={playVideo}/>
+            <Form
+              addToPlaylist={addToPlaylist}
+              sendMessage={sendMessage}
+              playVideo={playVideo}/>
             
              <div id="navigation" className="Navigation">
              <h6 id="admin-notice">{ isAdmin ? 'Admin Mode' : ''}</h6>
@@ -207,16 +221,21 @@ const MovieRoom = (props) => {
             onEnded={onEnded}
           /> 
         
-          <Chatbar username={username} socket={socket} roomId={roomId}/>
+          <Chatbar
+            username={username}
+            socket={socket}
+            roomId={roomId}/>
           
           </div>
          
-          <div className="overlay" />
-          
-            </div>
-            <footer className="pin-bottom">
+          <div className="overlay" /></div>
+          <footer className="pin-bottom">
 
-          <Playlist playlist={playlist} playVideo={playVideo}/>
+          <Playlist 
+            playlist={playlist} 
+            playVideo={playVideo}
+            deleteVideo={deleteVideo}
+            admin={userObj}/>
 
             </footer>
           

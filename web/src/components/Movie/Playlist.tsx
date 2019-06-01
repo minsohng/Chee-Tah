@@ -1,13 +1,10 @@
 import * as React from "react";
 import Video from "./Video";
 import { useEffect, useState } from "react";
-const MAX_PER_LINE = 5;
 
 const Playlist = props => {
   const [isHidden, setIsHidden] = useState(true);
-
   const playlist = props.playlist;
-  const pages = Math.floor(playlist.length / MAX_PER_LINE);
   // let firstPage;
   // let secondPage;
   // if(playlist.length > MAX_PER_LINE) {
@@ -26,7 +23,7 @@ const Playlist = props => {
   console.log("DEBUG", playlist)
 
   const videoList = playlist.map((data, i) => (
-    <Video video={data} playVideo={props.playVideo} key={i + 100} />
+    <Video video={data} playVideo={props.playVideo} deleteVideo={props.deleteVideo} key={i + 100} id={i} admin={props.admin}/>
   ));
 
   return (
@@ -34,7 +31,7 @@ const Playlist = props => {
     <div className="toggle-button">
       <label className="slide-btn-alt">
         <input onClick={togglePlaylist} type="checkbox" />
-        <span  className="slide-btn-content" data-off="Hide" data-on="Show" />
+        <span className="slide-btn-content" data-off="Hide" data-on="Show" />
       </label>
       </div>
 

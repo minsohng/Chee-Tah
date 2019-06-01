@@ -147,7 +147,7 @@ io.of('movie')
   .on('connection', (socket) => {
   let roomId;
 
-  console.log(socket.id + " connected to /movie");
+  console.log(socket.id + " connected to /movie"); 
 
   socket.on('message_sent', function(data) {
     io.of('movie').to(data.room).emit('message_receive', data);
@@ -155,7 +155,6 @@ io.of('movie')
   
 
   socket.on('add to playlist', (data) => {
-    
     playlistObj[data.roomId].push(data);
     socket.to(data.roomId).broadcast.emit('sync playlist', playlistObj[data.roomId]);
   });
@@ -237,9 +236,7 @@ io.of('movie')
 
       const filteredAdmin = adminSocketList.filter(admin => admin.id === socket.id)
       console.log("filtered", filteredAdmin)
-
-      
-      
+            
       const isAdmin = filteredAdmin.length > 0;
 
       if (isAdmin) {
@@ -249,13 +246,15 @@ io.of('movie')
       socket.on('play video', (data) => {
         if (isAdmin) {
           curVideoObj[roomId] = data;
-          console.log(`current video:  ${curVideoObj[roomId].videoId}`);
           socket.to(data.roomId).broadcast.emit('play video', data.videoId);
           io.of('movie').emit('update room state');
         }
       })
  
-
+      socket.on('delete from playlist', (data) => {
+        playlistObj[roomId] = playlistObj[roomId].filter((playlist, i) => i !== data.id);
+        io.of('/movie').to(roomId).emit('sync playlist', playlistObj[roomId]);
+      })
 
       socket.on('share video timestamp', (timestamp: number) => {
         if (isAdmin && timestamp) {

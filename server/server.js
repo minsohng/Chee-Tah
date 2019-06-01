@@ -189,10 +189,13 @@ io.of('movie')
             socket.on('play video', function (data) {
                 if (isAdmin) {
                     curVideoObj[roomId] = data;
-                    console.log("current video:  " + curVideoObj[roomId].videoId);
                     socket.to(data.roomId).broadcast.emit('play video', data.videoId);
                     io.of('movie').emit('update room state');
                 }
+            });
+            socket.on('delete from playlist', function (data) {
+                playlistObj[roomId] = playlistObj[roomId].filter(function (playlist, i) { return i !== data.id; });
+                io.of('/movie').to(roomId).emit('sync playlist', playlistObj[roomId]);
             });
             socket.on('share video timestamp', function (timestamp) {
                 if (isAdmin && timestamp) {

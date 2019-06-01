@@ -1,29 +1,44 @@
 import * as React from 'react';
 
 const Video = props => {
-  const { video, playVideo } = props;
+  const { video, playVideo, deleteVideo, id, admin } = props;
 
- 
-  const handleClick = () => {
-    
-    playVideo(video, video.id)
+  const handleClick = (command) => {
+    console.log(event.target)
+    if (command === 'delete') {
+      deleteVideo(video, id)
+    } else if(command === 'play') {
+      playVideo(video, video.id)
+    }
   }
+
+  const playRestrict = event => {
+    if(!event.target.getAttribute('class').includes('remove')) {
+      handleClick('play');
+    }
+  }
+
   return (
-            <div
-              className="Item"
-              style={{ backgroundImage: `url(${video.thumbnails.high.url})` }}
-              onClick={handleClick}
-            >
-              <div className="overlay ">
-                <div className="title">{video.title}</div>
-                <div className="plot">
-                {video.channelTitle}
-                  <div className="buttonX">
-                    <p>Remove</p>
-                  </div>
-                </div>
-              </div>
-            </div>
+    <div
+      className="Item"
+      style={{ backgroundImage: `url(${video.thumbnails.high.url})` }}
+      id='play'
+      onClick={playRestrict}
+    >
+      <div className="overlay ">
+        <div className="title">{video.title}</div> 
+          <div className="plot">
+          {video.channelTitle}
+          {(admin.isAdmin || video.socketId === admin.socket.id) && 
+          <div 
+            className="buttonX remove"
+            onClick={() => handleClick('delete')}
+          >
+            <p className="remove">Remove</p>
+          </div>}
+        </div>
+      </div>
+    </div>
   )
 
 }
