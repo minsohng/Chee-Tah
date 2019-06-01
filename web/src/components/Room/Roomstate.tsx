@@ -7,6 +7,7 @@ import {useState, useEffect} from 'react';
 
 const Roomstate = (props) => {
   const [state, setState] = useState();
+  const [clientCount, setClientCount] = useState(1);
   const socket = props.socket;
   const roomId = props.roomId;
 
@@ -37,6 +38,13 @@ const Roomstate = (props) => {
       })
     })
 
+    socket.on("send number of clients", (data) => {
+      console.log("numClients", data.numClients)
+      if (roomId === data.roomId) {
+        setClientCount(data.numClients);
+      }
+    })
+
   },[])
 
   return (
@@ -49,7 +57,7 @@ const Roomstate = (props) => {
             />
             {state && <p>Currently Playing... {state && state.videoData.title}</p>}
           </div>
-          <p id="online-people">4 people watching currently</p>
+          <p id="online-people">{clientCount} people watching</p>
     </div>
   )
 }
