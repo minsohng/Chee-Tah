@@ -59,30 +59,7 @@ class Chat extends Component<Props, State> {
           <div className="chatbox">
             <div className="chats" id='chats'>
               <ul>
-                <li>
-                  <div className="msg him">
-                    <span className="partner">Gupi Gain</span>
-                      Mora nai Rajar Jamai!
-                  </div>
-                </li>
-                <li>
-                  <div className="msg you">
-                    <span className="partner">Bagha Bain</span>
-                    Jamai!
-                  </div>
-                </li>
-                <li>
-                  <div className="msg him">
-                    <span className="partner">Gupi Gain</span>
-                    Mora Khai Dai Ghuri Firi!
-                  </div>
-                </li>
-                <li>
-                  <div className="msg him">
-                    <span className="partner">Gupi Gain</span>
-                    Aha ki Moder Chiri!
-                  </div>
-                </li>
+                
                 {this.state.messages.map(message => {
                   return (
                   <li>

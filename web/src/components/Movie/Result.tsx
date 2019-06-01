@@ -12,7 +12,7 @@ const Result = (props) => {
     if (command === "play") {
       props.playVideo(title, id);
     }
-    setResultVisibility('container is-overlay is-relative is-hidden');
+    setResultVisibility('is-overlay is-hidden');
   }
 
   return (
@@ -23,6 +23,16 @@ const Result = (props) => {
           <img className="picture-search" src={title.thumbnails.medium.url}></img>
           <h5 >{title.channelTitle}</h5>
           <p>className="col-lg-12"</p>
+          <button className="button is-primary is-large mr-3" onClick={()=>handleClick("play")}>
+            <span className="icon is-medium">
+              <i className="fas fa-lg fa-play"></i>
+            </span>
+          </button>
+          <button className="button is-primary is-large" onClick={()=>handleClick("add")}>
+            <span className="icon is-medium">
+              <i className="fas fa-lg fa-plus"></i>
+            </span>
+          </button>
         </div>
       </div>
     </>

@@ -24,9 +24,7 @@ const MovieRoom = (props) => {
   const [isLoading, setIsLoading] = useState(true);
   const [isRoom, setIsRoom] = useState(false);
   const [username, setUsername] = useState('');
-  const [playlist, setPlaylist] = useState([
-    {},{}
-  ]);
+  const [playlist, setPlaylist] = useState([]);
 
   const ref = player => {
     this.player = player
