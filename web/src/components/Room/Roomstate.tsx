@@ -42,7 +42,7 @@ const Roomstate = (props) => {
   return (
     <div className="col-xs-12 col-sm-6 col-md-3" onClick={handleClick}>
           <div className="box" id="inner-box">
-            <h1>{roomId}</h1>
+            <h1 className="room-title">{roomId}</h1>
             <img
               className="picture-sizing"
               src={state && state.videoData.thumbnails.high.url || "https://cdn.dribbble.com/users/1498470/screenshots/4498386/hourglass.gif"}
