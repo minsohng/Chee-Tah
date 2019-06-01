@@ -6,7 +6,7 @@ const Result = (props) => {
   const handleClick = (command) => {
     // console.log("URL", title.thumbnails.medium.url)
     if (command === "add") {
-      props.addToPlaylist(title);
+      props.addToPlaylist(title, id);
       props.sendMessage(title, id);
     }
     if (command === "play") {

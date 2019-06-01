@@ -22,9 +22,11 @@ const Playlist = props => {
   const togglePlaylist = () => {
     setIsHidden(isHidden => !isHidden);
   };
+  
+  console.log("DEBUG", playlist)
 
   const videoList = playlist.map((data, i) => (
-    <Video video={data} key={i + 100} />
+    <Video video={data} playVideo={props.playVideo} key={i + 100} />
   ));
 
   return (

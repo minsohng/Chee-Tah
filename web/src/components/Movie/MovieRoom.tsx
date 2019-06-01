@@ -46,7 +46,9 @@ const MovieRoom = (props) => {
     socket.emit('done playing', roomId);
   }
 
-  const addToPlaylist = (videoData) => {
+  const addToPlaylist = (videoData, id) => {
+    videoData.socketId = socket.id;
+    videoData.id = id;
     setPlaylist([...playlist, videoData]);
   }
   
@@ -65,6 +67,7 @@ const MovieRoom = (props) => {
     if (isAdmin) {
       setCurrentPlaying(videoId);
       const videoObj = {
+        socketId: socket.id,
         videoData,
         videoId,
         roomId
@@ -90,7 +93,7 @@ const MovieRoom = (props) => {
         setIsLoading(false);
         setIsRoom(true);
         setUsername(response.data.username);
-        setPlaylist(response.data.playlist);
+        // setPlaylist(response.data.playlist);
         setCurrentPlaying(response.data.currentVideo);
       } else {
         setIsLoading(false);
@@ -130,7 +133,9 @@ const MovieRoom = (props) => {
     })
 
     socket.on('play video', (videoId) => {
+      
       setCurrentPlaying(videoId);
+      
     })
 
     socket.on('play next video', (videoId) => {
@@ -204,7 +209,7 @@ const MovieRoom = (props) => {
             </div>
             <footer className="pin-bottom">
 
-          <Playlist playlist={playlist}/>
+          <Playlist playlist={playlist} playVideo={playVideo}/>
 
             </footer>
           

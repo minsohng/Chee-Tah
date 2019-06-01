@@ -155,6 +155,7 @@ io.of('movie')
   
 
   socket.on('add to playlist', (data) => {
+    
     playlistObj[data.roomId].push(data);
     socket.to(data.roomId).broadcast.emit('sync playlist', playlistObj[data.roomId]);
   });
