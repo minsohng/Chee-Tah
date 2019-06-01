@@ -52,7 +52,7 @@ app.post('/api/getRoom', function (req, res) {
         res.json({
             response: true,
             type: filteredRoom[0].type,
-            username: "" + data1 + data2,
+            username: data1 + " " + data2,
             playlist: playlistObj[params],
             currentVideo: currentVideo
         });
@@ -65,10 +65,17 @@ app.post('/api/createRoom', function (req, res) {
     var type = req.body.type;
     console.log(socket.id);
     Promise.all([promise1, promise2]).then(function (response) {
-        var randomNum = Math.floor(Math.random() * 100);
-        var data1 = response[0].data[randomNum].word.replace(/ /g, '');
-        var data2 = response[1].data[randomNum].word.replace(/ /g, '');
-        var roomId = data1 + "-" + data2;
+        var isNotAvailable;
+        var roomId;
+        var data1, data2;
+        do {
+            var randomNum = Math.floor(Math.random() * 100);
+            data1 = response[0].data[randomNum].word.replace(/ /g, '');
+            data2 = response[1].data[randomNum].word.replace(/ /g, '');
+            roomId = data1 + "-" + data2;
+            var filteredRoom = roomList.filter(function (room) { return room.roomId === roomId; });
+            isNotAvailable = filteredRoom.length > 0;
+        } while (isNotAvailable);
         roomList.push({
             roomId: roomId,
             type: type
