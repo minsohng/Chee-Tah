@@ -1,10 +1,10 @@
 import * as React from 'react';
-const { useState, useEffect } = React;
+const { useState } = React;
 import axios from 'axios';
 import Result from './Result';
 
 
-const Form: React.FunctionComponent<{addToPlaylist(url: string): void, sendMessage(data: object, id: object, index: number):void, playVideo(title: any,id: string)}> = props => {
+const Form: React.FunctionComponent<{addToPlaylist(url: string, id: string): void, sendMessage(data: object, id: object, index: number):void, playVideo(title: any,id: string)}> = props => {
   const [formInput, setFormInput] = useState('');
   const [resultVisibility, setResultVisibility] = useState('is-overlay is-hidden');
   const [data, setData] = useState([

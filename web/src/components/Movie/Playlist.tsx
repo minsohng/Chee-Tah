@@ -23,7 +23,7 @@ const Playlist = props => {
   console.log("DEBUG", playlist)
 
   const videoList = playlist.map((data, i) => (
-    <Video video={data} playVideo={props.playVideo} key={i + 100} id={i}/>
+    <Video video={data} playVideo={props.playVideo} deleteVideo={props.deleteVideo} key={i + 100} id={i} admin={props.admin}/>
   ));
 
   return (
@@ -31,7 +31,7 @@ const Playlist = props => {
     <div className="toggle-button">
       <label className="slide-btn-alt">
         <input onClick={togglePlaylist} type="checkbox" />
-        <span  className="slide-btn-content" data-off="Hide" data-on="Show" />
+        <span className="slide-btn-content" data-off="Hide" data-on="Show" />
       </label>
       </div>
 

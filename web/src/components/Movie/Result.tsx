@@ -4,9 +4,8 @@ const Result = (props) => {
   const {title, setResultVisibility, id, index} = props;
   
   const handleClick = (command) => {
-    // console.log("URL", title.thumbnails.medium.url)
     if (command === "add") {
-      props.addToPlaylist(title);
+      props.addToPlaylist(title, id);
       props.sendMessage(title, id, index);
     }
     if (command === "play") {

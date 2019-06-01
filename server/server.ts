@@ -249,13 +249,15 @@ io.of('movie')
       socket.on('play video', (data) => {
         if (isAdmin) {
           curVideoObj[roomId] = data;
-          console.log(`current video:  ${curVideoObj[roomId].videoId}`);
           socket.to(data.roomId).broadcast.emit('play video', data.videoId);
           io.of('movie').emit('update room state');
         }
       })
  
-
+      socket.on('delete from playlist', (data) => {
+        playlistObj[roomId] = playlistObj[roomId].filter((playlist, i) => i !== data.id);
+        io.of('/movie').to(roomId).emit('sync playlist', playlistObj[roomId]);
+      })
 
       socket.on('share video timestamp', (timestamp: number) => {
         if (isAdmin && timestamp) {
