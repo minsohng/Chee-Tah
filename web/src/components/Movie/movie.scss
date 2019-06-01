@@ -122,6 +122,7 @@ p {
 	// pointer-events: none;
 	
 	input {
+		z-index: 10;
 		font-family: $font;
 		text-align: center;
 		font-weight: 300;
@@ -630,9 +631,9 @@ p {
 
 
 	  .resize-item{
-		width: 25vh;
-		height: 25vh;
-		object-fit:cover;
+		// width: 25vh;
+		// height: 25vh;
+		// object-fit:cover;
 		
 	  }
 
@@ -678,6 +679,7 @@ p {
 
 .box-movie-room{
 	width: 70vh !important; 
+	background-color:orange !important;
 }
 
 .box-padding{
