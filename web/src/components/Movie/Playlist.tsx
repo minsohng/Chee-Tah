@@ -1,27 +1,48 @@
-import * as React from 'react';
-import Video from './Video';
+import * as React from "react";
+import Video from "./Video";
+import { useEffect, useState } from "react";
 const MAX_PER_LINE = 5;
 
-const Playlist = (props) => {
+const Playlist = props => {
+  const [isHidden, setIsHidden] = useState(true);
+
   const playlist = props.playlist;
   const pages = Math.floor(playlist.length / MAX_PER_LINE);
   // let firstPage;
   // let secondPage;
   // if(playlist.length > MAX_PER_LINE) {
   //   firstPage = playlist.slice(0, 5)
-    
+
   // }
 
   // useEffect(()=> {
   //   setPlaylistItems(props.playlist)
   // })
 
-  const videoList = playlist.map((data, i) => 
-    <Video video={data} key={i + 100}/>
-  )
-  
+  const togglePlaylist = () => {
+    setIsHidden(isHidden => !isHidden);
+  };
+
+  const videoList = playlist.map((data, i) => (
+    <Video video={data} key={i + 100} />
+  ));
+
   return (
     <>
+    <div className="toggle-button">
+      <label className="slide-btn-alt">
+        <input onClick={togglePlaylist} type="checkbox" />
+        <span  className="slide-btn-content" data-off="Hide" data-on="Show" />
+      </label>
+      </div>
+
+
+      {isHidden && (
+        <>
+          {videoList}
+        </>
+      )}
+
       {/* <div
         id="carouselExampleIndicators"
         className="carousel slide carousel-fade"
@@ -36,72 +57,11 @@ const Playlist = (props) => {
           />
           {/* <li data-target="#carouselExampleIndicators" data-slide-to="1" />
           <li data-target="#carouselExampleIndicators" data-slide-to="2" /> */}
-        {/* </ol> */}
-       {/* <div className="carousel-inner">
+      {/* </ol> */}
+      {/* <div className="carousel-inner">
           <div className="carousel-item active"> */}
-            <div className="d-inline-flex flex-row video-container">
-              {videoList}
-            {/* <div
-              className="Item"
-              style={{ backgroundImage: "url(" + dog + ")" }}
-            >
-              <div className="overlay ">
-                <div className="title">TITLE</div>
-
-                <div className="plot">
-                  aowdhaow jdaiwojdoia jodiawj oawjdo jadwoija owidjoa
-                </div>
-              </div>
-            </div>
-
-            <div
-              className="Item "
-              style={{ backgroundImage: "url(" + cat + ")" }}
-            >
-              <div className="overlay ">
-                <div className="title">TITLE</div>
-
-                <div className="plot">
-                  aowdhaow jdaiwojdoia jodiawj oawjdo jadwoija owidjoa
-                </div>
-              </div>
-            </div> */}
-
-
-        {/* <div className='carousel-item'>
-          <div className="d-inline-flex flex-row">
-
-            <div
-              className="Item "
-              style={{ backgroundImage: "url(" + kanye + ")" }}
-            >
-              <div className="overlay ">
-                <div className="title">TITLE</div>
-
-                <div className="plot">
-                  aowdhaow jdaiwojdoia jodiawj oawjdo jadwoija owidjoa
-                </div>
-              </div>
-            </div>
-
-            <div
-              className="Item "
-              style={{ backgroundImage: "url(" + cat + ")" }}
-            >
-              <div className="overlay ">
-                <div className="title">TITLE</div>
-
-                <div className="plot">
-                  aowdhaow jdaiwojdoia jodiawj oawjdo jadwoija owidjoa
-                </div>
-              </div>
-            </div>
-            </div>
-          </div> */}
-
-        </div>
     </>
-  )
-}
+  );
+};
 
 export default Playlist;

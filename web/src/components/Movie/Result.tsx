@@ -17,29 +17,13 @@ const Result = (props) => {
 
   return (
     <>
-      <div className='columns'>
-        <div className="column is-6 is-offset-one-fifth">
-          <div className='box'>
-            <article className='media'>
-              <div className='media-left'>
-                <figure className="image is-128x128">
-                  <img src={title.thumbnails.medium.url}/>
-                </figure>
-              </div>
-              <div className="media-content">
-                <div className="content">
-                  <p className='title is-4'>{title.title}</p>
-                  <p className='subtitle is-4'>{title.channelTitle}</p>
-                </div>
-              </div>
-              <div className="media-right">
-                <span className="icon playVideo" onClick={() => handleClick("play")}><i className="fas fa-play-circle"></i></span>
-                <span className="icon addPlaylist" onClick={() => handleClick("add")}><i className="fas fa-lg fa-plus-square"></i></span>  
-                
-              </div>
-            </article>
-          </div>
-      </div>
+      <div className="col-m-9 offset-m-4">
+        <div className="box box-padding box-movie-room">
+          <h3>{title.title}</h3>
+          <img className="picture-search" src={title.thumbnails.medium.url}></img>
+          <h5 >{title.channelTitle}</h5>
+          <p>className="col-lg-12"</p>
+        </div>
       </div>
     </>
   )

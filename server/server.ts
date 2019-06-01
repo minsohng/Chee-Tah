@@ -130,11 +130,11 @@ app.get('/api/youtube/:query', (req, res) => {
      params: {
        key: process.env.YOUTUBE_API,
        part: 'snippet',
-       order: 'viewCount',
+       order: 'relevance',
        q: query,
        type: 'video',
        videoDefinition: 'high',
-       maxResults: 5
+       maxResults: 10
     }
   }).then(result => {
     res.json(result.data.items);
