@@ -75,6 +75,7 @@ const MovieRoom = (props) => {
   
   
   useEffect(() => {
+    
 
     axios.post(process.env.URL + `/api/getRoom`, {
       params: roomId
@@ -139,7 +140,7 @@ const MovieRoom = (props) => {
     if(!isLoading && isRoom) {
       return (
         
-            // <Form addToPlaylist={addToPlaylist} sendMessage={sendMessage} playVideo={playVideo}/>
+            
             <div>
             <header className="Header">
     
