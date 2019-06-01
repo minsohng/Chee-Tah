@@ -164,7 +164,7 @@ const Form: React.FunctionComponent<{addToPlaylist(url: string): void, sendMessa
     },
     "channelTitle": "1theK (원더케이)",
     "liveBroadcastContent": "none"
-    },
+    }},
      {
     "kind": "youtube#searchResult",
     "etag": "XpPGQXPnxQJhLgs6enD_n8JR4Qk/viC_Qpx1pZoepvX01AghR6XLdEo",
@@ -229,7 +229,7 @@ const Form: React.FunctionComponent<{addToPlaylist(url: string): void, sendMessa
       },
       "channelTitle": "1theK (원더케이)",
       "liveBroadcastContent": "none"
-      }]);
+      }}]);
   const onInput = event => {
     setFormInput(event.target.value);
   }
@@ -281,11 +281,11 @@ const Form: React.FunctionComponent<{addToPlaylist(url: string): void, sendMessa
           placeholder='Press Enter to search for videos'/>
       </div>
      
-      <div className={resultVisibility} id='result'>
+      {/* <div className={resultVisibility} id='result'>
       <div className="row center-result">
         {searchResults}
         </div>
-        </div>
+        </div> */}
    
     </>
   )

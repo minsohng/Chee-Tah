@@ -186,7 +186,7 @@ const MovieRoom = (props) => {
             onPlay={onPlay}
             onEnded={onEnded}
           /> 
-          <button className="button" onClick={handleClick}>GET NUM CLIENTS</button>
+        
           <Chatbar username={username} socket={socket} roomId={roomId}/>
           
           </div>

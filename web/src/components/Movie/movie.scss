@@ -87,7 +87,7 @@ p {
 	left: 0;
 	width: 100vw;
 	box-sizing: border-box;
-	z-index: 9000;
+	z-index: 10;
 }
 
 #admin-notice{
@@ -177,11 +177,11 @@ p {
 
 
 // TitleList
-.Hero ~ .TitleList:nth-child(3) {
-	margin-top: -10vw;
-	position: relative;
-	z-index: 4;
-}
+// .Hero ~ .TitleList:nth-child(3) {
+// 	margin-top: -10vw;
+// 	position: relative;
+// 	z-index: 4;
+// }
 
 // // Hack for first after Hero
 // .TitleList {
@@ -223,7 +223,7 @@ p {
 	overflow: hidden;
 	margin-right: 10px;
 	transition: background 1s ease;
-	z-index: 5000;
+	
 	
 	&:nth-child(n+6) {
 		
@@ -251,11 +251,7 @@ p {
 			transition: opacity .25s ease;
 		}
 		
-		.delete-x{
-			opacity: 1;
-			color:white;
-			z-index:9999;
-		}
+	
 		
 		.plot {
 			color: white;
@@ -354,14 +350,7 @@ p {
   //     border-width: 5px;
   //     border-radius: 15px;
   // }
-  .all-in-one {
-	float: right;
-	width: 25%;
-	padding-right: 5px;
-	height: 10vh;
-	outline: none;
-	z-index: 20;
-  }
+
 
 
   //nav bar
@@ -475,7 +464,7 @@ p {
 			transition: background .125s ease;
 			border-radius: 3px;
 			color:rgba(white, .7);
-			z-index: 20000;
+			
 			
 		}
 		&:hover {
@@ -504,7 +493,7 @@ p {
 		align-items: center;
 		justify-content: center;
 		position: fixed;
-		z-index: 4;
+		z-index: 8;
 	  }
 
 
@@ -580,7 +569,7 @@ p {
 		text-transform:uppercase;
 		-webkit-transition: .3s;
 		transition: .3s;
-		z-index: 9000;
+		z-index: 5;
 	  }
 	  
 	  .slide-btn-content::before {
@@ -633,54 +622,44 @@ p {
 		justify-content: center;
 		align-items: center; 
 		margin-right:10px;
-		z-index:9999;
+		z-index: 8;
 	  }
 
-	  .search-fixed-center{
-		      position: fixed;
-    left: 50%;
-    top: 6%;
-	transform: translate(-50%, -50%);
-	z-index:6000;
-	  }
 
-	  #search{
-		  z-index:9000;
-	  }
-
+	
 
   #result {
-	z-index: 9000;
-	top: 45%;
-  width: 66%;
+	z-index: 10;
+	top: 55%;
+  width: 60%;
+  height: 90%;
   background: #0d0d29;
   opacity: 0.9;
   border: solid 5px;
   position: fixed;
   left: 50%;
-  top: 40%;
+	padding-left: 1.2em;
   overflow-y:scroll;
   transform: translate(-50%, -50%);
   align-items: center;
-  margin: 0 auto;
+ 
 
 
-  .button{
-	z-index: 1000;
-  }
+ 
 
 }
 
-.box{
+.box-movie-room{
 	width: 70vh !important; 
 }
+
 .box-padding{
 	flex: 1 0 auto;
 	margin-right:100px;
 }
 
-#result:hover .pin-bottom{
-	opacity:0;
+#result {
+
 }
 
 

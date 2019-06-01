@@ -20,15 +20,15 @@ const Result = (props) => {
       {/* <div style={{color:'white'}}>{title.title}</div>
      */}
 
-        
-        <div className="col-m-9 offset-m-4">
-          <div className="box box-padding">
+        {/* this one is important */}
+        {/* <div className="col-m-9 offset-m-4">
+          <div className="box box-padding box-movie-room">
             <h3>{title.title}</h3>
             <img className="picture-search" src={title.thumbnails.medium.url}></img>
             <h5 >{title.channelTitle}</h5>
             <p>className="col-lg-12"</p>
           </div>
-        </div>
+        </div> */}
    
 
 
