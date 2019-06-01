@@ -4,7 +4,7 @@ import axios from 'axios';
 import Result from './Result';
 
 
-const Form: React.FunctionComponent<{addToPlaylist(url: string): void, sendMessage(data: object, id: object):void, playVideo(id: string)}> = props => {
+const Form: React.FunctionComponent<{addToPlaylist(url: string): void, sendMessage(data: object, id: object):void, playVideo(title: any,id: string)}> = props => {
   const [formInput, setFormInput] = useState('');
   const [resultVisibility, setResultVisibility] = useState('container is-overlay is-relative is-hidden');
   const [data, setData] = useState([
