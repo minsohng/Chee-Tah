@@ -32,13 +32,18 @@ iframe{
 	bottom: 0;
 	left: 0;
 	right: 0;
+	display:flex;
+	justify-content: center;
+	align-items:center center;
 	overflow: hidden;
-	
+	background-size:cover;
+	background-image: linear-gradient(-90deg, #202020, #202020);
+	// background-image:"url(http://4.bp.blogspot.com/-6P26BXYKrr0/XJfw2gPg7EI/AAAAAAAAD74/jjQiFA4KowgVXBqgEHXA7nzyK38ULMqUQCK4BGAYYCw/s1600/EndgameWallpaper.png)"
 }
 // General
 body {
 	// background: $black;
-	color: $white;
+	color: red;
 	font-family: $font;
 }
 
@@ -59,7 +64,7 @@ p {
 }
 
 .scrolling-container{
-//   overflow-x: scroll;
+  overflow-x: scroll;
 
 }
 
@@ -177,11 +182,11 @@ p {
 
 
 // TitleList
-// .Hero ~ .TitleList:nth-child(3) {
-// 	margin-top: -10vw;
-// 	position: relative;
-// 	z-index: 4;
-// }
+.Hero ~ .TitleList:nth-child(3) {
+	margin-top: -10vw;
+	position: relative;
+	z-index: 4;
+}
 
 // // Hack for first after Hero
 // .TitleList {
@@ -489,11 +494,13 @@ p {
 		// border-bottom: 5px solid #6473C3;
 		bottom: 0;
 		display: flex;
-		padding-top: 30px;
-		align-items: center;
-		justify-content: center;
+		
+		
 		position: fixed;
 		z-index: 8;
+	
+		align-items: center;
+		justify-content: center;
 	  }
 
 
@@ -634,7 +641,7 @@ p {
   width: 60%;
   height: 90%;
   background: #0d0d29;
-  opacity: 0.9;
+  opacity: 1;
   border: solid 5px;
   position: fixed;
   left: 50%;

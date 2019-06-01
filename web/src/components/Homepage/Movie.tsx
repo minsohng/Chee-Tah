@@ -33,7 +33,9 @@ const Movie: React.FunctionComponent<Home> = props => {
       <>
         <section>
         <div className="containerh">
+          
           <div className="background-imgh">
+            
             <div className="boxh">
               <span></span>
               <span></span>

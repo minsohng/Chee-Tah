@@ -52,11 +52,17 @@ body {
     
   }
 
+  .box{
+    height: 40vh;
+    width: 100%;
+  }
+
   p{
     color:white;
   }
   h1{
     color:white;
+
   }
   .bottom-align-text {
     position: absolute;
@@ -144,7 +150,14 @@ body {
       }
   }
 
-  
+
+  // .nav-link-pos{
+  //   display:flex;
+  // }
+
+  // .nav-link-pos{
+  //   bottom: 17%;
+  // }
 
   //border animation
   // Mixin for shadow button with block sliding up
@@ -153,4 +166,6 @@ body {
   
   
   
-  
+  .room-title{
+    font-size: 16px !important;
+  }

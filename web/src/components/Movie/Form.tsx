@@ -280,13 +280,13 @@ const Form: React.FunctionComponent<{addToPlaylist(url: string): void, sendMessa
           value={formInput}
           placeholder='Press Enter to search for videos'/>
       </div>
-     
+{/*      
       <div className={resultVisibility} id='result'>
       <div className="row center-result">
         {searchResults}
         </div>
         </div>
-   
+    */}
     </>
   )
 }
