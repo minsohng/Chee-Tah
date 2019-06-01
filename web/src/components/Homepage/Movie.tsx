@@ -15,10 +15,11 @@ const Movie: React.FunctionComponent<Home> = props => {
   const socket = props.socket;
   const [playing, toggle, destroy] = useAudio(soundFile);
   
-    const handleClick = () => {
+    const handleClick = (type) => {
       
       axios.post(process.env.URL + `/api/createRoom`, {
-        socket: JSON.stringify(socket, getCircularReplacer())
+        socket: JSON.stringify(socket, getCircularReplacer()),
+        type
       })
       .then(response => {
         window.location.replace(`/movie/${response.data.url}`);
@@ -41,15 +42,20 @@ const Movie: React.FunctionComponent<Home> = props => {
               <span></span>
               <span></span>
               <span></span>
-              <div className="contenth pointer" onClick={handleClick}>
+              <div className="contenth pointer" >
                 <h2>Cheetah </h2>
                 <p><a  style={{color:'#00ffe9'}} target="_blank">Welcome to Cheetah a fast way to sync and watch videos with others. Click here to create a room</a></p>
+                <button className="button" onClick={()=> handleClick("public")}>Create Public Room</button>
+                
+                <button className="button" onClick={()=> handleClick("private")}>Create Private Room</button>
+              
               </div>
               
             </div>
-          </div>
+ 
+          </div> 
         </div>
-</section>
+        </section>
       </>
     );
 }

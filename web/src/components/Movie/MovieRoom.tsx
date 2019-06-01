@@ -1,6 +1,6 @@
 
 import * as React from 'react';
-import {useEffect, useState, useRef} from 'react'
+const {useEffect, useState, useRef} = React;
 import Form from'./Form';
 import Chatbar from './Chatbar'
 import "./movie.scss";
@@ -25,7 +25,6 @@ const MovieRoom = (props) => {
   const [isRoom, setIsRoom] = useState(false);
   const [username, setUsername] = useState('');
   const [playlist, setPlaylist] = useState([]);
-  const [isPlaying, setIsPlaying] = useState();
 
   const ref = player => {
     this.player = player
@@ -62,19 +61,25 @@ const MovieRoom = (props) => {
     socket.emit('add to playlist', message)
   }
 
-  const playVideo = (videoId) => {
+  const playVideo = (videoData, videoId) => {
     if (isAdmin) {
       setCurrentPlaying(videoId);
       const videoObj = {
+        videoData,
         videoId,
         roomId
       }
       socket.emit("play video", videoObj)
     }
   }
+
+  const deleteFromPlaylist = () => {
+    
+  }
   
   
   useEffect(() => {
+    
 
     axios.post(process.env.URL + `/api/getRoom`, {
       params: roomId
@@ -85,6 +90,8 @@ const MovieRoom = (props) => {
         setIsLoading(false);
         setIsRoom(true);
         setUsername(response.data.username);
+        // setPlaylist(response.data.playlist);
+        setCurrentPlaying(response.data.currentVideo);
       } else {
         setIsLoading(false);
       }
@@ -102,6 +109,10 @@ const MovieRoom = (props) => {
 
     socket.emit('joinRoom', roomObject)
     
+    socket.on('admin timestamp', (data) => {
+      let timestamp = Math.floor(playedFraction * duration)
+      socket.emit('give admin timestamp', timestamp + 3);
+    })
 
     socket.on('is admin', (adminInfo) => {
       setIsAdmin(true);
@@ -113,10 +124,8 @@ const MovieRoom = (props) => {
     })
 
     socket.on('sync video timestamp', (timestamp: number) => {
-      
       this.player.seekTo(timestamp);
       console.log("timestamp", timestamp)
-    
      
     })
 
@@ -135,7 +144,6 @@ const MovieRoom = (props) => {
     if(!isLoading && isRoom) {
       return (
         
-            // <Form addToPlaylist={addToPlaylist} sendMessage={sendMessage} playVideo={playVideo}/>
             <div className="movie-contains-all">
             <header className="Header">
     

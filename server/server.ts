@@ -24,6 +24,7 @@ interface RoomInfo {
 
 const adminSocketList: Admin[] = [];
 const roomList: RoomInfo[] = [];
+const curVideoObj = {};
 const playlistObj = {};
 const statusObj = {};
 
@@ -38,9 +39,18 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
 
 
+app.post('/api/fetchState', (req,res) => {
+  const roomId = req.body.roomId;
+  console.log("fetchState-room", roomId)
+  console.log("fetchState-obj", curVideoObj)
+  console.log("fetchState-objroom", curVideoObj[roomId])
+  
+  res.json(curVideoObj[roomId] && curVideoObj[roomId]);
+})
 
 app.get('/api/showRoom', (req, res) => {
   const filteredPublic = roomList.filter(room => room.type === "public")
+  
   res.json({
     list: filteredPublic
   })
@@ -51,8 +61,9 @@ app.post('/api/getRoom', (req, res) => {
   const filteredRoom = roomList.filter(room => room.roomId === params);
   const haveRoom = filteredRoom.length > 0;
   console.log("filteredROOM", filteredRoom);
-  const promise1 = axios.get('https://api.datamuse.com/words?ml=fast');
-  const promise2 = axios.get('https://api.datamuse.com/words?ml=cheetah');
+  const promise1 = axios.get('https://api.datamuse.com/words?ml=ocean');
+  const promise2 = axios.get('https://api.datamuse.com/words?ml=animal');
+  const currentVideo = curVideoObj[params] ? curVideoObj[params].videoId : '';
   Promise.all([promise1, promise2]).then(function(response) {
     const randomNum = Math.floor(Math.random() * 100)
     const data1 = response[0].data[randomNum].word.replace(/ /g, '');
@@ -61,12 +72,17 @@ app.post('/api/getRoom', (req, res) => {
       res.json({response: false});
       return;
     }
+    io.of('movie').emit('update create room state');
+    
     res.json({
       response: true,
       type: filteredRoom[0].type,
-      username: `${data1}${data2}`
+      username: `${data1} ${data2}`,
+      playlist: playlistObj[params],
+      currentVideo
     });
   })
+  
 });
 
 app.post('/api/createRoom', (req, res) => {
@@ -78,10 +94,18 @@ app.post('/api/createRoom', (req, res) => {
   console.log(socket.id)
 
   Promise.all([promise1, promise2]).then(function(response) {
-    const randomNum = Math.floor(Math.random() * 100)
-    const data1 = response[0].data[randomNum].word.replace(/ /g, '');
-    const data2 = response[1].data[randomNum].word.replace(/ /g, '');
-    const roomId = `${data1}-${data2}`
+    let isNotAvailable;
+    let roomId;
+    let data1, data2
+    do {
+      const randomNum = Math.floor(Math.random() * 100)
+      data1 = response[0].data[randomNum].word.replace(/ /g, '');
+      data2 = response[1].data[randomNum].word.replace(/ /g, '');
+      roomId = `${data1}-${data2}`
+      const filteredRoom = roomList.filter(room => room.roomId === roomId);
+      isNotAvailable = filteredRoom.length > 0;
+    } while(isNotAvailable);
+
     roomList.push({
       roomId,
       type
@@ -92,7 +116,8 @@ app.post('/api/createRoom', (req, res) => {
 
     });
     playlistObj[roomId] = [];
-    statusObj[roomId]= {};
+    statusObj[roomId] = {};
+    
 
     res.json({url: `${data1}-${data2}`});
   });
@@ -105,11 +130,11 @@ app.get('/api/youtube/:query', (req, res) => {
      params: {
        key: process.env.YOUTUBE_API,
        part: 'snippet',
-       order: 'viewCount',
+       order: 'relevance',
        q: query,
        type: 'video',
        videoDefinition: 'high',
-       maxResults: 5
+       maxResults: 10
     }
   }).then(result => {
     res.json(result.data.items);
@@ -136,21 +161,38 @@ io.of('movie')
 
   
   socket.on('done playing', (data) => {
+    console.log("PLAYLIST", playlistObj[roomId])
     statusObj[data][socket.id] = false
     console.log(statusObj)
     const statusArr = Object.values(statusObj[data]);
     
     if (!statusArr.includes(true) && playlistObj[data].length > 0) {
-      
-      
       const nextVideo = playlistObj[data].shift();
-      
-      io.of('movie').to(data).emit('play next video', nextVideo.id);
-
+      if(curVideoObj[roomId].videoId === nextVideo.id) {
+        io.of('movie').to(data).emit('sync video timestamp', 0);
+      } else {
+        io.of('movie').to(data).emit('play next video', nextVideo.id);
+      }
+      io.of('movie').to(data).emit('sync playlist', playlistObj[data]);
       for (let key in statusObj[data]) {
         statusObj[data][key] = true
       }
-      
+      curVideoObj[roomId] = {
+        videoData: nextVideo, 
+        videoId: nextVideo.id,
+        roomId
+       };
+    // socketId: '/movie#-5V8j5wI85yVikOmAAAE',
+    // roomId: 'rapid-chetah',
+    // publishedAt: '2017-04-21T09:00:05.000Z',
+    // channelId: 'UCweOkPb1wVVH0Q0Tlj4a5Pw',
+    // title: '[MV] IU(아이유) _ Palette(팔레트) (Feat. G-DRAGON)',
+    // description: '[MV] IU(아이유) _ Palette(팔레트) (Feat. G-DRAGON) *English subtitles are now available. :D (Please click on \'CC\' button or activate \'Interactive Transcript\' ...',
+    // thumbnails: { default: [Object], medium: [Object], high: [Object] },
+    // channelTitle: '1theK (원더케이)',
+    // liveBroadcastContent: 'none',
+    // id: 'd9IxdwEFk1c' }
+      io.of('movie').emit('update room state');
       console.log(statusObj)
     }
   })
@@ -164,7 +206,7 @@ io.of('movie')
       const isAdmin = filteredAdmin.length > 0;
       if (isAdmin) {
         adminSocketList.push({
-          roomId: roomObject.roomId,
+          roomId,
           id: socket.id
         })
       }
@@ -180,16 +222,23 @@ io.of('movie')
         statusObj[roomObject.roomId][socket.id] = true
       }
       console.log(statusObj)
+      
+      const currentAdminList = adminSocketList.filter(admin => admin.roomId === roomObject.roomId);
+      if(currentAdminList.length > 0) {
+        const currentAdminId = currentAdminList[currentAdminList.length - 1].id;
+        socket.to(currentAdminId).emit('admin timestamp', '')
+      }
 
+      socket.on('give admin timestamp', timestamp => {
+        socket.emit('sync video timestamp', timestamp);
+      })
       let rooms = Object.keys(socket.rooms);
       console.log(rooms);
 
-     
-      
-     
-
       const filteredAdmin = adminSocketList.filter(admin => admin.id === socket.id)
       console.log("filtered", filteredAdmin)
+
+      
       
       const isAdmin = filteredAdmin.length > 0;
 
@@ -199,7 +248,10 @@ io.of('movie')
 
       socket.on('play video', (data) => {
         if (isAdmin) {
+          curVideoObj[roomId] = data;
+          console.log(`current video:  ${curVideoObj[roomId].videoId}`);
           socket.to(data.roomId).broadcast.emit('play video', data.videoId);
+          io.of('movie').emit('update room state');
         }
       })
  
@@ -212,6 +264,12 @@ io.of('movie')
         }
         
       })
+      socket.on('disconnect', () => {
+        console.log('socket disconnected')
+        if (roomId && socket && statusObj[roomId] && statusObj[roomId][socket.id]) {
+          delete statusObj[roomId][socket.id]
+        }
+      })
     });
   })
 
@@ -222,13 +280,6 @@ io.of('movie')
     });
   })
 
-  socket.on('disconnect', () => {
-    console.log('socket disconnected')
-    if (roomId) {
-      delete statusObj[roomId][socket.id]
-    }
-    
-  })
 })
 
 http.listen(PORT, '0.0.0.0',() => {

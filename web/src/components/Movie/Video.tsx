@@ -4,16 +4,19 @@ const Video = props => {
   const { video } = props;
   return (
     <div
-      className="Item"
-      style={{ backgroundImage: `url(https://images.pexels.com/photos/356378/pexels-photo-356378.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500)` }}
-    >
-      <div className="overlay ">
-        <div className="title">really cool video title</div>
-        <div className="plot">
-          amazing description
-        </div>
-      </div>
-    </div>
+              className="Item"
+              style={{ backgroundImage: `url(${video.thumbnails.high.url})` }}
+            >
+              <div className="overlay ">
+                <div className="title">{video.title}</div>
+                <div className="plot">
+                {video.channelTitle}
+                  <div className="buttonX">
+                    <p>Remove</p>
+                  </div>
+                </div>
+              </div>
+            </div>
   )
 
 }
