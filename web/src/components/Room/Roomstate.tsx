@@ -45,7 +45,7 @@ const Roomstate = (props) => {
             <h1>{roomId}</h1>
             <img
               className="picture-sizing"
-              src={state && state.videoData.thumbnails.high.url || "https://thumbs.gfycat.com/BitesizedFearlessImperialeagle-small.gif"}
+              src={state && state.videoData.thumbnails.high.url || "https://cdn.dribbble.com/users/1498470/screenshots/4498386/hourglass.gif"}
             />
             {state && <p>Currently Playing... {state && state.videoData.title}</p>}
           </div>

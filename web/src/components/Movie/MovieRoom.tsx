@@ -90,7 +90,7 @@ const MovieRoom = (props) => {
         setIsLoading(false);
         setIsRoom(true);
         setUsername(response.data.username);
-        // setPlaylist(response.data.playlist);
+        setPlaylist(response.data.playlist);
         setCurrentPlaying(response.data.currentVideo);
       } else {
         setIsLoading(false);
@@ -156,7 +156,7 @@ const MovieRoom = (props) => {
               <ul>
              
                 <li>
-                <Link to="/" style={{ textDecoration: 'none', color: 'white' }}>Browse</Link>
+                <Link to="/publicroom" style={{ textDecoration: 'none', color: 'white' }}>Browse</Link>
                 </li>
                 <li>
                   
