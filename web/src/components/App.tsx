@@ -41,6 +41,10 @@ const App = () => {
       <Route path ='/publicroom' 
         render={(props) => <Roompage {...props} socket={socket} roomList={roomList}/>}
       />
+
+      <Route path ='/search' 
+        render={(props) => <Roompage {...props} socket={socket}/>}
+      />
       <Route exact path='/' 
         render={(props) => <Home {...props} socket={socket}/>}
       />

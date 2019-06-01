@@ -8,6 +8,7 @@ import axios from 'axios';
 import {getCircularReplacer} from '../helpers/helper';
 import Cookies from 'universal-cookie';
 const soundFile = require('../../assets/movie.mp3');
+import "./home.scss";
 
 
 const Movie: React.FunctionComponent<Home> = props => { 

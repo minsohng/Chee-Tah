@@ -140,7 +140,7 @@ const MovieRoom = (props) => {
       return (
         
             // <Form addToPlaylist={addToPlaylist} sendMessage={sendMessage} playVideo={playVideo}/>
-            <div>
+            <div className="movie-contains-all">
             <header className="Header">
     
             <Form addToPlaylist={addToPlaylist} sendMessage={sendMessage} playVideo={playVideo}/>
@@ -175,8 +175,11 @@ const MovieRoom = (props) => {
                 "url(http://4.bp.blogspot.com/-6P26BXYKrr0/XJfw2gPg7EI/AAAAAAAAD74/jjQiFA4KowgVXBqgEHXA7nzyK38ULMqUQCK4BGAYYCw/s1600/EndgameWallpaper.png)"
             }}
           >
+            <div>
+            
+            </div>
           <div className="content">
-    
+         
           <ReactPlayer 
             ref={ref}
             url={`https://www.youtube.com/watch?v=${currentPlaying}`}
@@ -187,13 +190,20 @@ const MovieRoom = (props) => {
             onPlay={onPlay}
             onEnded={onEnded}
           /> 
-          <button className="button" onClick={handleClick}>GET NUM CLIENTS</button>
+        
           <Chatbar username={username} socket={socket} roomId={roomId}/>
-    
+          
           </div>
+         
           <div className="overlay" />
+          
             </div>
-            <Playlist playlist={playlist}/>
+            <footer className="pin-bottom">
+
+          <Playlist playlist={playlist}/>
+
+            </footer>
+          
               {/* testing purposes */}
           </div>
       )
