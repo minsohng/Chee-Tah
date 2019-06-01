@@ -3,10 +3,9 @@ import * as React from 'react';
 const Video = props => {
   const { video, playVideo } = props;
 
-  console.log("DEBUG VIDEO", video)
-
+ 
   const handleClick = () => {
-    console.log("VIDEO", video)
+    
     playVideo(video, video.id)
   }
   return (
@@ -28,7 +27,5 @@ const Video = props => {
   )
 
 }
-// {video.title}
-// {video.channelTitle}
-// style={{ backgroundImage: `url(${video.thumbnails.high.url})` }}
+
 export default Video;
