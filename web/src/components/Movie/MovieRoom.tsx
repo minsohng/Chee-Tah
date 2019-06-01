@@ -30,7 +30,7 @@ const MovieRoom = (props) => {
     socket,
     isAdmin
   }
-  
+
   const ref = player => {
     this.player = player
   }
@@ -104,7 +104,7 @@ const MovieRoom = (props) => {
         setIsLoading(false);
         setIsRoom(true);
         setUsername(response.data.username);
-        // setPlaylist(response.data.playlist);
+        setPlaylist(response.data.playlist);
         setCurrentPlaying(response.data.currentVideo);
       } else {
         setIsLoading(false);

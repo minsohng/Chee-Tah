@@ -155,7 +155,6 @@ io.of('movie')
   
 
   socket.on('add to playlist', (data) => {
-    
     playlistObj[data.roomId].push(data);
     socket.to(data.roomId).broadcast.emit('sync playlist', playlistObj[data.roomId]);
   });
@@ -237,9 +236,7 @@ io.of('movie')
 
       const filteredAdmin = adminSocketList.filter(admin => admin.id === socket.id)
       console.log("filtered", filteredAdmin)
-
-      
-      
+            
       const isAdmin = filteredAdmin.length > 0;
 
       if (isAdmin) {
