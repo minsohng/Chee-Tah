@@ -33,9 +33,11 @@ iframe{
 	left: 0;
 	right: 0;
 	display:flex;
+	overflow:hidden;
 	justify-content: center;
 	align-items:center center;
-	overflow: hidden;
+	
+
 	background-size:cover;
 	background-image: linear-gradient(-90deg, #202020, #202020);
 	// background-image:"url(http://4.bp.blogspot.com/-6P26BXYKrr0/XJfw2gPg7EI/AAAAAAAAD74/jjQiFA4KowgVXBqgEHXA7nzyK38ULMqUQCK4BGAYYCw/s1600/EndgameWallpaper.png)"
@@ -231,7 +233,7 @@ p {
 	
 	
 	&:nth-child(n+6) {
-		
+	
 	}
 	
 	&:last-child {
@@ -483,9 +485,9 @@ p {
 
 	
 	
-	.video-container {
-		overflow-x: scroll;
-	}
+	// .video-container {
+	// 	overflow-x: scroll;
+	// }
 
 
 	.pin-bottom {
@@ -499,8 +501,8 @@ p {
 		position: fixed;
 		z-index: 8;
 		overflow-y: scroll;
-		align-items: center;
-		justify-content: center;
+	
+		
 	  }
 
 
@@ -622,7 +624,12 @@ p {
 
 
 
-	  
+	  .resize-item{
+		width: 22vh;
+		height: 22vh;
+		object-fit:cover;
+		
+	  }
 
 	  .center-result{
 		display:flex;
@@ -646,7 +653,7 @@ p {
   position: fixed;
   left: 50%;
 	padding-left: 1.2em;
-  overflow-y:scroll;
+  overflow-x:scroll;
   transform: translate(-50%, -50%);
   align-items: center;
  

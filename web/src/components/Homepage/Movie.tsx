@@ -45,9 +45,15 @@ const Movie: React.FunctionComponent<Home> = props => {
               <div className="contenth pointer" >
                 <h2>Cheetah </h2>
                 <p><a  style={{color:'#00ffe9'}} target="_blank">Welcome to Cheetah a fast way to sync and watch videos with others. Click here to create a room</a></p>
-                <button className="button" onClick={()=> handleClick("public")}>Create Public Room</button>
-                
-                <button className="button" onClick={()=> handleClick("private")}>Create Private Room</button>
+                <div className="btn-spacing">
+
+                <button className="button btn-grad " style={{color:'white', width:'174'}} onClick={()=> handleClick("public")}>Create Public Room</button>
+
+                </div>
+                <div className="btn-spacing">
+
+                <button className="button btn-grad" style={{color:'white'}} onClick={()=> handleClick("private")}>Create Private Room</button>
+                </div>
               
               </div>
               

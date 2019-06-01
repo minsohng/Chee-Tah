@@ -296,3 +296,21 @@
  
 }
 }
+
+
+.btn-grad {
+  background-image: linear-gradient(to right, #314755 0%, #26a0da 51%, #314755 100%);
+  z-index: 1000;
+  width: 100%;
+ 
+
+}
+.btn-grad:hover {
+   border: 2px solid white;
+   opacity: 0.8;
+  }
+
+  .btn-spacing{
+    padding-top: 5%;
+  }
+
