@@ -502,10 +502,6 @@ p {
 		align-items: center;
 		justify-content: center;
 	  }
-
-	#test{
-		z-index: 9999;
-	}
 	
 	  .buttonX {
 		background:rgb(224, 92, 92);
@@ -568,17 +564,17 @@ p {
 	  .slide-btn-alt input {display:none;}
 	  
 	  .slide-btn-content {
-		position: absolute;
-		cursor: pointer;
-		top: 0;
-		left: 0;
-		right: 0;
-		bottom: 0;
-		background-color: #2b99d6;
-		text-transform:uppercase;
-		-webkit-transition: .3s;
-		transition: .3s;
-		z-index: 5;
+			position: absolute;
+			cursor: pointer;
+			top: 0;
+			left: 0;
+			right: 0;
+			bottom: 0;
+			background-color: #2b99d6;
+			text-transform:uppercase;
+			-webkit-transition: .3s;
+			transition: .3s;
+			z-index: 5;
 	  }
 	  
 	  .slide-btn-content::before {
@@ -619,7 +615,7 @@ p {
 	  .toggle-button{
 		  display:flex;
 		  top: 10px;
-		  position:fixed;
+			z-index: 900;
 	  }
 
 

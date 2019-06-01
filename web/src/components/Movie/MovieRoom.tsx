@@ -221,10 +221,8 @@ const MovieRoom = (props) => {
           
           </div>
          
-          <div className="overlay" />
-          
-            </div>
-            <footer className="pin-bottom">
+          <div className="overlay" /></div>
+          <footer className="pin-bottom">
 
           <Playlist 
             playlist={playlist} 
