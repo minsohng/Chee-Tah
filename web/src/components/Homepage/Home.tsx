@@ -16,9 +16,7 @@ const Home = (props) => {
   return (
 
     <div className={containerLabel}>
-      <Link className="nav-hover-on" to="/publicroom" style={{ textDecoration: "none", color: "white" }}>
-        Join Public Rooms
-      </Link>
+    
 
       <Movie socket={socket} setContainerLabel={setContainerLabel}/>
   

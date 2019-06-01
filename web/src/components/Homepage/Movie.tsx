@@ -32,11 +32,21 @@ const Movie: React.FunctionComponent<Home> = props => {
 
   return ( 
       <>
+   
+   
+     
         <section>
+     
         <div className="containerh">
-          
+      
+      
           <div className="background-imgh">
-            
+          <div className = "public-room-spacing">
+        <Link className="nav-hover-on public-room-home " to="/publicroom" style={{ textDecoration: "none", color: "white" }}>
+       {/* <button className="button btn-grad-public  ">Join Public Rooms</button>  */}
+       <a href="#" style={{color:'white'}} className=" button btn-grad-public bttn-public"><h3 style={{fontWeight:'bold'}}>Join Public Rooms</h3></a>
+      </Link>
+      </div>
             <div className="boxh">
               <span></span>
               <span></span>
@@ -47,12 +57,12 @@ const Movie: React.FunctionComponent<Home> = props => {
                 <p><a  style={{color:'#00ffe9'}} target="_blank">Welcome to Cheetah a fast way to sync and watch videos with others. Click here to create a room</a></p>
                 <div className="btn-spacing">
 
-                <button className="button btn-grad " style={{color:'white', width:'174'}} onClick={()=> handleClick("public")}>Create Public Room</button>
+                <button className="button btn-grad " style={{color:'white'}} onClick={()=> handleClick("public")}><p style={{color:'white', fontWeight:'bold'}}>Create Public Room</p></button>
 
                 </div>
                 <div className="btn-spacing">
 
-                <button className="button btn-grad" style={{color:'white'}} onClick={()=> handleClick("private")}>Create Private Room</button>
+                <button className="button btn-grad" style={{color:'white'}} onClick={()=> handleClick("private")}><p  style={{color:'white', fontWeight:'bold'}}>Create Private Room</p></button>
                 </div>
               
               </div>
