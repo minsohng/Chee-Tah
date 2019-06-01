@@ -206,7 +206,7 @@ io.of('movie')
       const isAdmin = filteredAdmin.length > 0;
       if (isAdmin) {
         adminSocketList.push({
-          roomId: roomObject.roomId,
+          roomId,
           id: socket.id
         })
       }
@@ -222,16 +222,23 @@ io.of('movie')
         statusObj[roomObject.roomId][socket.id] = true
       }
       console.log(statusObj)
+      
+      const currentAdminList = adminSocketList.filter(admin => admin.roomId === roomObject.roomId);
+      if(currentAdminList.length > 0) {
+        const currentAdminId = currentAdminList[currentAdminList.length - 1].id;
+        socket.to(currentAdminId).emit('admin timestamp', '')
+      }
 
+      socket.on('give admin timestamp', timestamp => {
+        socket.emit('sync video timestamp', timestamp);
+      })
       let rooms = Object.keys(socket.rooms);
       console.log(rooms);
 
-     
-      
-     
-
       const filteredAdmin = adminSocketList.filter(admin => admin.id === socket.id)
       console.log("filtered", filteredAdmin)
+
+      
       
       const isAdmin = filteredAdmin.length > 0;
 

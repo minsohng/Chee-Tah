@@ -159,7 +159,7 @@ io.of('movie')
             var isAdmin = filteredAdmin.length > 0;
             if (isAdmin) {
                 adminSocketList.push({
-                    roomId: roomObject.roomId,
+                    roomId: roomId,
                     id: socket.id
                 });
             }
@@ -172,6 +172,14 @@ io.of('movie')
                 statusObj[roomObject.roomId][socket.id] = true;
             }
             console.log(statusObj);
+            var currentAdminList = adminSocketList.filter(function (admin) { return admin.roomId === roomObject.roomId; });
+            if (currentAdminList.length > 0) {
+                var currentAdminId = currentAdminList[currentAdminList.length - 1].id;
+                socket.to(currentAdminId).emit('admin timestamp', '');
+            }
+            socket.on('give admin timestamp', function (timestamp) {
+                socket.emit('sync video timestamp', timestamp);
+            });
             var rooms = Object.keys(socket.rooms);
             console.log(rooms);
             var filteredAdmin = adminSocketList.filter(function (admin) { return admin.id === socket.id; });
