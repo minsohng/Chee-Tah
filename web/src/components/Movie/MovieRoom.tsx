@@ -173,7 +173,8 @@ const MovieRoom = (props) => {
             <Form
               addToPlaylist={addToPlaylist}
               sendMessage={sendMessage}
-              playVideo={playVideo}/>
+              playVideo={playVideo}
+            />
             
              <div id="navigation" className="Navigation">
              <h6 id="admin-notice">{ isAdmin ? 'Admin Mode' : ''}</h6>
