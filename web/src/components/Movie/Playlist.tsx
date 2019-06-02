@@ -31,8 +31,8 @@ const Playlist = props => {
 
   return (
     <>
-    <div className="toggle-button" onClick={togglePlaylist}>
-      <span className="icon is-large"><i className={turnArrow}></i></span>
+    <div className="toggle-button">
+      <span className="icon is-large"><i className={turnArrow} onClick={togglePlaylist}></i></span>
       {/* <label className="slide-btn-alt">
         <input onClick={togglePlaylist} type="checkbox" />
         <span className="slide-btn-content" data-off="Hide" data-on="Show" />
