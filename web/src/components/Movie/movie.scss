@@ -554,68 +554,81 @@ p {
 
 	// toggle on off switch
 
-	.slide-btn-alt {
-		position: relative;
-		display: inline-block;
-		width: 108px;
-		height: 34px;
-	  }
+	// .slide-btn-alt {
+	// 	position: relative;
+	// 	display: inline-block;
+	// 	width: 108px;
+	// 	height: 34px;
+	//   }
 	  
-	  .slide-btn-alt input {display:none;}
+	//   .slide-btn-alt input {display:none;}
 	  
-	  .slide-btn-content {
-			position: absolute;
-			cursor: pointer;
-			top: 0;
-			left: 0;
-			right: 0;
-			bottom: 0;
-			background-color: #2b99d6;
-			text-transform:uppercase;
-			-webkit-transition: .3s;
-			transition: .3s;
-			z-index: 5;
-	  }
+	//   .slide-btn-content {
+	// 		position: absolute;
+	// 		cursor: pointer;
+	// 		top: 0;
+	// 		left: 0;
+	// 		right: 0;
+	// 		bottom: 0;
+	// 		background-color: #2b99d6;
+	// 		text-transform:uppercase;
+	// 		-webkit-transition: .3s;
+	// 		transition: .3s;
+	// 		z-index: 5;
+	//   }
 	  
-	  .slide-btn-content::before {
-		position: absolute;
-		content: attr(data-off);
-		font: 900 10px/34px 'Montserrat-Bold', sans-serif;
-		color: white;
-		width: 50%;
-		left: 0;
-		bottom: 0;
-		text-align: center;
-		-webkit-transition: .3s;
-		transition: .3s;
-	  }
-	  
-	  .slide-btn-content::after {
-		position: absolute; content: '';
-		height: 34px;
+	//   .slide-btn-content::before {
+	// 	// position: absolute;
+	// 	// content: attr(data-off);
+	// 	// font: 900 10px/34px 'Montserrat-Bold', sans-serif;
+	// 	// color: white;
+	// 	// width: 50%;
+	// 	// left: 0;
+	// 	// bottom: 0;
+	// 	// text-align: center;
+	// 	// -webkit-transition: .3s;
+	// 	// transition: .3s;
 		
-		border-left: 2px solid rgba(238, 238, 239, 0.2);
-	  }
+	//   }
 	  
-	  input:checked + .slide-btn-content {
-		background-color: #485679;
-	  }
+	//   .slide-btn-content::after {
+	// 	position: absolute; content: '';
+	// 	height: 34px;
+		
+	// 	border-left: 2px solid rgba(238, 238, 239, 0.2);
+	//   }
 	  
-	  input:focus + .slide-btn-content {
-		box-shadow: 0 0 1px #2196F3;
-	  }
+	//   input:checked + .slide-btn-content {
+	// 	background-color: #485679;
+	//   }
 	  
-	  input:checked + .slide-btn-content::before {
-		content: attr(data-on);
-		-webkit-transform: translateX(54px);
-		-ms-transform: translateX(54px);
-		transform: translateX(54px);
-	  }
+	//   input:focus + .slide-btn-content {
+	// 	box-shadow: 0 0 1px #2196F3;
+	//   }
+	  
+	//   input:checked + .slide-btn-content::before {
+	// 	content: attr(data-on);
+	// 	-webkit-transform: translateX(54px);
+	// 	-ms-transform: translateX(54px);
+	// 	transform: translateX(54px);
+	//   }
 
 	  .toggle-button{
-		  display:flex;
+		  display: flex;
 		  top: 10px;
-			z-index: 900;
+			i {
+				padding: 3em;
+				color: white;
+				font-size: 2em;
+				transition: all 0.4s ease;
+			}
+			
+			.down {
+				transform: rotateZ(90deg);
+			}
+			.right {
+				transform: rotateZ(0deg);
+			}
 	  }
 
 

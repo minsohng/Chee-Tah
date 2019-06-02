@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 
 const Playlist = props => {
   const [isHidden, setIsHidden] = useState(true);
+  const [turnArrow, setTurnArrow] = useState("fas fa-3x fa-chevron-right");
   const playlist = props.playlist;
   // let firstPage;
   // let secondPage;
@@ -17,6 +18,8 @@ const Playlist = props => {
   // })
 
   const togglePlaylist = () => {
+    (turnArrow === "fas fa-3x fa-chevron-right down") ? setTurnArrow("fas fa-3x fa-chevron-right right") :
+    setTurnArrow("fas fa-3x fa-chevron-right down");
     setIsHidden(isHidden => !isHidden);
   };
   
@@ -29,18 +32,19 @@ const Playlist = props => {
   return (
     <>
     <div className="toggle-button">
-      <label className="slide-btn-alt">
+      <span className="icon is-large"><i className={turnArrow} onClick={togglePlaylist}></i></span>
+      {/* <label className="slide-btn-alt">
         <input onClick={togglePlaylist} type="checkbox" />
         <span className="slide-btn-content" data-off="Hide" data-on="Show" />
-      </label>
+      </label> */}
+        {isHidden && (
+          <>
+          {videoList}
+          </>
+        )}
       </div>
 
 
-      {isHidden && (
-        <>
-          {videoList}
-        </>
-      )}
 
       {/* <div
         id="carouselExampleIndicators"
