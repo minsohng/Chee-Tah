@@ -78,7 +78,8 @@ app.post('/api/createRoom', function (req, res) {
         } while (isNotAvailable);
         roomList.push({
             roomId: roomId,
-            type: type
+            type: type,
+            numClients: 1
         });
         adminSocketList.push({
             roomId: roomId,
@@ -160,6 +161,8 @@ io.of('movie')
             if (statusObj[roomObject.roomId]) {
                 statusObj[roomObject.roomId][socket.id] = true;
             }
+            var filteredRoomList = roomList.filter(function (room) { return room.roomId === roomId; });
+            filteredRoomList[0] && (filteredRoomList[0].numClients = filteredRoomList[0].numClients + 1);
             // update public room to reflect number of clients
             io.of('/movie')["in"](roomId).clients(function (error, clients) {
                 if (error)
@@ -204,13 +207,14 @@ io.of('movie')
             });
             socket.on('disconnect', function () {
                 console.log('socket disconnected');
+                var filteredRoomList = roomList.filter(function (room) { return room.roomId === roomId; });
+                filteredRoomList[0] && (filteredRoomList[0].numClients = filteredRoomList[0].numClients - 1);
                 io.of('/movie')["in"](roomId).clients(function (error, clients) {
                     if (error)
                         throw error;
-                    if (clients.length === 0) {
+                    if (filteredRoomList[0].numClients === 0) {
                         roomList = roomList.filter(function (room) { return room.roomId !== roomId; });
                     }
-                    console.log("ROOM LIST", roomList);
                     io.of('movie').emit("send number of clients", ({
                         numClients: clients.length,
                         roomId: roomId
@@ -219,6 +223,7 @@ io.of('movie')
                 if (roomId && socket && statusObj[roomId] && statusObj[roomId][socket.id]) {
                     delete statusObj[roomId][socket.id];
                 }
+                console.log("ROOM LIST", roomList);
             });
         });
     });

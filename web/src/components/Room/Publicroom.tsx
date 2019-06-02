@@ -24,17 +24,9 @@ const Publicroom = props => {
     <nav>
       
       <ul>
-     
-        <li>
-        <Link to="/publicroom" style={{ textDecoration: 'none', color: 'white' }}>Create Room</Link>
-        </li>
-        <li>
-          
-        </li>
-        <li></li>
         <li>
         <Link to="/" style={{ textDecoration: 'none', color: 'white' }}>Home</Link>
-      </li>
+        </li>
       </ul>
     </nav>
   </div>

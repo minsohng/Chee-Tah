@@ -160,6 +160,7 @@ const MovieRoom = (props) => {
       console.log(videoId)
       setCurrentPlaying(videoId)
     })
+
   }, [])
 
 

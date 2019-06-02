@@ -68,7 +68,7 @@ const Roomstate = (props) => {
 
   return (
     <>
-      {renderPage()}
+      {clientCount && renderPage()}
     </>
   )
 }
