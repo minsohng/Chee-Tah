@@ -177,7 +177,7 @@ const MovieRoom = (props) => {
             />
             
              <div id="navigation" className="Navigation">
-             <h6 id="admin-notice">{ isAdmin ? 'Admin Mode' : ''}</h6>
+             <h6 id="admin-notice">{ isAdmin ? 'You Are Admin' : ''}</h6>
             <nav>
               
               <ul>
