@@ -33,12 +33,12 @@ const Playlist = props => {
     <>
     <div className="toggle-button">
       <span className="icon is-large"><i className={turnArrow} onClick={togglePlaylist}></i></span>
-        {isHidden && (
-          <>
-          {videoList}
-          </>
-        )}
-      </div>
+    </div>
+    {isHidden && (
+      <>
+      {videoList}
+      </>
+    )}
 
     </>
   );
