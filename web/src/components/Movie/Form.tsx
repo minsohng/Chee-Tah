@@ -1,5 +1,5 @@
 import * as React from 'react';
-const { useState } = React;
+const { useState, useEffect } = React;
 import axios from 'axios';
 import Result from './Result';
 
@@ -268,6 +268,31 @@ const Form: React.FunctionComponent<{addToPlaylist(url: string, id: string): voi
     />    
   )
 
+  useEffect(() => {
+    let box = document.querySelector(".is-overlay");
+    let search = document.querySelector(".Search");
+
+    search.addEventListener("click", () => {
+      setResultVisibility('is-overlay')
+    })
+    // Detect all clicks on the document
+    document.addEventListener("click", function(event) {
+
+      
+      const element = event.target as HTMLElement
+      console.log(element.closest(".is-overlay"))
+      // If user clicks inside the element, do nothing
+      if (element.closest(".is-overlay")) return;
+      
+
+      // If user clicks outside the element, hide it!
+      // box.classList.add("is-hidden");
+      setResultVisibility('is-overlay is-hidden')
+    });
+
+    
+  })
+
   return (
     <>
       <div className="Search search-fixed-center">
@@ -284,10 +309,11 @@ const Form: React.FunctionComponent<{addToPlaylist(url: string, id: string): voi
       </div>
       
        <div className={resultVisibility} id='result'>
+        
        <div className="row center-result">
          {searchResults}
-         </div>
-         </div>
+       </div>
+       </div>
     
     </>
   )

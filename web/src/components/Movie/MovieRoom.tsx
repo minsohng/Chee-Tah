@@ -5,6 +5,7 @@ import Form from'./Form';
 import Chatbar from './Chatbar'
 import "./movie.scss";
 import Playlist from './Playlist';
+import Errorpage from './Errorpage';
 import ReactPlayer from 'react-player';
 import Cookies from 'universal-cookie';
 import axios from 'axios';
@@ -101,13 +102,19 @@ const MovieRoom = (props) => {
     .then(response => {
       console.log(response.data.response)
       if (response.data.response === true) {
-        setIsLoading(false);
+        setTimeout(() => {
+          setIsLoading(false);
+
+        }, 3000)
         setIsRoom(true);
         setUsername(response.data.username);
         setPlaylist(response.data.playlist);
         setCurrentPlaying(response.data.currentVideo);
       } else {
-        setIsLoading(false);
+        setTimeout(() => {
+          setIsLoading(false);
+
+        }, 3000)
       }
     })
 
@@ -166,7 +173,8 @@ const MovieRoom = (props) => {
             <Form
               addToPlaylist={addToPlaylist}
               sendMessage={sendMessage}
-              playVideo={playVideo}/>
+              playVideo={playVideo}
+            />
             
              <div id="navigation" className="Navigation">
              <h6 id="admin-notice">{ isAdmin ? 'Admin Mode' : ''}</h6>
@@ -236,9 +244,12 @@ const MovieRoom = (props) => {
           </div>
       )
     } else if(!isLoading && !isRoom) {
-      return <div>Unable to find page</div>
+      return <Errorpage />
+      
+      
+      // return <div className="alert alert-danger" role="alert">Unable to find page</div>
     } else if(isLoading) {
-      return <img src='https://s3-us-west-2.amazonaws.com/s.cdpn.io/28963/giphy%20(24).gif' alt="Loading..."/> 
+      return <img id="loading-image" src='https://s3-us-west-2.amazonaws.com/s.cdpn.io/28963/giphy%20(24).gif' alt="Loading..."/>
     }
 
   }

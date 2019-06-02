@@ -223,6 +223,10 @@ io.of('movie')
         io.of('/movie')["in"](roomId).clients(function (error, clients) {
             if (error)
                 throw error;
+            io.of('movie').emit("send number of clients", ({
+                numClients: clients.length,
+                roomId: roomId
+            }));
             console.log("number of clients " + clients.length + " " + clients);
         });
     });
