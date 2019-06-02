@@ -10,11 +10,14 @@ import Cookies from 'universal-cookie';
 const soundFile = require('../../assets/movie.mp3');
 import "./home.scss";
 
+const openInNewTab = (url) => {
+  var win = window.open(url, '_blank');
+  win.focus();
+}
 
 const Movie: React.FunctionComponent<Home> = props => { 
   const socket = props.socket;
-  const [playing, toggle, destroy] = useAudio(soundFile);
-  
+
     const handleClick = (type) => {
       
       axios.post(process.env.URL + `/api/createRoom`, {
@@ -22,7 +25,8 @@ const Movie: React.FunctionComponent<Home> = props => {
         type
       })
       .then(response => {
-        window.location.replace(`/movie/${response.data.url}`);
+        openInNewTab(`/movie/${response.data.url}`)
+        // window.location.replace(`/movie/${response.data.url}`);
         const cookies = new Cookies();
         cookies.set('adminId', socket.id, { path: '/' });
         cookies.set('roomId', response.data.url, {path: '/' });

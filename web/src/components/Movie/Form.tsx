@@ -4,7 +4,7 @@ import axios from 'axios';
 import Result from './Result';
 
 
-const Form: React.FunctionComponent<{addToPlaylist(url: string): void, sendMessage(data: object, id: object):void, playVideo(title: any,id: string)}> = props => {
+const Form: React.FunctionComponent<{addToPlaylist(url: string, id: string): void, sendMessage(data: object, id: object, index: number):void, playVideo(title: any,id: string)}> = props => {
   const [formInput, setFormInput] = useState('');
   const [resultVisibility, setResultVisibility] = useState('is-overlay is-hidden');
   const [data, setData] = useState([
@@ -263,8 +263,34 @@ const Form: React.FunctionComponent<{addToPlaylist(url: string): void, sendMessa
       addToPlaylist={props.addToPlaylist}
       sendMessage={props.sendMessage}
       playVideo={props.playVideo}
+      index={i}
     />    
   )
+
+  useEffect(() => {
+    let box = document.querySelector(".is-overlay");
+    let search = document.querySelector(".Search");
+
+    search.addEventListener("click", () => {
+      setResultVisibility('is-overlay')
+    })
+    // Detect all clicks on the document
+    document.addEventListener("click", function(event) {
+
+      
+      const element = event.target as HTMLElement
+      console.log(element.closest(".is-overlay"))
+      // If user clicks inside the element, do nothing
+      if (element.closest(".is-overlay")) return;
+      
+
+      // If user clicks outside the element, hide it!
+      // box.classList.add("is-hidden");
+      setResultVisibility('is-overlay is-hidden')
+    });
+
+    
+  })
 
   return (
     <>
@@ -281,12 +307,13 @@ const Form: React.FunctionComponent<{addToPlaylist(url: string): void, sendMessa
         
       </div>
       
-      <div className={resultVisibility} id='result'>
-      <div className="row center-result">
-        {searchResults}
-        </div>
-        </div>
-   
+       <div className={resultVisibility} id='result'>
+        
+       <div className="row center-result">
+         {searchResults}
+       </div>
+       </div>
+    
     </>
   )
 }

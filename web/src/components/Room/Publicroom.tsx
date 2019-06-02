@@ -15,26 +15,31 @@ const Publicroom = props => {
   return (
     <div className="container">
        
-      <nav className="navbarA ">
+       <header className="Header">
+    
+  
+    <h4>public rooms</h4>
+     <div id="navigation" className="Navigation">
+   
+    <nav>
+      
+      <ul>
+     
+        <li>
+        <Link to="/publicroom" style={{ textDecoration: 'none', color: 'white' }}>Create Room</Link>
+        </li>
+        <li>
           
-        <header className="Header">
-        <h4>Public Rooms</h4>
-          <ul>
-            <li className="nav-hover-on">
-              <Link className="nav-hover-on" to="/" style={{ textDecoration: "none", color: "white" }}>
-                Create A Room
-              </Link>
-            
-           </li>
-           
-            <li className="nav-hover-on move-right-nav" >
-              <Link to="/" style={{ textDecoration: "none", color: "white" }}>
-                Home
-              </Link>
-            </li>
-            </ul>
-        </header>
-      </nav>
+        </li>
+        <li></li>
+        <li>
+        <Link to="/" style={{ textDecoration: 'none', color: 'white' }}>Home</Link>
+      </li>
+      </ul>
+    </nav>
+  </div>
+     
+    </header>
 
       <div className="row">
         {rooms}

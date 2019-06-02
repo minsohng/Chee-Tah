@@ -5,6 +5,7 @@ import Form from'./Form';
 import Chatbar from './Chatbar'
 import "./movie.scss";
 import Playlist from './Playlist';
+import Errorpage from './Errorpage';
 import ReactPlayer from 'react-player';
 import Cookies from 'universal-cookie';
 import axios from 'axios';
@@ -25,6 +26,11 @@ const MovieRoom = (props) => {
   const [isRoom, setIsRoom] = useState(false);
   const [username, setUsername] = useState('');
   const [playlist, setPlaylist] = useState([]);
+  
+  const userObj = {
+    socket,
+    isAdmin
+  }
 
   const ref = player => {
     this.player = player
@@ -46,16 +52,19 @@ const MovieRoom = (props) => {
     socket.emit('done playing', roomId);
   }
 
-  const addToPlaylist = (videoData) => {
+  const addToPlaylist = (videoData, id) => {
+    videoData.socketId = socket.id;
+    videoData.id = id;
     setPlaylist([...playlist, videoData]);
   }
   
-  const sendMessage = (data, id) => {
+  const sendMessage = (data, id, index) => {
     let message = {
       socketId: socket.id,
       roomId,
       ...data,
-      id
+      id,
+      i: index
     }
     console.log(message);
     socket.emit('add to playlist', message)
@@ -65,6 +74,7 @@ const MovieRoom = (props) => {
     if (isAdmin) {
       setCurrentPlaying(videoId);
       const videoObj = {
+        socketId: socket.id,
         videoData,
         videoId,
         roomId
@@ -73,10 +83,15 @@ const MovieRoom = (props) => {
     }
   }
 
-  const deleteFromPlaylist = () => {
-    
+  const deleteVideo = (video, id) => {
+    console.log('yes');
+    const videoObj = {
+      video,
+      id
+    }
+    socket.emit("delete from playlist", videoObj);
   }
-  
+
   
   useEffect(() => {
     
@@ -87,13 +102,19 @@ const MovieRoom = (props) => {
     .then(response => {
       console.log(response.data.response)
       if (response.data.response === true) {
-        setIsLoading(false);
+        setTimeout(() => {
+          setIsLoading(false);
+
+        }, 3000)
         setIsRoom(true);
         setUsername(response.data.username);
         setPlaylist(response.data.playlist);
         setCurrentPlaying(response.data.currentVideo);
       } else {
-        setIsLoading(false);
+        setTimeout(() => {
+          setIsLoading(false);
+
+        }, 3000)
       }
     })
 
@@ -130,7 +151,9 @@ const MovieRoom = (props) => {
     })
 
     socket.on('play video', (videoId) => {
+      
       setCurrentPlaying(videoId);
+      
     })
 
     socket.on('play next video', (videoId) => {
@@ -147,7 +170,11 @@ const MovieRoom = (props) => {
             <div className="movie-contains-all">
             <header className="Header">
     
-            <Form addToPlaylist={addToPlaylist} sendMessage={sendMessage} playVideo={playVideo}/>
+            <Form
+              addToPlaylist={addToPlaylist}
+              sendMessage={sendMessage}
+              playVideo={playVideo}
+            />
             
              <div id="navigation" className="Navigation">
              <h6 id="admin-notice">{ isAdmin ? 'You Are Admin' : ''}</h6>
@@ -195,16 +222,21 @@ const MovieRoom = (props) => {
             onEnded={onEnded}
           /> 
         
-          <Chatbar username={username} socket={socket} roomId={roomId}/>
+          <Chatbar
+            username={username}
+            socket={socket}
+            roomId={roomId}/>
           
           </div>
          
-          <div className="overlay" />
-          
-            </div>
-            <footer className="pin-bottom">
+          <div className="overlay" /></div>
+          <footer className="pin-bottom">
 
-          <Playlist playlist={playlist}/>
+          <Playlist 
+            playlist={playlist} 
+            playVideo={playVideo}
+            deleteVideo={deleteVideo}
+            admin={userObj}/>
 
             </footer>
           
@@ -212,9 +244,12 @@ const MovieRoom = (props) => {
           </div>
       )
     } else if(!isLoading && !isRoom) {
-      return <div>Unable to find page</div>
+      return <Errorpage />
+      
+      
+      // return <div className="alert alert-danger" role="alert">Unable to find page</div>
     } else if(isLoading) {
-      return <img src='https://s3-us-west-2.amazonaws.com/s.cdpn.io/28963/giphy%20(24).gif' alt="Loading..."/> 
+      return <img id="loading-image" src='https://s3-us-west-2.amazonaws.com/s.cdpn.io/28963/giphy%20(24).gif' alt="Loading..."/>
     }
 
   }

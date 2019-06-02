@@ -1,13 +1,11 @@
 import * as React from "react";
 import Video from "./Video";
 import { useEffect, useState } from "react";
-const MAX_PER_LINE = 5;
 
 const Playlist = props => {
   const [isHidden, setIsHidden] = useState(true);
-
+  const [turnArrow, setTurnArrow] = useState("fas fa-3x fa-chevron-right");
   const playlist = props.playlist;
-  const pages = Math.floor(playlist.length / MAX_PER_LINE);
   // let firstPage;
   // let secondPage;
   // if(playlist.length > MAX_PER_LINE) {
@@ -20,28 +18,33 @@ const Playlist = props => {
   // })
 
   const togglePlaylist = () => {
+    (turnArrow === "fas fa-3x fa-chevron-right down") ? setTurnArrow("fas fa-3x fa-chevron-right right") :
+    setTurnArrow("fas fa-3x fa-chevron-right down");
     setIsHidden(isHidden => !isHidden);
   };
+  
+  console.log("DEBUG", playlist)
 
   const videoList = playlist.map((data, i) => (
-    <Video video={data} key={i + 100} />
+    <Video video={data} playVideo={props.playVideo} deleteVideo={props.deleteVideo} key={i + 100} id={i} admin={props.admin}/>
   ));
 
   return (
     <>
     <div className="toggle-button">
-      <label className="slide-btn-alt">
+      <span className="icon is-large"><i className={turnArrow} onClick={togglePlaylist}></i></span>
+      {/* <label className="slide-btn-alt">
         <input onClick={togglePlaylist} type="checkbox" />
-        <span  className="slide-btn-content" data-off="Hide" data-on="Show" />
-      </label>
+        <span className="slide-btn-content" data-off="Hide" data-on="Show" />
+      </label> */}
+        {isHidden && (
+          <>
+          {videoList}
+          </>
+        )}
       </div>
 
 
-      {isHidden && (
-        <>
-          {videoList}
-        </>
-      )}
 
       {/* <div
         id="carouselExampleIndicators"

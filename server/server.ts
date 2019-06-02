@@ -147,7 +147,7 @@ io.of('movie')
   .on('connection', (socket) => {
   let roomId;
 
-  console.log(socket.id + " connected to /movie");
+  console.log(socket.id + " connected to /movie"); 
 
   socket.on('message_sent', function(data) {
     io.of('movie').to(data.room).emit('message_receive', data);
@@ -182,16 +182,6 @@ io.of('movie')
         videoId: nextVideo.id,
         roomId
        };
-    // socketId: '/movie#-5V8j5wI85yVikOmAAAE',
-    // roomId: 'rapid-chetah',
-    // publishedAt: '2017-04-21T09:00:05.000Z',
-    // channelId: 'UCweOkPb1wVVH0Q0Tlj4a5Pw',
-    // title: '[MV] IU(아이유) _ Palette(팔레트) (Feat. G-DRAGON)',
-    // description: '[MV] IU(아이유) _ Palette(팔레트) (Feat. G-DRAGON) *English subtitles are now available. :D (Please click on \'CC\' button or activate \'Interactive Transcript\' ...',
-    // thumbnails: { default: [Object], medium: [Object], high: [Object] },
-    // channelTitle: '1theK (원더케이)',
-    // liveBroadcastContent: 'none',
-    // id: 'd9IxdwEFk1c' }
       io.of('movie').emit('update room state');
       console.log(statusObj)
     }
@@ -221,7 +211,16 @@ io.of('movie')
       if (statusObj[roomObject.roomId]) {
         statusObj[roomObject.roomId][socket.id] = true
       }
-      console.log(statusObj)
+
+      // update public room to reflect number of clients
+      io.of('/movie').in(roomId).clients((error, clients) => {
+        if (error) throw error;
+        io.of('movie').emit("send number of clients", ({
+          numClients: clients.length,
+          roomId
+        }));
+      });
+      
       
       const currentAdminList = adminSocketList.filter(admin => admin.roomId === roomObject.roomId);
       if(currentAdminList.length > 0) {
@@ -237,9 +236,7 @@ io.of('movie')
 
       const filteredAdmin = adminSocketList.filter(admin => admin.id === socket.id)
       console.log("filtered", filteredAdmin)
-
-      
-      
+            
       const isAdmin = filteredAdmin.length > 0;
 
       if (isAdmin) {
@@ -249,13 +246,15 @@ io.of('movie')
       socket.on('play video', (data) => {
         if (isAdmin) {
           curVideoObj[roomId] = data;
-          console.log(`current video:  ${curVideoObj[roomId].videoId}`);
           socket.to(data.roomId).broadcast.emit('play video', data.videoId);
           io.of('movie').emit('update room state');
         }
       })
  
-
+      socket.on('delete from playlist', (data) => {
+        playlistObj[roomId] = playlistObj[roomId].filter((playlist, i) => i !== data.id);
+        io.of('/movie').to(roomId).emit('sync playlist', playlistObj[roomId]);
+      })
 
       socket.on('share video timestamp', (timestamp: number) => {
         if (isAdmin && timestamp) {
@@ -266,6 +265,13 @@ io.of('movie')
       })
       socket.on('disconnect', () => {
         console.log('socket disconnected')
+        io.of('/movie').in(roomId).clients((error, clients) => {
+          if (error) throw error;
+          io.of('movie').emit("send number of clients", ({
+            numClients: clients.length,
+            roomId
+          }));
+        });
         if (roomId && socket && statusObj[roomId] && statusObj[roomId][socket.id]) {
           delete statusObj[roomId][socket.id]
         }
@@ -276,6 +282,10 @@ io.of('movie')
   socket.on('get number of clients', (roomId) => {
     io.of('/movie').in(roomId).clients((error, clients) => {
       if (error) throw error;
+      io.of('movie').emit("send number of clients", ({
+        numClients: clients.length,
+        roomId
+      }));
       console.log(`number of clients ${clients.length} ${clients}`)
     });
   })
