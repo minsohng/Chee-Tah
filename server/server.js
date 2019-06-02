@@ -21,9 +21,9 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
 app.post('/api/fetchState', function (req, res) {
     var roomId = req.body.roomId;
-    console.log("fetchState-room", roomId);
-    console.log("fetchState-obj", curVideoObj);
-    console.log("fetchState-objroom", curVideoObj[roomId]);
+    // console.log("fetchState-room", roomId)
+    // console.log("fetchState-obj", curVideoObj)
+    // console.log("fetchState-objroom", curVideoObj[roomId])
     res.json(curVideoObj[roomId] && curVideoObj[roomId]);
 });
 app.get('/api/showRoom', function (req, res) {
@@ -36,7 +36,7 @@ app.post('/api/getRoom', function (req, res) {
     var params = req.body.params;
     var filteredRoom = roomList.filter(function (room) { return room.roomId === params; });
     var haveRoom = filteredRoom.length > 0;
-    console.log("filteredROOM", filteredRoom);
+    // console.log("filteredROOM", filteredRoom);
     var promise1 = axios.get('https://api.datamuse.com/words?ml=ocean');
     var promise2 = axios.get('https://api.datamuse.com/words?ml=animal');
     var currentVideo = curVideoObj[params] ? curVideoObj[params].videoId : '';
@@ -63,7 +63,7 @@ app.post('/api/createRoom', function (req, res) {
     var promise2 = axios.get('https://api.datamuse.com/words?ml=cheetah');
     var socket = JSON.parse(req.body.socket);
     var type = req.body.type;
-    console.log(socket.id);
+    // console.log(socket.id)
     Promise.all([promise1, promise2]).then(function (response) {
         var isNotAvailable;
         var roomId;
@@ -117,9 +117,9 @@ io.of('movie')
         socket.to(data.roomId).broadcast.emit('sync playlist', playlistObj[data.roomId]);
     });
     socket.on('done playing', function (data) {
-        console.log("PLAYLIST", playlistObj[roomId]);
+        // console.log("PLAYLIST", playlistObj[roomId])
         statusObj[data][socket.id] = false;
-        console.log(statusObj);
+        // console.log(statusObj)
         var statusArr = Object.values(statusObj[data]);
         if (!statusArr.includes(true) && playlistObj[data].length > 0) {
             var nextVideo = playlistObj[data].shift();
@@ -139,7 +139,6 @@ io.of('movie')
                 roomId: roomId
             };
             io.of('movie').emit('update room state');
-            console.log(statusObj);
         }
     });
     socket.on('joinRoom', function (roomObject) {
@@ -179,9 +178,9 @@ io.of('movie')
                 socket.emit('sync video timestamp', timestamp);
             });
             var rooms = Object.keys(socket.rooms);
-            console.log(rooms);
+            // console.log(rooms);
             var filteredAdmin = adminSocketList.filter(function (admin) { return admin.id === socket.id; });
-            console.log("filtered", filteredAdmin);
+            // console.log("filtered", filteredAdmin)
             var isAdmin = filteredAdmin.length > 0;
             if (isAdmin) {
                 socket.emit('is admin', filteredAdmin[0]);
@@ -199,7 +198,7 @@ io.of('movie')
             });
             socket.on('share video timestamp', function (timestamp) {
                 if (isAdmin && timestamp) {
-                    console.log(timestamp);
+                    // console.log(timestamp)
                     socket.to(roomObject.roomId).broadcast.emit('sync video timestamp', timestamp);
                 }
             });
@@ -208,6 +207,10 @@ io.of('movie')
                 io.of('/movie')["in"](roomId).clients(function (error, clients) {
                     if (error)
                         throw error;
+                    if (clients.length === 0) {
+                        roomList = roomList.filter(function (room) { return room.roomId !== roomId; });
+                    }
+                    console.log("ROOM LIST", roomList);
                     io.of('movie').emit("send number of clients", ({
                         numClients: clients.length,
                         roomId: roomId
