@@ -73,11 +73,13 @@ class Chat extends Component<Props, State> {
               </ul>
             </div>
             <div className="sendBox">
-              <input type="text"
+              <input 
+                type="text"
                 id="text"
                 placeholder="type here to chat"
                 value={this.state.message}
                 onKeyPress={keyPressEnter}
+                autoComplete="off"
                 onChange={event =>
                   this.setState({ message: event.target.value })}/>
             </div>

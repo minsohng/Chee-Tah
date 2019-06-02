@@ -21,12 +21,12 @@ const Video = props => {
   return (
     <div
       className="Item"
-      style={{ backgroundImage: `url(${video.thumbnails.high.url})` }}
+      style={{ width:"320px", height:"180px", backgroundImage: `url(${video.thumbnails.medium.url})` }}
       id='play'
       onClick={playRestrict}
     >
       <div className="overlay ">
-        <div className="title">{video.title}</div> 
+        <div className="title" style={{fontSize: "0.75em"}}>{video.title}</div> 
           <div className="plot">
           {video.channelTitle}
           {(admin.isAdmin || video.socketId === admin.socket.id) && 

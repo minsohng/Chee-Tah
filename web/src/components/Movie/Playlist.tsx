@@ -37,12 +37,12 @@ const Playlist = props => {
         <input onClick={togglePlaylist} type="checkbox" />
         <span className="slide-btn-content" data-off="Hide" data-on="Show" />
       </label> */}
+      </div>
         {isHidden && (
           <>
           {videoList}
           </>
         )}
-      </div>
 
 
 
