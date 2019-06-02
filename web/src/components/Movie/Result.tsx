@@ -36,7 +36,7 @@ const Result = (props) => {
                 onClick={() => handleClick("play")}
               >
                 <i
-                  onClick={() => handleClick("play")}
+                  
                   className="fa fa-play fa-2x"
                 />
               </a>
@@ -53,7 +53,7 @@ const Result = (props) => {
                 onClick={() => handleClick("add")}
               >
                 <i
-                  onClick={() => handleClick("add")}
+                  
                   className="fa fa-plus fa-2x"
                 />
               </a>

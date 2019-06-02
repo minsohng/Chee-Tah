@@ -102,19 +102,19 @@ const MovieRoom = (props) => {
     .then(response => {
       console.log(response.data.response)
       if (response.data.response === true) {
-        setTimeout(() => {
+        // setTimeout(() => {
           setIsLoading(false);
 
-        }, 3000)
+        // }, 3000)
         setIsRoom(true);
         setUsername(response.data.username);
         setPlaylist(response.data.playlist);
         setCurrentPlaying(response.data.currentVideo);
       } else {
-        setTimeout(() => {
+        // setTimeout(() => {
           setIsLoading(false);
 
-        }, 3000)
+        // }, 3000)
       }
     })
 
@@ -216,6 +216,8 @@ const MovieRoom = (props) => {
             url={`https://www.youtube.com/watch?v=${currentPlaying}`}
             playing={true}
             controls={true}
+            volume={0}
+            muted={true}
             onProgress={(state) => playedFraction = state.played}
             onDuration={(totaltime) => duration = totaltime}
             onPlay={onPlay}
