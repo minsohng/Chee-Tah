@@ -280,7 +280,7 @@ const Form: React.FunctionComponent<{addToPlaylist(url: string): void, sendMessa
         />
         
       </div>
-            
+      
       <div className={resultVisibility} id='result'>
       <div className="row center-result">
         {searchResults}
