@@ -33,10 +33,6 @@ const Playlist = props => {
     <>
     <div className="toggle-button">
       <span className="icon is-large"><i className={turnArrow} onClick={togglePlaylist}></i></span>
-      {/* <label className="slide-btn-alt">
-        <input onClick={togglePlaylist} type="checkbox" />
-        <span className="slide-btn-content" data-off="Hide" data-on="Show" />
-      </label> */}
         {isHidden && (
           <>
           {videoList}
@@ -44,25 +40,6 @@ const Playlist = props => {
         )}
       </div>
 
-
-
-      {/* <div
-        id="carouselExampleIndicators"
-        className="carousel slide carousel-fade"
-        data-ride="carousel"
-        data-interval="false"
-        >
-        <ol className="carousel-indicators ">
-          <li
-            data-target="#carouselExampleIndicators"
-            data-slide-to="0"
-            className="active"
-          />
-          {/* <li data-target="#carouselExampleIndicators" data-slide-to="1" />
-          <li data-target="#carouselExampleIndicators" data-slide-to="2" /> */}
-      {/* </ol> */}
-      {/* <div className="carousel-inner">
-          <div className="carousel-item active"> */}
     </>
   );
 };
