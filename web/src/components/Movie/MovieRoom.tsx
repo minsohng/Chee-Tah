@@ -216,6 +216,8 @@ const MovieRoom = (props) => {
             url={`https://www.youtube.com/watch?v=${currentPlaying}`}
             playing={true}
             controls={true}
+            volume={0}
+            muted={true}
             onProgress={(state) => playedFraction = state.played}
             onDuration={(totaltime) => duration = totaltime}
             onPlay={onPlay}

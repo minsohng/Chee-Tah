@@ -3,8 +3,8 @@ import Video from "./Video";
 import { useEffect, useState } from "react";
 
 const Playlist = props => {
-  const [isHidden, setIsHidden] = useState(true);
-  const [turnArrow, setTurnArrow] = useState("fas fa-3x fa-chevron-right");
+  const [isHidden, setIsHidden] = useState(false);
+  const [turnArrow, setTurnArrow] = useState("fas fa-3x fa-chevron-up");
   const playlist = props.playlist;
   // let firstPage;
   // let secondPage;
@@ -18,8 +18,8 @@ const Playlist = props => {
   // })
 
   const togglePlaylist = () => {
-    (turnArrow === "fas fa-3x fa-chevron-right down") ? setTurnArrow("fas fa-3x fa-chevron-right right") :
-    setTurnArrow("fas fa-3x fa-chevron-right down");
+    (turnArrow === "fas fa-3x fa-chevron-up down") ? setTurnArrow("fas fa-3x fa-chevron-up right") :
+    setTurnArrow("fas fa-3x fa-chevron-up down");
     setIsHidden(isHidden => !isHidden);
   };
   
@@ -37,12 +37,12 @@ const Playlist = props => {
         <input onClick={togglePlaylist} type="checkbox" />
         <span className="slide-btn-content" data-off="Hide" data-on="Show" />
       </label> */}
-      </div>
-        {isHidden && (
-          <>
-          {videoList}
-          </>
-        )}
+    </div>
+    {isHidden && (
+      <>
+      {videoList}
+      </>
+    )}
 
 
 

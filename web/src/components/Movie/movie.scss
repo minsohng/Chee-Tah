@@ -625,17 +625,25 @@ p {
 		  display: flex;
 		  top: 10px;
 			i {
-				padding: 3em;
+				position: fixed;
+				left: 45vw;
+				padding: 2em;
 				color: white;
 				font-size: 2em;
+				z-index: 12;
 				transition: all 0.4s ease;
 			}
 			
 			.down {
-				transform: rotateZ(90deg);
+				transform: rotateZ(180deg);
+				position: fixed;
+				left: 45vw;
 			}
 			.right {
 				transform: rotateZ(0deg);
+				position:fixed;
+				left: 45vw;
+				bottom: 4em;
 			}
 	  }
 
@@ -817,3 +825,10 @@ box-shadow:   4px 3px 3px rgb(113, 113, 194) !important;
 	width:100vw;
 	height:100vh;
 }
+
+// #fixed-arrow {
+// 	position: fixed;
+// 	bottom: 12em;
+// 	left: 0;
+// 	z-index: 9000;
+// }
