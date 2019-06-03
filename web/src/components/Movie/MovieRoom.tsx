@@ -30,6 +30,7 @@ const MovieRoom = (props) => {
   const [isHidden, setIsHidden] = useState(false);
   const [turnArrow, setTurnArrow] = useState("fas fa-3x fa-chevron-up down");
 
+  const [clientCount, setClientCount] = useState();
   
   const userObj = {
     socket,
@@ -165,6 +166,16 @@ const MovieRoom = (props) => {
       console.log(videoId)
       setCurrentPlaying(videoId)
     })
+
+    socket.emit("get number of clients", (roomId))
+
+    socket.on("send number of clients", (data) => {
+      
+      console.log("numClients", data.numClients)
+      if (roomId === data.roomId) {
+        setClientCount(data.numClients);
+      }
+    })
   }, [])
 
 
@@ -182,7 +193,11 @@ const MovieRoom = (props) => {
             />
             
              <div id="navigation" className="Navigation">
+             
              <h6 id="admin-notice">{ isAdmin ? 'You Are Admin' : ''}</h6>
+             
+             
+             
             <nav>
               
               <ul>
@@ -208,7 +223,11 @@ const MovieRoom = (props) => {
                   <Link style={{ textDecoration: 'none', color: 'white' }}>Share</Link>
                 </CopyToClipboard>
                 </li>
+                
+                
               
+
+               
               </ul>
             </nav>
           </div>
@@ -228,6 +247,7 @@ const MovieRoom = (props) => {
             </div>
           <div className="content">
          
+          <div id="player-box">
           <ReactPlayer 
             ref={ref}
             url={`https://www.youtube.com/watch?v=${currentPlaying}`}
@@ -240,6 +260,12 @@ const MovieRoom = (props) => {
             onPlay={onPlay}
             onEnded={onEnded}
           /> 
+          
+               
+            
+          
+            <h6 style={{ textDecoration: 'none', color: 'white' }}>{ clientCount } watching now</h6>
+          </div>
         
           <Chatbar
             username={username}
