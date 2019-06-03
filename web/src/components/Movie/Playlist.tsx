@@ -3,8 +3,7 @@ import Video from "./Video";
 import { useEffect, useState } from "react";
 
 const Playlist = props => {
-  const [isHidden, setIsHidden] = useState(false);
-  const [turnArrow, setTurnArrow] = useState("fas fa-3x fa-chevron-up");
+  const { isHidden, setIsHidden, turnArrow, setTurnArrow } = props;
   const playlist = props.playlist;
   // let firstPage;
   // let secondPage;
@@ -18,7 +17,7 @@ const Playlist = props => {
   // })
 
   const togglePlaylist = () => {
-    (turnArrow === "fas fa-3x fa-chevron-up down") ? setTurnArrow("fas fa-3x fa-chevron-up right") :
+    (turnArrow === "fas fa-3x fa-chevron-up down") ? setTurnArrow("fas fa-3x fa-chevron-up up") :
     setTurnArrow("fas fa-3x fa-chevron-up down");
     setIsHidden(isHidden => !isHidden);
   };
