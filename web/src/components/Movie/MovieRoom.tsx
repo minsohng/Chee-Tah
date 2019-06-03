@@ -8,6 +8,7 @@ import Playlist from './Playlist';
 import Errorpage from './Errorpage';
 import ReactPlayer from 'react-player';
 import Cookies from 'universal-cookie';
+import {CopyToClipboard} from 'react-copy-to-clipboard';
 import axios from 'axios';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 
@@ -195,7 +196,19 @@ const MovieRoom = (props) => {
                 <li></li>
                 <li>
                 <Link to="/" style={{ textDecoration: 'none', color: 'white' }}>Home</Link>
-              </li>
+                </li>
+                <li></li>
+                <li>
+
+                 </li>
+                <li>
+                <CopyToClipboard 
+                  text={process.env.REACT_URL + '/movie/' + roomId}
+                  onCopy={() => alert("Copied to clipboard")}>
+                  <Link style={{ textDecoration: 'none', color: 'white' }}>Share</Link>
+                </CopyToClipboard>
+                </li>
+              
               </ul>
             </nav>
           </div>
