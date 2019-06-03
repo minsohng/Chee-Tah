@@ -21,7 +21,7 @@ const Video = props => {
   return (
     <div
       className="Item"
-      style={{ backgroundImage: `url(${video.thumbnails.high.url})` }}
+      style={{ backgroundImage: `url(${video.thumbnails.medium.url})` }}
       id='play'
       onClick={playRestrict}
     >

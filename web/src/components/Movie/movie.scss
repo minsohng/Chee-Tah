@@ -14,8 +14,14 @@ $grey: #f5f5f1;
 $white: #ffffff;
 
 iframe{
-  width:50vh !important;
-  height:50vh !important;
+  width:100vw !important;
+	height:50vh !important;
+	
+}
+
+.move-player{
+	left: 10em !important;
+	right: 500px !important
 }
 
 ::-webkit-scrollbar {
@@ -25,6 +31,13 @@ iframe{
 // non scroll
 // body, html {height:100%;}
 // #root {height:100%; overflow:hidden;}
+
+// #fixed-arrow{
+// 	position: fixed;
+// 	bottom: 12em;
+// 	left: 0;
+// 	z-index: 9000;
+// }
 
 .movie-contains-all{
 	position: absolute;
@@ -159,20 +172,19 @@ p {
 		position: relative;
 		z-index: 4;
 		// width: 500px;
+
 		display:flex;
-		left: 10vw;
-		top: 10vw;
+		// justify-content: flex-end;
+		// justify-content: baseline;
+		// align-items: center;
+		left: 21vw;
+		top: 12vw;
 		
-		.logo {
-			max-width: 400px;
-			display: block;
-			position: relative;
-			left: -5px;
+		.move-player{
+			left: 20vw !important;
+			// border:2px solid white;
 		}
 		
-		p {
-			width: 100%;
-		}
 		
 	}
 	
@@ -633,9 +645,16 @@ p {
 			
 			.down {
 				transform: rotateZ(90deg);
+				position: fixed;
+				left: 45vw;
+				z-index: 9000;
 			}
 			.right {
 				transform: rotateZ(0deg);
+				position: fixed;
+				bottom: 4em;
+				left: 45vw;
+				z-index: 9000;
 			}
 	  }
 
@@ -670,7 +689,7 @@ p {
   #result {
 	z-index: 13;
 	top: 55%;
-  width: 60%;
+  width: 40%;
   height: 90%;
 	// background-image: linear-gradient(to bottom,#000046,#1c92d2, #000428);
 
@@ -813,6 +832,204 @@ box-shadow:   4px 3px 3px rgb(113, 113, 194) !important;
 	text-shadow: 0px 0px 10px rgba(255,255,100,1);
 }
 	#loading-image {
-		width:100%;
-		height:100%;
+		width:100vw !important;
+		height:100vh !important;
+	}
+
+	
+
+	@media screen and (max-width: 600px){
+		
+		.Hero{
+			background-image: url('http://4.bp.blogspot.com/-6P26BXYKrr0/XJfw2gPg7EI/AAAAAAAAD74/jjQiFA4KowgVXBqgEHXA7nzyK38ULMqUQCK4BGAYYCw/s1600/EndgameWallpaper.png');
+			background-size: cover;
+			background-position: center center;
+		
+			
+		}
+	}
+
+
+	@media screen and (max-width: 1200px){
+		
+		.Hero{
+			background-image: url('http://4.bp.blogspot.com/-6P26BXYKrr0/XJfw2gPg7EI/AAAAAAAAD74/jjQiFA4KowgVXBqgEHXA7nzyK38ULMqUQCK4BGAYYCw/s1600/EndgameWallpaper.png');
+			background-size: cover;
+			background-position: center ;
+		
+			
+		}
+	}
+
+
+	@media screen and (max-width: 400px){
+		
+		.Hero{
+			background-image: url('http://4.bp.blogspot.com/-6P26BXYKrr0/XJfw2gPg7EI/AAAAAAAAD74/jjQiFA4KowgVXBqgEHXA7nzyK38ULMqUQCK4BGAYYCw/s1600/EndgameWallpaper.png');
+			background-size: cover;
+			background-position: center center;
+			width: 100vw;
+		
+			
+		}
+	}
+
+
+	@media screen and (max-width: 1200px){
+		.Hero{
+			width: 100%;
+			position: relative;
+			background-size: cover;
+			min-height: 20px;
+
+			.content {
+				position: relative;
+				z-index: 4;
+				// width: 500px;
+		
+				display:flex;
+				// justify-content: flex-end;
+				// justify-content: baseline;
+				// align-items: center;
+				left: 19vw;
+				top: 10vw;
+				
+				.move-player{
+					left: 20vw !important;
+					// width: 1200px !important;
+					// height: 473px !important;
+					// border:2px solid white !important;
+				}
+				
+				
+			}
+		}
+	}
+
+
+	@media screen and (max-width: 1600px){
+		.Hero{
+			width: 100%;
+			position: relative;
+			background-size: cover;
+			min-height: 20px;
+
+			.content {
+				position: relative;
+				z-index: 4;
+				// width: 500px;
+		
+				display:flex;
+				// justify-content: flex-end;
+				// justify-content: baseline;
+				// align-items: center;
+				left: 19vw;
+				top: 10vw;
+				
+				.move-player{
+					left: 20vw !important;
+					// width: 1200px !important;
+					// height: 473px !important;
+					// border:2px solid white !important;
+				}
+				
+				
+			}
+		}
+	}
+
+
+	@media screen and (max-width: 1650px){
+		.Hero{
+			width: 100%;
+			position: relative;
+			background-size: cover;
+			min-height: 20px;
+
+			.content {
+				position: relative;
+				z-index: 4;
+				// width: 500px;
+		
+				display:flex;
+				// justify-content: flex-end;
+				// justify-content: baseline;
+				// align-items: center;
+				left: 19vw;
+				top: 10vw;
+				
+				.move-player{
+					left: 20vw !important;
+					// width: 1200px !important;
+					// height: 473px !important;
+					// border:2px solid white !important;
+				}
+				
+				
+			}
+		}
+	}
+
+
+	@media screen and (max-width: 1100px){
+		.Hero{
+			width: 100%;
+			position: relative;
+			background-size: cover;
+			min-height: 20px;
+
+			.content {
+				position: relative;
+				z-index: 4;
+				// width: 500px;
+		
+				display:flex;
+				// justify-content: flex-end;
+				// justify-content: baseline;
+				// align-items: center;
+				left: 5vw;
+				top: 10vw;
+				
+				.move-player{
+					left: 20vw !important;
+					// width: 1200px !important;
+					// height: 473px !important;
+					// border:2px solid white !important;
+				}
+				
+				
+			}
+		}
+	}
+
+	@media screen and (max-width: 700px){
+		.Hero{
+			width: 100%;
+			position: relative;
+			background-size: cover;
+			min-height: 20px;
+
+			.content {
+				position: relative;
+				z-index: 4;
+				// width: 500px;
+		
+				display:flex;
+				// justify-content: flex-end;
+				// justify-content: baseline;
+				// align-items: center;
+				left: 9vw;
+				// bottom: 9vw;
+				top: 10vw;
+				
+				.move-player{
+					left: 20vw !important;
+					width: 90vw !important;
+					height: 40vh !important;
+					// border:2px solid white !important;
+				}
+				
+				
+			}
+		}
 	}

@@ -200,7 +200,7 @@ const MovieRoom = (props) => {
           
           <div
             id="hero"
-            className="Hero"
+            className="Hero re-size"
             style={{
               backgroundImage:
                 "url(http://4.bp.blogspot.com/-6P26BXYKrr0/XJfw2gPg7EI/AAAAAAAAD74/jjQiFA4KowgVXBqgEHXA7nzyK38ULMqUQCK4BGAYYCw/s1600/EndgameWallpaper.png)"
@@ -210,8 +210,10 @@ const MovieRoom = (props) => {
             
             </div>
           <div className="content">
-         
+            <div className="video-player">
+
           <ReactPlayer 
+            className="move-player"
             ref={ref}
             url={`https://www.youtube.com/watch?v=${currentPlaying}`}
             playing={true}
@@ -221,6 +223,7 @@ const MovieRoom = (props) => {
             onPlay={onPlay}
             onEnded={onEnded}
           /> 
+            </div>
         
           <Chatbar
             username={username}
