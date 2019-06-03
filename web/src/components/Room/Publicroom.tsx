@@ -18,22 +18,15 @@ const Publicroom = props => {
        <header className="Header">
     
   
-    <h4>public rooms</h4>
+    <h4>Public Rooms</h4>
      <div id="navigation" className="Navigation">
    
     <nav>
       
       <ul>
-     
+    
         <li>
-        <Link to="/publicroom" style={{ textDecoration: 'none', color: 'white' }}>Create Room</Link>
-        </li>
-        <li>
-          
-        </li>
-        <li></li>
-        <li>
-        <Link to="/" style={{ textDecoration: 'none', color: 'white' }}>Home</Link>
+        <Link className="public-home" to="/" style={{ textDecoration: 'none', color: 'white' }}>Home</Link>
       </li>
       </ul>
     </nav>
@@ -43,7 +36,6 @@ const Publicroom = props => {
 
       <div className="row">
         {rooms}
-        
       </div>
       
 

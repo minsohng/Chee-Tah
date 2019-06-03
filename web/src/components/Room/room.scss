@@ -9,18 +9,23 @@ h4{
 	display: flex;
   justify-content: center;
   color:white;
+  // padding-bottom: 50em !important;
+  padding-top: 0.3em !important;
 }
 body {
   
   
     text-align: center;
-    // text-transform: uppercase;
     padding: 50px 0;
     background-image:url('./img/blue-grad-bg.jpg');
     background-size: cover;
     background-attachment: fixed;
     background-position: center;
     
+  }
+
+  .public-box{
+    margin-top: 3em;
   }
 
   .wrap{
@@ -197,3 +202,8 @@ body {
     background-attachment: fixed;
     background-position: center;
   }
+
+ .public-home{
+   padding-bottom: 50em;
+  //  font-size: 100px !important;
+ }

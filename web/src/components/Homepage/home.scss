@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:700');
 
 *{
   margin:0;
@@ -231,6 +232,7 @@ a.button{
   height: 3.5vh;
   font-size: 1vh;
   top: 2vh;
+  z-index: 9000;
  
 }
 
@@ -371,7 +373,6 @@ button{
 
 
 
-@import 'https://fonts.googleapis.com/css?family=Source+Sans+Pro:700';
 $font:'Source Sans Pro', sans-serif;
 $second:white;
 

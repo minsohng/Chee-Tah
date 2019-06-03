@@ -8,6 +8,7 @@ import Playlist from './Playlist';
 import Errorpage from './Errorpage';
 import ReactPlayer from 'react-player';
 import Cookies from 'universal-cookie';
+import {CopyToClipboard} from 'react-copy-to-clipboard';
 import axios from 'axios';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 
@@ -26,6 +27,10 @@ const MovieRoom = (props) => {
   const [isRoom, setIsRoom] = useState(false);
   const [username, setUsername] = useState('');
   const [playlist, setPlaylist] = useState([]);
+  const [isHidden, setIsHidden] = useState(false);
+  const [turnArrow, setTurnArrow] = useState("fas fa-3x fa-chevron-up down");
+
+  const [clientCount, setClientCount] = useState();
   
   const userObj = {
     socket,
@@ -56,6 +61,8 @@ const MovieRoom = (props) => {
     videoData.socketId = socket.id;
     videoData.id = id;
     setPlaylist([...playlist, videoData]);
+    setTurnArrow("fas fa-3x fa-chevron-up up")
+    setIsHidden(true);
   }
   
   const sendMessage = (data, id, index) => {
@@ -102,19 +109,19 @@ const MovieRoom = (props) => {
     .then(response => {
       console.log(response.data.response)
       if (response.data.response === true) {
-        setTimeout(() => {
+        // setTimeout(() => {
           setIsLoading(false);
 
-        }, 3000)
+        // }, 3000)
         setIsRoom(true);
         setUsername(response.data.username);
         setPlaylist(response.data.playlist);
         setCurrentPlaying(response.data.currentVideo);
       } else {
-        setTimeout(() => {
+        // setTimeout(() => {
           setIsLoading(false);
 
-        }, 3000)
+        // }, 3000)
       }
     })
 
@@ -140,14 +147,13 @@ const MovieRoom = (props) => {
     })
 
     socket.on('sync playlist', (data) => {
-      console.log(data);
-      setPlaylist(data)
+      setPlaylist(data);
+      setTurnArrow("fas fa-3x fa-chevron-up up");     
+      setIsHidden(true);
     })
 
     socket.on('sync video timestamp', (timestamp: number) => {
       this.player.seekTo(timestamp);
-      console.log("timestamp", timestamp)
-     
     })
 
     socket.on('play video', (videoId) => {
@@ -159,6 +165,16 @@ const MovieRoom = (props) => {
     socket.on('play next video', (videoId) => {
       console.log(videoId)
       setCurrentPlaying(videoId)
+    })
+
+    socket.emit("get number of clients", (roomId))
+
+    socket.on("send number of clients", (data) => {
+      
+      console.log("numClients", data.numClients)
+      if (roomId === data.roomId) {
+        setClientCount(data.numClients);
+      }
     })
   }, [])
 
@@ -177,7 +193,11 @@ const MovieRoom = (props) => {
             />
             
              <div id="navigation" className="Navigation">
+             
              <h6 id="admin-notice">{ isAdmin ? 'You Are Admin' : ''}</h6>
+             
+             
+             
             <nav>
               
               <ul>
@@ -191,7 +211,23 @@ const MovieRoom = (props) => {
                 <li></li>
                 <li>
                 <Link to="/" style={{ textDecoration: 'none', color: 'white' }}>Home</Link>
-              </li>
+                </li>
+                <li></li>
+                <li>
+
+                 </li>
+                <li>
+                <CopyToClipboard 
+                  text={process.env.REACT_URL + '/movie/' + roomId}
+                  onCopy={() => alert("Copied to clipboard")}>
+                  <Link className="share-link" style={{ textDecoration: 'none', color: 'white' }}>Share</Link>
+                </CopyToClipboard>
+                </li>
+                
+                
+              
+
+               
               </ul>
             </nav>
           </div>
@@ -210,20 +246,30 @@ const MovieRoom = (props) => {
             
             </div>
           <div className="content">
-            <div className="video-player">
-
+         
+          <div id="player-box">
+          
           <ReactPlayer 
             className="move-player"
             ref={ref}
             url={`https://www.youtube.com/watch?v=${currentPlaying}`}
             playing={true}
+            height={'420px'}
             controls={true}
+            volume={0}
+            muted={true}
             onProgress={(state) => playedFraction = state.played}
             onDuration={(totaltime) => duration = totaltime}
             onPlay={onPlay}
             onEnded={onEnded}
           /> 
-            </div>
+          <h6 className="move-watching" style={{ textDecoration: 'none', color: 'white' }}>{ clientCount } watching now</h6>
+          
+               
+            
+          
+           
+          </div>
         
           <Chatbar
             username={username}
@@ -239,8 +285,12 @@ const MovieRoom = (props) => {
             playlist={playlist} 
             playVideo={playVideo}
             deleteVideo={deleteVideo}
-            admin={userObj}/>
-
+            admin={userObj}
+            isHidden={isHidden}
+            setIsHidden={setIsHidden}
+            turnArrow={turnArrow}
+            setTurnArrow={setTurnArrow}
+          />
             </footer>
           
               {/* testing purposes */}
