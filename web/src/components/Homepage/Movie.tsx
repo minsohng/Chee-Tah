@@ -25,8 +25,8 @@ const Movie: React.FunctionComponent<Home> = props => {
         type
       })
       .then(response => {
-        openInNewTab(`/movie/${response.data.url}`)
-        // window.location.replace(`/movie/${response.data.url}`);
+        // openInNewTab(`/movie/${response.data.url}`)
+        window.location.replace(`/movie/${response.data.url}`);
         const cookies = new Cookies();
         cookies.set('adminId', socket.id, { path: '/' });
         cookies.set('roomId', response.data.url, {path: '/' });

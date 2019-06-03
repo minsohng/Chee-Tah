@@ -5,8 +5,8 @@ import Roomstate from "./Roomstate";
 const Publicroom = props => {
   const socket = props.socket;
   console.log("PROPS", props.roomList)
-  const rooms = props.roomList && props.roomList.map(room =>
-    <Roomstate socket={socket} roomId={room.roomId}/>
+  const rooms = props.roomList && props.roomList.map((room, i) =>
+    <Roomstate socket={socket} roomId={room.roomId} key={i+1000}/>
   );
   console.log("mappedroom", rooms)
   

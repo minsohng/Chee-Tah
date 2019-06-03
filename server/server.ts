@@ -274,7 +274,7 @@ io.of('movie')
         
         io.of('/movie').in(roomId).clients((error, clients) => {
           if (error) throw error;
-          if (filteredRoomList[0].numClients === 0 ) {
+          if (filteredRoomList[0] && filteredRoomList[0].numClients === 0 ) {
             roomList = roomList.filter(room => room.roomId !== roomId)
 
           }
@@ -288,19 +288,19 @@ io.of('movie')
         }
         console.log("ROOM LIST", roomList)
       })
+      socket.on('get number of clients', (roomId) => {
+        io.of('/movie').in(roomId).clients((error, clients) => {
+          if (error) throw error;
+          io.of('movie').emit("send number of clients", ({
+            numClients: clients.length,
+            roomId
+          }));
+          console.log(`number of clients ${clients.length} ${clients}`)
+        });
+      })
     });
   })
 
-  socket.on('get number of clients', (roomId) => {
-    io.of('/movie').in(roomId).clients((error, clients) => {
-      if (error) throw error;
-      io.of('movie').emit("send number of clients", ({
-        numClients: clients.length,
-        roomId
-      }));
-      console.log(`number of clients ${clients.length} ${clients}`)
-    });
-  })
 
 })
 
