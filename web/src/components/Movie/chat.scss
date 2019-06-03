@@ -21,7 +21,7 @@
 	position: relative;
 	display: flex;
 	justify-content: flex-end;
-	left: 5em;
+	left: -2vw;
 
 	// margin: 1rem;
 	width: 20rem;
@@ -177,7 +177,13 @@ input:active {
 }
 }
 
-
+@media screen and (max-width: 1350px){
+	#viewport > .chatbox {
+		top: 0.1em !important;
+		left: -9em !important;
+		// right: 100px !important;
+}
+}
 
 
 

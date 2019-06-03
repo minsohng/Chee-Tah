@@ -990,7 +990,7 @@ box-shadow:   4px 3px 3px rgb(113, 113, 194) !important;
 				// justify-content: flex-end;
 				// justify-content: baseline;
 				// align-items: center;
-				left: 9vw;
+				left: 2vw;
 				// bottom: 9vw;
 				top: 10vw;
 				
@@ -1000,6 +1000,33 @@ box-shadow:   4px 3px 3px rgb(113, 113, 194) !important;
 					height: 40vh !important;
 					// border:2px solid white !important;
 				}
+				
+				
+			}
+		}
+	}
+
+	@media screen and (max-width: 1350px){
+		.Hero{
+			width: 100%;
+			position: relative;
+			background-size: cover;
+			min-height: 20px;
+
+			.content {
+				position: relative;
+				z-index: 4;
+				// width: 500px;
+		
+				display:flex;
+				// justify-content: flex-end;
+				// justify-content: baseline;
+				// align-items: center;
+				left: 2vw;
+				// bottom: 9vw;
+				top: 10vw;
+				
+				
 				
 				
 			}
