@@ -9,6 +9,8 @@ h4{
 	display: flex;
   justify-content: center;
   color:white;
+  // padding-bottom: 50em !important;
+  padding-top: 0.3em !important;
 }
 body {
   
@@ -20,6 +22,10 @@ body {
     background-attachment: fixed;
     background-position: center;
     
+  }
+
+  .public-box{
+    margin-top: 3em;
   }
 
   .wrap{
@@ -148,6 +154,14 @@ body {
         object-fit: cover;
        
       }
+
+      .room-title{
+        font-size: 20px !important;
+      }
+
+      h1{
+        font-size: 30px !important;
+      }
   }
 
 
@@ -188,3 +202,8 @@ body {
     background-attachment: fixed;
     background-position: center;
   }
+
+ .public-home{
+   padding-bottom: 50em;
+  //  font-size: 100px !important;
+ }

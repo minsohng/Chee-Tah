@@ -26,7 +26,7 @@ const Publicroom = props => {
       <ul>
     
         <li>
-        <Link to="/" style={{ textDecoration: 'none', color: 'white' }}>Home</Link>
+        <Link className="public-home" to="/" style={{ textDecoration: 'none', color: 'white' }}>Home</Link>
       </li>
       </ul>
     </nav>
@@ -36,7 +36,6 @@ const Publicroom = props => {
 
       <div className="row">
         {rooms}
-        
       </div>
       
 

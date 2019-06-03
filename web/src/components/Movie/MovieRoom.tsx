@@ -220,7 +220,7 @@ const MovieRoom = (props) => {
                 <CopyToClipboard 
                   text={process.env.REACT_URL + '/movie/' + roomId}
                   onCopy={() => alert("Copied to clipboard")}>
-                  <Link style={{ textDecoration: 'none', color: 'white' }}>Share</Link>
+                  <Link className="share-link" style={{ textDecoration: 'none', color: 'white' }}>Share</Link>
                 </CopyToClipboard>
                 </li>
                 
@@ -236,7 +236,7 @@ const MovieRoom = (props) => {
           
           <div
             id="hero"
-            className="Hero"
+            className="Hero re-size"
             style={{
               backgroundImage:
                 "url(http://4.bp.blogspot.com/-6P26BXYKrr0/XJfw2gPg7EI/AAAAAAAAD74/jjQiFA4KowgVXBqgEHXA7nzyK38ULMqUQCK4BGAYYCw/s1600/EndgameWallpaper.png)"
@@ -248,10 +248,13 @@ const MovieRoom = (props) => {
           <div className="content">
          
           <div id="player-box">
+          
           <ReactPlayer 
+            className="move-player"
             ref={ref}
             url={`https://www.youtube.com/watch?v=${currentPlaying}`}
             playing={true}
+            height={'420px'}
             controls={true}
             volume={0}
             muted={true}
@@ -260,11 +263,12 @@ const MovieRoom = (props) => {
             onPlay={onPlay}
             onEnded={onEnded}
           /> 
+          <h6 className="move-watching" style={{ textDecoration: 'none', color: 'white' }}>{ clientCount } watching now</h6>
           
                
             
           
-            <h6 style={{ textDecoration: 'none', color: 'white' }}>{ clientCount } watching now</h6>
+           
           </div>
         
           <Chatbar

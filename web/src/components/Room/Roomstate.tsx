@@ -7,7 +7,7 @@ import {useState, useEffect} from 'react';
 
 const Roomstate = (props) => {
   const [state, setState] = useState();
-  const [clientCount, setClientCount] = useState(0);
+  const [clientCount, setClientCount] = useState();
   const socket = props.socket;
   const roomId = props.roomId;
 
@@ -51,7 +51,7 @@ const Roomstate = (props) => {
 
   const renderPage = () => {
     return (
-      <div className="col-xs-12 col-sm-6 col-md-3" onClick={handleClick}>
+      <div className="col-xs-12 col-sm-6 col-md-3 public-box" onClick={handleClick}>
             <div className="box" id="inner-box">
               <h1 className="room-title">{roomId}</h1>
               <img
@@ -68,7 +68,7 @@ const Roomstate = (props) => {
 
   return (
     <>
-      {clientCount && renderPage()}
+      {(clientCount > 0) ? renderPage() : false} 
     </>
   )
 }

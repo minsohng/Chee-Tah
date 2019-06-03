@@ -18,7 +18,7 @@ const Result = (props) => {
     <>
       <div className="col-m-9 offset-m-4">
         <div className="box box-padding box-movie-room">
-          <h3 style={{ color: "white	", fontSize: "1.2em",  }}>{title.title}</h3>
+          <h3 className="search-title" style={{ color: "white	", fontSize: "1.2em",  }}>{title.title}</h3>
 
           <img
             id="second-sibling"
@@ -26,7 +26,7 @@ const Result = (props) => {
             src={title.thumbnails.medium.url}
           />
           <div />
-          <h5 style={{ color: "white	", fontSize: "1.2em",  }}>{title.channelTitle}</h5>
+          <h5 className="search-channel-title" style={{ color: "white	", fontSize: "1.2em",  }}>{title.channelTitle}</h5>
          <button id="btn-gone">
             <span>
               <a

@@ -216,9 +216,12 @@
  
 }
 
-button{
-  width: 78% !important;
-  height: 3vh !important;
+.btn-grad {
+  background-image: linear-gradient(to right, #314755 0%, #26a0da 51%, #314755 100%);
+  z-index: 1000;
+  width: 18vw !important;
+ 
+
 }
 
 
@@ -229,6 +232,7 @@ a.button{
   height: 3.5vh;
   font-size: 1vh;
   top: 2vh;
+  z-index: 9000;
  
 }
 
@@ -434,3 +438,42 @@ a.bttn-public {
   }
 }
 
+@media screen and (max-width: 600px){
+  .background-imgh{
+    background-image: url("https://i.imgur.com/clAj0SH.jpg");
+    background-size: cover;
+    background-position: center center;
+    height: 52vh;
+    width: 52vh;
+    
+  }
+
+  .boxh{
+  width: 32vh;
+  height: 32vh;
+  }
+  .contenth h2{ 
+    // font-size:12px;
+    font-size: 3.3vw;
+    align-self: center;
+    margin-top: -2vh;
+  }
+
+.contenth p{
+  font-size:3.1vw;
+ 
+}
+
+.btn-grad {
+  background-image: linear-gradient(to right, #314755 0%, #26a0da 51%, #314755 100%);
+  z-index: 1000;
+  width: 32vw !important;
+ 
+
+}
+
+
+.public-room-spacing{
+  padding-top: 3.7% !important;
+}
+}

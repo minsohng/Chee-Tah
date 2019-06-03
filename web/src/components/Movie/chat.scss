@@ -14,14 +14,18 @@
 	justify-content: center;
   align-items: center;
 }
+
+
+
 #viewport > .chatbox {
 	position: relative;
 	display: flex;
 	justify-content: flex-end;
+	left: -2vw;
 
 	// margin: 1rem;
 	width: 20rem;
-	height: 36rem;
+	height: 23em;
 	background-image: linear-gradient(to right, #0F2027, #203A43, #2C5364);
 	opacity: 0.9;
 	box-shadow: 0 0.25rem 2rem rgba(38,50,56, 0.1);
@@ -138,4 +142,64 @@ input:active {
     0 {transform: translate(0,0);}
     25% {transform: translate(0,-0.25rem);}
     50% {transform: translate(0,0);}
+}
+
+
+
+@media screen and (max-width: 1400px){
+	  #viewport > .chatbox{
+		top: 0.1em !important;
+		left: 4.7em !important;
+		right: 10em !important;
+		bottom: 10em !important;
+	
+	}
+}
+
+
+@media screen and (max-width: 1200px){
+	#viewport > .chatbox{
+	top: 0.1em !important;
+	left: -7em !important;
+	// right: 10em !important;
+	// bottom: 10em !important;
+
+}
+}
+
+@media screen and (max-width: 700px){
+	#viewport > .chatbox{
+	top: 0.1em !important;
+	left: -7em !important;
+	// right: 10em !important;
+	// bottom: 10em !important;
+
+}
+}
+
+@media screen and (max-width: 1350px){
+	#viewport > .chatbox {
+		top: 0.1em !important;
+		left: -9em !important;
+		// right: 100px !important;
+}
+}
+
+
+
+@media screen and (max-width: 1650px){
+	#viewport > .chatbox{
+	top: 0.1em !important;
+	left: 0em !important;
+	// right: 10em !important;
+	// bottom: 10em !important;
+
+}
+}
+
+
+@media screen and (max-width: 900px){
+	#viewport {
+		display:none;
+	}
 }
