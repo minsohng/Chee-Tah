@@ -250,6 +250,10 @@ io.of('movie')
           io.of('movie').emit('update room state');
         }
       })
+
+      socket.on('pause video', (roomId) => {
+        socket.to(roomId).broadcast.emit('pause video')
+      })
  
       socket.on('delete from playlist', (data) => {
         playlistObj[roomId] = playlistObj[roomId].filter((playlist, i) => i !== data.id);

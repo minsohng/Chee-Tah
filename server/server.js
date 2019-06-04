@@ -7,13 +7,13 @@ var io = require('socket.io')(http);
 var axios = require('axios');
 var bodyParser = require('body-parser');
 // Set the port to 3001
-var PORT = 3001;
+var PORT = process.env.PORT || 3001;
 var adminSocketList = [];
 var roomList = [];
 var curVideoObj = {};
 var playlistObj = {};
 var statusObj = {};
-app.set("port", process.env.PORT || 3001);
+app.set("port", PORT);
 // support parsing of application/json type post data
 app.use(bodyParser.json());
 //support parsing of application/x-www-form-urlencoded post data
@@ -193,6 +193,9 @@ io.of('movie')
                     io.of('movie').emit('update room state');
                 }
             });
+            socket.on('pause video', function (roomId) {
+                socket.to(roomId).broadcast.emit('pause video');
+            });
             socket.on('delete from playlist', function (data) {
                 playlistObj[roomId] = playlistObj[roomId].filter(function (playlist, i) { return i !== data.id; });
                 io.of('/movie').to(roomId).emit('sync playlist', playlistObj[roomId]);
@@ -232,5 +235,5 @@ io.of('movie')
     });
 });
 http.listen(PORT, '0.0.0.0', function () {
-    console.log('listening on *:3001');
+    console.log('listening on *', PORT);
 });

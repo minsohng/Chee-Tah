@@ -30,6 +30,7 @@ const MovieRoom = (props) => {
   const [playlist, setPlaylist] = useState([]);
   const [isHidden, setIsHidden] = useState(false);
   const [turnArrow, setTurnArrow] = useState("fas fa-3x fa-chevron-up down");
+  const [isPlaying, setIsPlaying] = useState(true)
 
   const [clientCount, setClientCount] = useState();
   
@@ -47,11 +48,16 @@ const MovieRoom = (props) => {
   }
 
   const onPlay = () => {
+    setIsPlaying(true)
     setTimeout(() => {
       let timestamp = Math.floor(playedFraction * duration)
       socket.emit('share video timestamp', timestamp+1)
     },1000)
   
+  }
+
+  const onPause = () => {
+    socket.emit('pause video', roomId);
   }
 
   const onEnded = () => {
@@ -153,8 +159,13 @@ const MovieRoom = (props) => {
       setIsHidden(true);
     })
 
+    socket.on('pause video', () => {
+      console.log("PAUSE VID")
+      setIsPlaying(false);
+    })
     socket.on('sync video timestamp', (timestamp: number) => {
       this.player.seekTo(timestamp);
+      setIsPlaying(true);
     })
 
     socket.on('play video', (videoId) => {
@@ -250,7 +261,7 @@ const MovieRoom = (props) => {
             className="move-player"
             ref={ref}
             url={`https://www.youtube.com/watch?v=${currentPlaying}`}
-            playing={true}
+            playing={isPlaying}
             height={'420px'}
             controls={true}
             volume={0}
@@ -259,6 +270,7 @@ const MovieRoom = (props) => {
             onDuration={(totaltime) => duration = totaltime}
             onPlay={onPlay}
             onEnded={onEnded}
+            onPause={onPause}
           /> 
           <h6 className="move-watching" style={{ textDecoration: 'none', color: 'white' }}>{ clientCount } watching now</h6>
           
