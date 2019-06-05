@@ -1,26 +1,36 @@
 const webpack = require('webpack');
 const path = require('path');
-const Dotenv = require('dotenv-webpack')
+const Dotenv = require('dotenv-webpack');
+const PORT = process.env.PORT || 8080;
+
+const ENV = process.env.NODE_ENV || "development";
 
 const config = {
   plugins: [
-    new Dotenv()
+    new Dotenv({
+      systemvars: true
+    })
   ],
   mode: 'development',
+  
   entry: './src/index.tsx',
   output: {
     filename: 'build.js',
-    path: __dirname+ '/test',
+    // path: ENV === "production" ? path.resolve(__dirname, '../server/build') : path.resolve(__dirname, 'build'),
+    path: path.resolve(__dirname, 'build'),
     publicPath: '/js/',
   },
   devServer: {
     contentBase: path.resolve(__dirname, '.'),
-    historyApiFallback: true
+    historyApiFallback: true,
+    port: PORT,
+    compress: true,
+    disableHostCheck: true,
   },
   devtool: "source-map",
   resolve: {
     // Add '.ts' and '.tsx' as resolvable extensions.
-    extensions: ['.ts', '.tsx', '.js', '.jsx', '.json', '.scss', 'gif', 'png', 'jpg', 'svg']
+    extensions: ['.ts', '.tsx', '.js', '.jsx', '.json', '.scss', 'gif', 'png', 'jpg', 'svg', 'jpeg']
   },
   module: {
     rules: [
@@ -43,7 +53,7 @@ const config = {
         ]
       },
       {
-        test: /\.(mp3|png|svg|jpg|gif)$/,
+        test: /\.(mp3|png|svg|jpg|gif|jpeg)$/,
         use: [
           'file-loader'
         ]

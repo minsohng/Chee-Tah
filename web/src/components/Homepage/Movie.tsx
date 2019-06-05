@@ -1,13 +1,9 @@
 
 import * as React from 'react';
-const { useState, useEffect } = React;
-import { Link } from 'react-router-dom';
 import Home from '../../interfaces/Home.interface';
-import {useAudio} from '../../hooks/audio'
 import axios from 'axios';
 import {getCircularReplacer} from '../helpers/helper';
 import Cookies from 'universal-cookie';
-const soundFile = require('../../assets/movie.mp3');
 import "./home.scss";
 
 const openInNewTab = (url) => {
@@ -20,7 +16,7 @@ const Movie: React.FunctionComponent<Home> = props => {
 
     const handleClick = (type) => {
       
-      axios.post(process.env.URL + `/api/createRoom`, {
+      axios.post(process.env.URL + `api/createRoom`, {
         socket: JSON.stringify(socket, getCircularReplacer()),
         type
       })

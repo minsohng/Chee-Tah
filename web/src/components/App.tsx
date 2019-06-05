@@ -8,7 +8,7 @@ import axios from 'axios';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 
 
-let socket = io.connect(process.env.URL + `/movie`);
+let socket = io.connect(process.env.URL + `movie`);
 console.log('testttt',process.env.URL)
 
 const App = () => {
@@ -16,13 +16,13 @@ const App = () => {
   const [roomList, setRoomList] = useState();
 
   useEffect(() => {
-    axios.get(process.env.URL + '/api/showRoom')
+    axios.get(process.env.URL + 'api/showRoom')
       .then(response => {
         console.log("roomLIST", response.data.list)
         setRoomList(response.data.list)
       })
     socket.on('update create room state', ()=> {
-      axios.get(process.env.URL + '/api/showRoom')
+      axios.get(process.env.URL + 'api/showRoom')
       .then(response => {
         console.log("roomLIST", response.data.list)
         setRoomList(response.data.list)

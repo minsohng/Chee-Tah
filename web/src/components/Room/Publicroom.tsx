@@ -4,13 +4,9 @@ import Roomstate from "./Roomstate";
 
 const Publicroom = props => {
   const socket = props.socket;
-  console.log("PROPS", props.roomList)
   const rooms = props.roomList && props.roomList.map(room =>
     <Roomstate socket={socket} roomId={room.roomId}/>
   );
-  console.log("mappedroom", rooms)
-  
-
 
   return (
     <div className="container">

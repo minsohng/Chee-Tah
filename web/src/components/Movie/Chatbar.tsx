@@ -26,7 +26,6 @@ class Chat extends Component<Props, State> {
   }
 
   addMessage(data) {
-    console.log(this, "add message this");
     this.setState({ messages: [...this.state.messages, data] });
   }
 

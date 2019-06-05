@@ -4,7 +4,6 @@ const Video = props => {
   const { video, playVideo, deleteVideo, id, admin } = props;
 
   const handleClick = (command) => {
-    console.log(event.target)
     if (command === 'delete') {
       deleteVideo(video, id)
     } else if(command === 'play') {
