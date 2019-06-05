@@ -11,7 +11,7 @@ import Cookies from 'universal-cookie';
 import {CopyToClipboard} from 'react-copy-to-clipboard';
 import axios from 'axios';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
-const mainbg = require('./img/main.png');
+const mainbg = require('./img/main.jpeg');
 
 
 let playedFraction: number;
@@ -80,7 +80,6 @@ const MovieRoom = (props) => {
       id,
       i: index
     }
-    console.log(message);
     socket.emit('add to playlist', message)
   }
 
@@ -98,7 +97,6 @@ const MovieRoom = (props) => {
   }
 
   const deleteVideo = (video, id) => {
-    console.log('yes');
     const videoObj = {
       video,
       id
@@ -110,25 +108,18 @@ const MovieRoom = (props) => {
   useEffect(() => {
     
 
-    axios.post(process.env.URL + `/api/getRoom`, {
+    axios.post(process.env.URL + `api/getRoom`, {
       params: roomId
     })
     .then(response => {
-      console.log(response.data.response)
       if (response.data.response === true) {
-        // setTimeout(() => {
-          setIsLoading(false);
-
-        // }, 3000)
+        setIsLoading(false);
         setIsRoom(true);
         setUsername(response.data.username);
         setPlaylist(response.data.playlist);
         setCurrentPlaying(response.data.currentVideo);
       } else {
-        // setTimeout(() => {
           setIsLoading(false);
-
-        // }, 3000)
       }
     })
 
@@ -160,7 +151,6 @@ const MovieRoom = (props) => {
     })
 
     socket.on('pause video', () => {
-      console.log("PAUSE VID")
       setIsPlaying(false);
     })
     socket.on('sync video timestamp', (timestamp: number) => {
@@ -175,15 +165,12 @@ const MovieRoom = (props) => {
     })
 
     socket.on('play next video', (videoId) => {
-      console.log(videoId)
       setCurrentPlaying(videoId)
     })
 
     socket.emit("get number of clients", (roomId))
 
     socket.on("send number of clients", (data) => {
-      
-      console.log("numClients", data.numClients)
       if (roomId === data.roomId) {
         setClientCount(data.numClients);
       }
@@ -230,7 +217,7 @@ const MovieRoom = (props) => {
                  </li>
                 <li>
                 <CopyToClipboard 
-                  text={process.env.REACT_URL + '/movie/' + roomId}
+                  text={process.env.REACT_URL + 'movie/' + roomId}
                   onCopy={() => alert("Copied to clipboard")}>
                   <Link className="share-link" style={{ textDecoration: 'none', color: 'white' }}>Share</Link>
                 </CopyToClipboard>
@@ -302,7 +289,6 @@ const MovieRoom = (props) => {
           />
             </footer>
           
-              {/* testing purposes */}
           </div>
       )
     } else if(!isLoading && !isRoom) {

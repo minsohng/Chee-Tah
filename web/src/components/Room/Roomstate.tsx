@@ -19,30 +19,24 @@ const Roomstate = (props) => {
   useEffect(()=> {
     
       
-    axios.post(process.env.URL + '/api/fetchState',{
+    axios.post(process.env.URL + 'api/fetchState',{
       roomId
     })
     .then(response => {
-        console.log("HEYYYYYY", response.data)
         setState(response.data);
     })
 
     socket.on('update room state', () => {
-      console.log("RECEIVED UPDATE ROOM STATE")
-      
-      axios.post(process.env.URL + '/api/fetchState',{
+      axios.post(process.env.URL + 'api/fetchState',{
         roomId
       })
       .then(response => {
-          console.log("HEYYYYYY", response.data)
           setState(response.data);
       })
     })
     socket.emit("get number of clients", (roomId))
 
     socket.on("send number of clients", (data) => {
-      
-      console.log("numClients", data.numClients)
       if (roomId === data.roomId) {
         setClientCount(data.numClients);
       }

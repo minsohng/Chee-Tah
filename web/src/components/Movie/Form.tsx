@@ -16,9 +16,8 @@ const Form: React.FunctionComponent<{addToPlaylist(url: string, id: string): voi
   const onKeyUp = event => {
     if(event.key === 'Enter') {
       axios.get(
-        process.env.URL + `/api/youtube/${formInput}`, {
+        process.env.URL + `api/youtube/${formInput}`, {
         }).then(result => {
-          console.log('Received response');
           setData(result.data);
           setFormInput('');
           setResultVisibility('is-overlay')
@@ -54,7 +53,6 @@ const Form: React.FunctionComponent<{addToPlaylist(url: string, id: string): voi
 
       
       const element = event.target as HTMLElement
-      console.log(element.closest(".is-overlay"))
       // If user clicks inside the element, do nothing
       if (element.closest(".is-overlay")) return;
       

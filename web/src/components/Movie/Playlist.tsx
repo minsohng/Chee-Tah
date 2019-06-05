@@ -22,8 +22,6 @@ const Playlist = props => {
     setIsHidden(isHidden => !isHidden);
   };
   
-  console.log("DEBUG", playlist)
-
   const videoList = playlist.map((data, i) => (
     <Video video={data} playVideo={props.playVideo} deleteVideo={props.deleteVideo} key={i + 100} id={i} admin={props.admin}/>
   ));

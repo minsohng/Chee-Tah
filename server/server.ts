@@ -38,6 +38,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(cors());
 
+app.use(express.static("build"));
+
 
 app.post('/api/fetchState', (req,res) => {
   const roomId = req.body.roomId;
