@@ -217,7 +217,7 @@ const MovieRoom = (props) => {
                  </li>
                 <li>
                 <CopyToClipboard 
-                  text={process.env.REACT_URL + 'movie/' + roomId}
+                  text={process.env.REACT_URL + '/movie/' + roomId}
                   onCopy={() => alert("Copied to clipboard")}>
                   <Link className="share-link" style={{ textDecoration: 'none', color: 'white' }}>Share</Link>
                 </CopyToClipboard>
