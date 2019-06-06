@@ -6,6 +6,10 @@ Final Project for Lighthouse Lab's Web Development Bootcamp
 !["Checkout"](https://github.com/tw5033/lighthouse-midterm/blob/readme_work/public/images/screenshots/cart.png)
 !["Pending/Accepting Orders"](https://github.com/tw5033/lighthouse-midterm/blob/readme_work/public/images/screenshots/confirmed.png) -->
 
+![](home-page.gif)
+![](movie-room.gif)
+![](public-room.gif)
+
 A webapp to watch Youtube videos with others. Users can see what public rooms are available to join and what video each room is playing. Video playback is synchonized with the admin of the room.
 
 ## Features
@@ -16,7 +20,7 @@ A webapp to watch Youtube videos with others. Users can see what public rooms ar
 - Users are able to remove any video that they have added to the playlist
 - Users are able to chat with others that are currently in the same room
 
-![](home-page.gif)
+
 
 ## Getting Started
 
@@ -73,7 +77,3 @@ A webapp to watch Youtube videos with others. Users can see what public rooms ar
 2. ```kill %<process_id>```
 
 
-### Libraries
-
-- react-player
-- datamuse
