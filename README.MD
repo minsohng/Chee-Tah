@@ -1,14 +1,11 @@
 # Chee-tah
 Final Project for Lighthouse Lab's Web Development Bootcamp
 
-<!-- !["Home Page"](https://github.com/tw5033/lighthouse-midterm/blob/readme_work/public/images/screenshots/home.png)
-!["Menu](https://github.com/tw5033/lighthouse-midterm/blob/readme_work/public/images/screenshots/menu.png)
-!["Checkout"](https://github.com/tw5033/lighthouse-midterm/blob/readme_work/public/images/screenshots/cart.png)
-!["Pending/Accepting Orders"](https://github.com/tw5033/lighthouse-midterm/blob/readme_work/public/images/screenshots/confirmed.png) -->
 
 ![](home-page.gif)
 ![](movie-room.gif)
 ![](public-room.gif)
+
 
 A webapp to watch Youtube videos with others. Users can see what public rooms are available to join and what video each room is playing. Video playback is synchonized with the admin of the room.
 
@@ -19,7 +16,6 @@ A webapp to watch Youtube videos with others. Users can see what public rooms ar
 - Users have synced video playback with the admin of the room
 - Users are able to remove any video that they have added to the playlist
 - Users are able to chat with others that are currently in the same room
-
 
 
 ## Getting Started
@@ -75,5 +71,6 @@ A webapp to watch Youtube videos with others. Users can see what public rooms ar
 
 1. ```jobs```
 2. ```kill %<process_id>```
+
 
 
