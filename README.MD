@@ -1,5 +1,6 @@
 # Chee-tah
 Final Project for Lighthouse Lab's Web Development Bootcamp
+http://chee-tah.herokuapp.com/
 
 
 ![](home-page.gif)
