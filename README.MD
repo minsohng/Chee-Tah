@@ -55,4 +55,9 @@ A webapp to watch Youtube videos with others. Users can see what public rooms ar
 - Axios
 - Cors
 
+### Contributors
+- [minsohng](https://github.com/minsohng "minsohng's Github")
+- [petern160](https://github.com/petern160 "petern160's Github")
+- [tw5033](https://github.com/tw5033 "tw5033's Github")
+
 
