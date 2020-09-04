@@ -34,7 +34,7 @@
     "googleapis": "^40.0.0",
     "howler": "^2.1.2",
     "http-proxy-middleware": "^0.19.1",
-    "node-sass": "^4.12.0",
+    "node-sass": "^4.13.1",
     "react": "^16.8.4",
     "react-copy-to-clipboard": "^5.0.1",
     "react-dom": "^16.8.4",
